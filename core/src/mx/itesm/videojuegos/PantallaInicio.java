@@ -3,6 +3,10 @@ package mx.itesm.videojuegos;
 import com.badlogic.gdx.Screen;
 
 class PantallaInicio implements Screen {
+    private final Juego juego;
+
+
+
     public PantallaInicio(Juego juego) {
     }
 
