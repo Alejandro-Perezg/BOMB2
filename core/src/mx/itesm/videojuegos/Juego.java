@@ -1,5 +1,5 @@
 package mx.itesm.videojuegos;
-import com.badlogic.gdx.Game;
+        import com.badlogic.gdx.Game;
 
 
 public class Juego extends Game {
