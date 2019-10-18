@@ -1,16 +1,16 @@
 package mx.itesm.videojuegos;
-
 import com.badlogic.gdx.Game;
 
+
 public class Juego extends Game {
-	public static final float ANCHO= 1250;
-	public static final float ALTO= 720;
+    public static final float ANCHO= 1250;
+    public static final float ALTO= 720;
 
 
-	@Override
-	public void create() {
-		setScreen(new PantallaInicio(this)); //referencia del administracion  para pasar de pantalla a otra
-		//setScreen(new Nivel1(this, "hombre"));
+    @Override
+    public void create() {
+        //setScreen(new PantallaMenu(this)); //referencia del administracion  para pasar de pantalla a otra
+        setScreen(new NivelDojo(this));
 
-	}
+    }
 }
