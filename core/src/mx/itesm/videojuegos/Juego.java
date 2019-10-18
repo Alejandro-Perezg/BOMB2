@@ -9,7 +9,7 @@ public class Juego extends Game {
 
     @Override
     public void create() {
-        setScreen(new PantallaMenu(this)); //referencia del administracion  para pasar de pantalla a otr
+        setScreen(new PantallaInicio(this)); //referencia del administracion  para pasar de pantalla a otr
 
     }
 }

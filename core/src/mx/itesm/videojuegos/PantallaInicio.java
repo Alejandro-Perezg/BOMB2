@@ -103,49 +103,49 @@ class PantallaInicio implements Screen {
         texturaFondo.dispose(); //liberar
     }
 
-    //  Escucha y atiende eventos de touch
-    class ProcesadorEntrada implements InputProcessor {
-        @Override
-        public boolean keyDown(int keycode) {
-            return false;
-        }
+        //  Escucha y atiende eventos de touch
+        class ProcesadorEntrada implements InputProcessor {
+            @Override
+            public boolean keyDown(int keycode) {
+                return false;
+            }
 
-        @Override
-        public boolean keyUp(int keycode) {
-            return false;
-        }
+            @Override
+            public boolean keyUp(int keycode) {
+                return false;
+            }
 
-        @Override
-        public boolean keyTyped(char character) {
-            return false;
-        }
+            @Override
+            public boolean keyTyped(char character) {
+                return false;
+            }
 
-        @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            Vector3 v = new Vector3(screenX,screenY,0);
-            camara.unproject(v);
-            juego.setScreen(new PantallaMenu(juego));
-            return true;
-        }
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Vector3 v = new Vector3(screenX,screenY,0);
+                camara.unproject(v);
+                juego.setScreen(new PantallaMenu(juego));
+                return true;
+            }
 
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                return false;
+            }
 
-        @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
-            return false;
-        }
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) {
+                return false;
+            }
 
-        @Override
-        public boolean mouseMoved(int screenX, int screenY) {
-            return false;
-        }
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) {
+                return false;
+            }
 
-        @Override
-        public boolean scrolled(int amount) {
-            return false;
+            @Override
+            public boolean scrolled(int amount) {
+                return false;
+            }
         }
     }
-}
