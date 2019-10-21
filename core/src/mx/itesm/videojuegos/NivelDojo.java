@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class NivelDojo implements Screen {
+public class NivelDojo extends Pantalla {
     private final Juego juego;
     private OrthographicCamera camara;
     private Viewport vista;
