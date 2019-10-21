@@ -1,8 +1,6 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,21 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class NivelDojo extends Pantalla {
-    private final Juego juego;
-    private OrthographicCamera camara;
-    private Viewport vista;
-
-    private SpriteBatch batch;
-
-
+    private Juego juego;
     //fondo
     private Texture texturaFondo;
 
-    //escena de menu (botones)
+    //escena de  (botones)
     private Stage escenaHUD;
 
     //personaje
@@ -52,7 +43,6 @@ public class NivelDojo extends Pantalla {
         crearHUD();
         crearPersonaje();
         crearEnemigo();
-        //crearHerramientas();
 
     }
 
@@ -64,7 +54,6 @@ public class NivelDojo extends Pantalla {
     private void crearPersonaje() {
             Texture texturaPersonaje = new Texture("Personajes/TexturaHombre.png");
             personaje = new Personaje(texturaPersonaje, 300 , 50);
-
     }
 
     private void crearHUD() {
@@ -107,8 +96,6 @@ public class NivelDojo extends Pantalla {
 
         });
 
-
-
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
@@ -118,15 +105,14 @@ public class NivelDojo extends Pantalla {
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "Fondos/fondoN1.jpg");
-        texturaBarraVida = new Texture("barraVida80.png");
     }
 
     private void configurarVista() {
         camara = new OrthographicCamera();
-        camara.position.set(Juego.ANCHO/2,Juego.ALTO/2,0);
+        camara.position.set(ANCHO/2,ALTO/2,0);
         camara.update();
 
-        vista = new StretchViewport(Juego.ANCHO, Juego.ALTO, camara);
+        vista = new StretchViewport(ANCHO, ALTO, camara);
 
         batch = new SpriteBatch(); //administra los trazos.
     }
@@ -174,16 +160,9 @@ public class NivelDojo extends Pantalla {
                 break;
         }
 
-        System.out.println(personaje.health);
+       // System.out.println(personaje.health);
     }
 
-
-
-    private void borrarPantalla() {
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-    }
 
     @Override
     public void resize(int width, int height) {
