@@ -5,9 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Enemigo {
-    private float salud = 100;
-    private float attackPwr = 20;
+    private int salud;
+    private int daño;
+    private float velocidad;
+    private float rangoDeAtaque;
+    private float probabilidadAtaqueCritico;
+    private float probabilidadAtaque;
 
+    //SPRITES
     private Sprite sprite;
     private TextureRegion texturaCompleta;
     private TextureRegion[][] texturas;
@@ -16,17 +21,33 @@ public class Enemigo {
 
 
 
-    public Enemigo(Texture textura, float x, float y ){
-        texturaCompleta = new TextureRegion(textura);
-        texturas = texturaCompleta.split(200,300);
-        sprite = new Sprite(texturas[0][0]);
-        sprite.setPosition(x,y);
-    }
-
-    public void atacar(Personaje personaje){
+    public Enemigo(){
+        cargarTexturas();
 
     }
 
+    private void cargarTexturas() {
+
+    }
+
+    public void atacarJugador(Personaje personaje){
+
+    }
+
+    public void identificalAreaDeDaño (float rangoDeAtaque){
+
+    }
+
+    private void seguirJugador(){
+
+    }
+    private void stun (){
+
+    }
+
+    private void recivirDaño (int daño){
+        salud -= daño;
+    }
 
 
     public void perseguir(Personaje personaje){
@@ -40,18 +61,14 @@ public class Enemigo {
 
     public void render(SpriteBatch batch){
         sprite.draw(batch);
-    }
 
-    public float getAtaque(){
-        return attackPwr;
     }
 
     protected enum EstadosEnemigo{
         NEUTRAL,
-        PRE,
-        ACTIVE,
-        RECOVERY,
-        STUNNED
+        ATACANDO,
+        STUNNED,
+        MUERTO
     }
 }
 

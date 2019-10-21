@@ -52,7 +52,7 @@ class PantallaMenu implements Screen {
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    juego.setScreen(new PantallaSeleecionPersonaje(juego));
+                                    juego.setScreen(new PantallaSeleccionPersonaje(juego));
                                 }
                             }
         );
