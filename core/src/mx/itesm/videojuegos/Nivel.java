@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Nivel {
 
-    private int iDnivel;
+    private int idNivel;
     private int score;
     private Personaje personaje;
     private Enemigo enemigo;
@@ -15,7 +15,7 @@ public abstract class Nivel {
     private String fondos;
     private Music musica;
     private Sound efecto;
-    private int coordenadasDano;
+    public int coordenadasDano;
 
 
 
@@ -23,6 +23,21 @@ public abstract class Nivel {
 
     }
     private void generarEnemigos(){
+
+    }
+
+    public void generarZonaDeDaño(){
+        float rangoDeAtaque = 0;
+        if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
+           rangoDeAtaque = enemigo.atacarJugador();
+        }else if(personaje.estadosPersonaje == Personaje.EstadosPersonaje.ATACANDO){
+            rangoDeAtaque = personaje.atacar();
+        }
+        enemigo.identificalAreaDeDaño(rangoDeAtaque);
+        personaje.identificalAreaDeDaño(rangoDeAtaque);
+    }
+
+    private void reproducirMusica(){
 
     }
 
