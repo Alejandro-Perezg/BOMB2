@@ -24,6 +24,11 @@ public class Personaje {
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
+    public Personaje(Texture texture, float x, float y) {
+        this.texturaCompleta= new TextureRegion(texture);
+        TextureRegion[][] texturas = texturaCompleta.split(32,54);
+
+    }
 
     public float atacar(int daño){
 
