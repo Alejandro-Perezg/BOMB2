@@ -3,8 +3,11 @@ package mx.itesm.videojuegos;
 import com.badlogic.gdx.Screen;
 
 class PantallaSeleccionPersonaje implements Screen {
+    
+
     public PantallaSeleccionPersonaje(Juego juego) {
     }
+
 
     @Override
     public void show() {

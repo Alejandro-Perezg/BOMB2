@@ -1,8 +1,6 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,21 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class NivelDojo implements Screen {
-    private final Juego juego;
-    private OrthographicCamera camara;
-    private Viewport vista;
+public class NivelDojo extends Pantalla {
+    private Juego juego;
 
-    private SpriteBatch batch;
-
-
-    //fondo
     private Texture texturaFondo;
 
-    //escena de menu (botones)
+    //escena de  (botones)
     private Stage escenaHUD;
 
     //personaje
@@ -52,7 +43,6 @@ public class NivelDojo implements Screen {
         crearHUD();
         crearPersonaje();
         crearEnemigo();
-        //crearHerramientas();
 
     }
 
@@ -62,17 +52,16 @@ public class NivelDojo implements Screen {
     }
 
     private void crearPersonaje() {
-            Texture texturaPersonaje = new Texture("Personajes/TexturaHombre.png");
+            Texture texturaPersonaje = new Texture("PersonajePrototipo/TexturaHombre.png");
             personaje = new Personaje(texturaPersonaje, 300 , 50);
-
     }
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
 
         //botones para mover
-        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("flechaDerecha.png")));
-        TextureRegionDrawable trdIzquierda  = new TextureRegionDrawable(new TextureRegion(new Texture("flechaIzquierda.png")));
+        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Dojo/flechaDerecha.png")));
+        TextureRegionDrawable trdIzquierda  = new TextureRegionDrawable(new TextureRegion(new Texture("Dojo/flechaIzquierda.png")));
         ImageButton  btnDerecha = new ImageButton(trdDerecha);
         ImageButton  btnIzquierda = new ImageButton(trdIzquierda);
         btnDerecha.setPosition((btnDerecha.getWidth()*2) + 20 ,0);
@@ -107,8 +96,6 @@ public class NivelDojo implements Screen {
 
         });
 
-
-
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
@@ -117,16 +104,15 @@ public class NivelDojo implements Screen {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "Fondos/fondoN1.jpg");
-        texturaBarraVida = new Texture("barraVida80.png");
+        texturaFondo = new Texture( "fondos/fondoN1.jpg");
     }
 
     private void configurarVista() {
         camara = new OrthographicCamera();
-        camara.position.set(Juego.ANCHO/2,Juego.ALTO/2,0);
+        camara.position.set(ANCHO/2,ALTO/2,0);
         camara.update();
 
-        vista = new StretchViewport(Juego.ANCHO, Juego.ALTO, camara);
+        vista = new StretchViewport(ANCHO, ALTO, camara);
 
         batch = new SpriteBatch(); //administra los trazos.
     }
@@ -146,7 +132,6 @@ public class NivelDojo implements Screen {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        batch.draw(texturaBarraVida, 800, 800);
         personaje.render(batch);
         enemigo.render(batch);
         batch.end();
@@ -174,16 +159,9 @@ public class NivelDojo implements Screen {
                 break;
         }
 
-        System.out.println(personaje.health);
+       // System.out.println(personaje.health);
     }
 
-
-
-    private void borrarPantalla() {
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-    }
 
     @Override
     public void resize(int width, int height) {

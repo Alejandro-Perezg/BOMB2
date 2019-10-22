@@ -38,7 +38,7 @@ public abstract class Pantalla implements Screen
         batch = new SpriteBatch();
     }
 
-    // Borra la pantalla con fondo negro
+    // Borra la pantalla con fond negro
     protected void borrarPantalla() {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
