@@ -31,7 +31,7 @@ class PantallaMenuPrincipal extends Pantalla{
         escenaHUD = new Stage(vista);
         //Boton jugar
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
-        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
+        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_AcercaDe.png")));
         TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
 
         ImageButton btnJugar = new ImageButton(trdJugar);
@@ -67,7 +67,7 @@ class PantallaMenuPrincipal extends Pantalla{
                              }
         );
 
-        escenaHUD.addActor(btnOpciones);
+        escenaHUD.addActor(btnAcerecaDe);
 
 
         btnOpciones.addListener(new ClickListener(){
@@ -75,7 +75,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                  public void clicked(InputEvent event, float x, float y) {
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
-                                     juego.setScreen(new PantallaSeleccionPersonaje(juego));
+
                                  }
                              }
         );

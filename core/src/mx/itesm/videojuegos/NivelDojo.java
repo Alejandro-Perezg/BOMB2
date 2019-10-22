@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class NivelDojo extends Pantalla {
     private Juego juego;
-    //fondo
+
     private Texture texturaFondo;
 
     //escena de  (botones)

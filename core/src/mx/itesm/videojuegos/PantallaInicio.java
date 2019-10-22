@@ -13,7 +13,7 @@ class PantallaInicio extends Pantalla {
 
     private final Juego juego;
 
-    //fondo
+    //sssfondo
     private Texture texturaFondo;
     private Texture title;
     private Texture textoTocar;
