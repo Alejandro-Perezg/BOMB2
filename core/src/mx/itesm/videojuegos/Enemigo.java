@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Enemigo {
     private int salud;
     private int daño;   //recibe
-    private float velocidad;
+    public float velocidad;
     private float rangoDeAtaque;
     private float probabilidadAtaqueCritico;
     private float probabilidadAtaque;
@@ -21,7 +21,7 @@ public class Enemigo {
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
 
     public Enemigo(){
-        cargarTexturas();
+        cargarTexturas();    //Creo que esto ya va en la implentacion tho
 
     }
 
@@ -29,12 +29,13 @@ public class Enemigo {
 
     }
 
-    public float atacarJugador(){
+    public float atacarJugador(int daño){
 
         return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
     }
 
     public void identificalAreaDeDaño (float rangoDeAtaque){
+        //if (enemigo.getX )
 
     }
 
@@ -45,8 +46,12 @@ public class Enemigo {
 
     }
 
-    private void recivirDaño (int daño){
-        salud -= daño;
+    public void recivirDaño (int daño){
+        if(salud >0){
+            salud -= daño;
+        }else{
+            estadosEnemigo = EstadosEnemigo.ATACANDO.MUERTO;
+        }
     }
 
 
@@ -58,12 +63,6 @@ public class Enemigo {
             sprite.setX(sprite.getX() + 6);
         }
     }
-
-    public void render(SpriteBatch batch){
-        sprite.draw(batch);
-
-    }
-
     protected enum EstadosEnemigo{
         NEUTRAL,
         ATACANDO,

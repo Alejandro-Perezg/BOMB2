@@ -16,22 +16,26 @@ public abstract class Nivel {
     private Music musica;
     private Sound efecto;
     public int coordenadasDano;
+    private int fuerzaEnemigo;
+    private int fuerzaPersonaje;
 
 
 
     private void generarPersonaje() {
-
+        fuerzaEnemigo = enemigo.fuerza;
     }
     private void generarEnemigos(){
-
+        fuerzaPersonaje = personaje.fuerza;
     }
 
     public void generarZonaDeDaño(){
         float rangoDeAtaque = 0;
         if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
-           rangoDeAtaque = enemigo.atacarJugador();
+           rangoDeAtaque = enemigo.atacarJugador(fuerzaEnemigo);
+
         }else if(personaje.estadosPersonaje == Personaje.EstadosPersonaje.ATACANDO){
-            rangoDeAtaque = personaje.atacar();
+            rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
+
         }
         enemigo.identificalAreaDeDaño(rangoDeAtaque);
         personaje.identificalAreaDeDaño(rangoDeAtaque);

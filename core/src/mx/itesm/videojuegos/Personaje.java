@@ -25,12 +25,32 @@ public class Personaje {
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
 
-    public float atacar(){
+    public float atacar(int daño){
 
         return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
     }
+    private void empujarEnemigo(){
+
+    }
 
     public void identificalAreaDeDaño (float rangoDeAtaque){
+
+
+    }
+    private void recogerItem (){
+
+    }
+
+    public void alentarTiempo(){
+
+    }
+
+    public void recivirDaño (int daño){
+        if(salud >0){
+            salud -= daño;
+        }else{
+            estadosPersonaje = EstadosPersonaje.MUERTO;
+        }
 
     }
 
