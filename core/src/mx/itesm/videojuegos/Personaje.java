@@ -4,67 +4,75 @@ package mx.itesm.videojuegos;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Personaje {
-    private boolean sexo;
-    private int salud;
-    private int daño;   //recibe
-    private int poder;
-    private float velocidad;
-    private float rangoDeAtaque;
-    private int porcentajeDeStamina;
-    private float porcentajePoder;
-    public int fuerza; //de daño/ ataque.
-
-    //SPRITES
     private Sprite sprite;
-    private TextureRegion texturaCompleta;
-    private TextureRegion[][] texturas;
 
-    EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
+    //Texturas del personaje HOMBRE
+    private Texture texturaArriba;
+    private Texture texturaAbajo;
 
-    public Personaje(Texture texture, float x, float y) {
-        this.texturaCompleta= new TextureRegion(texture);
-        TextureRegion[][] texturas = texturaCompleta.split(32,54);
+    //Texturas del personaje MUJER
 
-    }
+    //Características.
+    public int health = 100;
+    private boolean vivo;
+    private String nombre;
+    public int daño; //cuanto daño hace. Esto lo va a recivir  enemigo para recibir daño.
 
-    public float atacar(int daño){
-
-        return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
-    }
-    private void empujarEnemigo(){
-
-    }
-
-    public void identificalAreaDeDaño (float rangoDeAtaque){
-
-
-    }
-    private void recogerItem (){
+    public Personaje (Texture textura, float x, float y){  //ESTO KKKKK?
+        sprite = new Sprite(textura);
+        sprite.setPosition(x,y);
 
     }
 
-    public void alentarTiempo(){
-
+    public String getNombre() {
+        return nombre;
     }
 
-    public void recivirDaño (int daño){
-        if(salud >0){
-            salud -= daño;
-        }else{
-            estadosPersonaje = EstadosPersonaje.MUERTO;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    private void isAlive(){   //Est hay qur ponerlo en estados enum.
+
+        if (health > 0){
+            vivo = true;
         }
-
     }
 
 
-    protected enum EstadosPersonaje{
-        NEUTRAL,
-        ATACANDO,
-        STUNNED,
-        MUERTO
+    public  int  atacar(){
+
+        return 0;  //Regresa cuanto ataca
+    }
+
+
+    public void setHealth(int health){
+        this.health = health;
+    }
+
+    public void recibeDano(int danoRecibido){
+        this.health = health - 20;
+    }
+
+    public void cure(int hp){
+        this.health = health + hp;
+    }
+
+
+
+    public void mover (float dx){
+        sprite.setX(sprite.getX()+dx);
+    }
+
+
+    public void render(SpriteBatch batch){
+        sprite.draw(batch);
+    }
+
+    public float getX(){
+        return sprite.getX();
     }
 
 }
