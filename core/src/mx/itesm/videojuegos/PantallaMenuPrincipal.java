@@ -31,7 +31,7 @@ class PantallaMenuPrincipal extends Pantalla{
         escenaHUD = new Stage(vista);
         //Boton jugar
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
-        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_AcercaDe.png")));
+        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca-de.png")));
         TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
 
         ImageButton btnJugar = new ImageButton(trdJugar);

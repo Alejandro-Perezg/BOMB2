@@ -52,7 +52,7 @@ public class NivelDojo extends Pantalla {
     }
 
     private void crearPersonaje() {
-            Texture texturaPersonaje = new Texture("Personajes/TexturaHombre.png");
+            Texture texturaPersonaje = new Texture("PersonajePrototipo/TexturaHombre.png");
             personaje = new Personaje(texturaPersonaje, 300 , 50);
     }
 
@@ -60,8 +60,8 @@ public class NivelDojo extends Pantalla {
         escenaHUD = new Stage(vista);
 
         //botones para mover
-        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("flechaDerecha.png")));
-        TextureRegionDrawable trdIzquierda  = new TextureRegionDrawable(new TextureRegion(new Texture("flechaIzquierda.png")));
+        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Dojo/flechaDerecha.png")));
+        TextureRegionDrawable trdIzquierda  = new TextureRegionDrawable(new TextureRegion(new Texture("Dojo/flechaIzquierda.png")));
         ImageButton  btnDerecha = new ImageButton(trdDerecha);
         ImageButton  btnIzquierda = new ImageButton(trdIzquierda);
         btnDerecha.setPosition((btnDerecha.getWidth()*2) + 20 ,0);
@@ -104,7 +104,7 @@ public class NivelDojo extends Pantalla {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "Fondos/fondoN1.jpg");
+        texturaFondo = new Texture( "fondos/fondoN1.jpg");
     }
 
     private void configurarVista() {
@@ -132,7 +132,6 @@ public class NivelDojo extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        batch.draw(texturaBarraVida, 800, 800);
         personaje.render(batch);
         enemigo.render(batch);
         batch.end();
