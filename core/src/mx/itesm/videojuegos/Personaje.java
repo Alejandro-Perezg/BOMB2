@@ -1,12 +1,21 @@
 package mx.itesm.videojuegos;
 
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+
+
+
 
 public class Personaje {
+
     private boolean sexo;
     private int salud;
     private int daño;   //recibe
@@ -22,13 +31,22 @@ public class Personaje {
     private TextureRegion texturaCompleta;
     private TextureRegion[][] texturas;
 
+
+    private Animation animacion;    // Caminando
+    private float timerAnimacion;   // tiempo para calcular el frame
+
+
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
     public Personaje(Texture texture, float x, float y) {
         this.texturaCompleta= new TextureRegion(texture);
         TextureRegion[][] texturas = texturaCompleta.split(32,54);
 
+        animacion.setPlayMode(Animation.PlayMode.LOOP);
+        timerAnimacion = 0;
+
     }
+
 
     public float atacar(int daño){
 
@@ -50,6 +68,35 @@ public class Personaje {
 
     }
 
+
+    //////SET/GET ESTADOS PERSONAJE
+
+    public void setVelocidad(int velocidad){
+        this.velocidad = velocidad;
+    }
+
+    public float getVelocidad(){
+        return velocidad;
+    }
+
+    public float getX(){
+        return sprite.getX();
+    }
+
+    public float getY(){
+        return sprite.getY();
+    }
+
+    public void setEstadosPersonaje(EstadosPersonaje estadosPersonaje){
+        this.estadosPersonaje = estadosPersonaje;
+    }
+
+    public EstadosPersonaje getEstadosPersonaje(){
+
+        return estadosPersonaje;
+    }
+
+
     public void recivirDaño (int daño){
         if(salud >0){
             salud -= daño;
@@ -64,7 +111,9 @@ public class Personaje {
         NEUTRAL,
         ATACANDO,
         STUNNED,
-        MUERTO
+        MUERTO,
+        MOV_IZQUIERDA,
+        MOV_DERECHA
     }
 
 }

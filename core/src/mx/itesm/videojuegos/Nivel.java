@@ -40,6 +40,8 @@ public abstract class Nivel extends Pantalla {
         fuerzaPersonaje = personaje.fuerza;
     }
 
+
+
     public void generarZonaDeDaño(){
         float rangoDeAtaque = 0;
         if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
