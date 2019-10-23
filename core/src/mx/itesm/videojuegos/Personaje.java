@@ -14,7 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 
 
-public class Personaje {
+public class Personaje extends  Objeto{
 
     private boolean sexo;
     private int salud;
