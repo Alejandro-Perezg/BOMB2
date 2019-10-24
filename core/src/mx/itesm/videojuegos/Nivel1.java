@@ -164,7 +164,7 @@ public class Nivel1  extends Nivel{
                 //INSTRUCCIONE
                 juego.setScreen(new PantallaMenuPrincipal(juego));
             }
-        }
+          }
         );
 
         //BOTONES movimiento
@@ -172,7 +172,7 @@ public class Nivel1  extends Nivel{
         TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("btnMoverPressed.png")));
         ImageButton btnDerecha = new ImageButton(trdDerecha);
         ImageButton btnIzquierda = new ImageButton(trdIzquierda);
-        btnDerecha.setPosition(juego.ANCHO - btnDerecha.getWidth() - 80, 0);
+        btnDerecha.setPosition(10 + btnDerecha.getWidth() + btnDerecha.getWidth(), 0);
         btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
 
         //Listeners
@@ -186,10 +186,7 @@ public class Nivel1  extends Nivel{
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(NEUTRAL);
-
             }
-
-
         });
 
         btnIzquierda.addListener(new ClickListener() {
