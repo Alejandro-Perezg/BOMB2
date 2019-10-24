@@ -33,15 +33,38 @@ public class Personaje extends  Objeto{
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
     public Personaje(Texture texture, float x, int fuerzaEnemigo) {
+
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
         TextureRegion[][] texturas = texturaCompleta.split(32,54);
+
+
 
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion = 0;
 
     }
 
+    public void dibujar(SpriteBatch batch) {
+        // Dibuja el personaje dependiendo del estadoMovimiento
+
+
+        switch (estadosPersonaje) {
+            case NEUTRAL:
+                sprite.draw(batch);
+        }
+
+        }
+
+
+    public void actualizar(){
+
+        switch (estadosPersonaje){
+            case NEUTRAL:
+                break;
+        }
+
+    }
 
     public float atacar(int daño){
 

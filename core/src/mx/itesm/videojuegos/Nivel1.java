@@ -55,6 +55,9 @@ public class Nivel1  extends Nivel{
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
+       //Personaje JUGADOR = new Personaje(texturaPersonaje, 100, 30);
+
+
     }
     private void generarEnemigos(){
         /*
@@ -95,12 +98,12 @@ public class Nivel1  extends Nivel{
 
     @Override
     public void show() {
-        generarEnemigos();
-        generarPersonaje();
+        cargarTexturas();
         reproducirMusica();
         configurarVista();
-        cargarTexturas();
         crearHUD();
+        generarEnemigos();
+        generarPersonaje();
     }
 
     private void crearHUD() {
@@ -130,6 +133,10 @@ public class Nivel1  extends Nivel{
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "fondos/fondo2.jpg");
+
+        texturaPersonaje = new Texture("EnemigoPrototipo/Enemigo_Proto_200x300.png");
+        ///CARGAR TEXTURAS JUGADOR???
+
     }
 
     private void configurarVista() {
@@ -161,6 +168,7 @@ public class Nivel1  extends Nivel{
     }
 
     private void actualizarPersonaje() {
+
     }
 
     @Override
