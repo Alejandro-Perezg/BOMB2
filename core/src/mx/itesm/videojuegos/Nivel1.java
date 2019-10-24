@@ -38,8 +38,7 @@ public class Nivel1  extends Nivel{
     // Escena de menu (botones)
     private Stage escenaHUD;
 
-
-    private void Nivel1(Juego juego){
+    public Nivel1(Juego juego) {
         this.juego = juego;
     }
 
