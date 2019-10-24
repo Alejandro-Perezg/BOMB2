@@ -26,6 +26,7 @@ public class Personaje extends  Objeto{
     private float porcentajePoder;
     public int fuerza; //de daño/ ataque.
 
+
     //SPRITES
     private Sprite sprite;
     private TextureRegion texturaCompleta;
@@ -38,7 +39,8 @@ public class Personaje extends  Objeto{
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
-    public Personaje(Texture texture, float x, float y) {
+    public Personaje(Texture texture, float x, int fuerzaEnemigo) {
+        daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
         TextureRegion[][] texturas = texturaCompleta.split(32,54);
 
@@ -49,15 +51,17 @@ public class Personaje extends  Objeto{
 
 
     public float atacar(int daño){
-
         return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
     }
+
     private void empujarEnemigo(){
 
     }
 
     public void identificalAreaDeDaño (float rangoDeAtaque){
-
+        if(rangoDeAtaque == getX()){
+            recivirDaño();
+        }
 
     }
     private void recogerItem (){
@@ -97,13 +101,12 @@ public class Personaje extends  Objeto{
     }
 
 
-    public void recivirDaño (int daño){
+    private void recivirDaño (){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
         if(salud >0){
             salud -= daño;
         }else{
             estadosPersonaje = EstadosPersonaje.MUERTO;
         }
-
     }
 
 

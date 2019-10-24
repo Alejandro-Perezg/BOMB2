@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Nivel1  extends Nivel{
@@ -25,6 +26,8 @@ public class Nivel1  extends Nivel{
     //TEXTURAS
     private Sprite sprite;
     private Texture texturaFondo;
+    private Texture texturaPersonaje;
+    private Texture texturaEnemigo;
 //MUSICA
     private Music musica;
     private Sound efecto;
@@ -42,6 +45,8 @@ public class Nivel1  extends Nivel{
 
     private void generarPersonaje() {
         fuerzaEnemigo = enemigo.fuerza;
+        Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
+
     }
     private void generarEnemigos(){
         switch(idNivel){
@@ -53,9 +58,6 @@ public class Nivel1  extends Nivel{
                 break;
 
         }
-
-
-
         fuerzaPersonaje = personaje.fuerza;
     }
 
@@ -65,9 +67,9 @@ public class Nivel1  extends Nivel{
             rangoDeAtaque = enemigo.atacarJugador(fuerzaEnemigo);
 
         }else if(personaje.estadosPersonaje == Personaje.EstadosPersonaje.ATACANDO){
-            rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
+        rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
 
-        }
+    }
         enemigo.identificalAreaDeDaño(rangoDeAtaque);
         personaje.identificalAreaDeDaño(rangoDeAtaque);
     }
@@ -85,7 +87,27 @@ public class Nivel1  extends Nivel{
         generarEnemigos();
         generarPersonaje();
         reproducirMusica();
+        configurarVista();
+        cargarTexturas();
+        crearHUD();
+    }
 
+    private void crearHUD() {
+        escenaHUD = new Stage(vista);
+
+    }
+
+    private void cargarTexturas() {
+    }
+
+    private void configurarVista() {
+        camara = new OrthographicCamera();
+        camara.position.set(ANCHO/2,ALTO/2,0);
+        camara.update();
+
+        vista = new StretchViewport(ANCHO, ALTO, camara);
+
+        batch = new SpriteBatch(); //administra los trazos.
 
     }
 
