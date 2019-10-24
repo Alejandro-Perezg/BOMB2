@@ -52,11 +52,12 @@ public class Nivel1  extends Nivel{
 
 
     private void generarPersonaje() {
-        fuerzaEnemigo = enemigo.fuerza;
+       /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
-
+*/
     }
     private void generarEnemigos(){
+        /*
         switch(idNivel){
             case 1:
                 cantidadEnemigos = 10;
@@ -66,9 +67,12 @@ public class Nivel1  extends Nivel{
                 break;
         }
         fuerzaPersonaje = personaje.fuerza;
+
+         */
     }
 
     public void generarZonaDeDaño(){
+        /*
         float rangoDeAtaque = 0;
         if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
             rangoDeAtaque = enemigo.atacarJugador(fuerzaEnemigo);
@@ -79,6 +83,8 @@ public class Nivel1  extends Nivel{
     }
         enemigo.identificalAreaDeDaño(rangoDeAtaque);
         personaje.identificalAreaDeDaño(rangoDeAtaque);
+
+         */
     }
 
     private void reproducirMusica(){
@@ -123,7 +129,7 @@ public class Nivel1  extends Nivel{
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "fondos/fondo 5.jpg");
+        texturaFondo = new Texture( "fondos/fondo2.jpg");
     }
 
     private void configurarVista() {
@@ -149,7 +155,7 @@ public class Nivel1  extends Nivel{
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        personaje.render(batch);
+       // personaje.render(batch);
         batch.end();
         escenaHUD.draw();
     }
