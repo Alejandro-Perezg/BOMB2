@@ -268,10 +268,10 @@ public class Nivel1  extends Nivel{
 
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
-                bodyṔersonaje.applyForceToCenter(caminaDerecha, true);
+                bodyṔersonaje.applyForceToCenter(50,0, true);
 
             case MOV_IZQUIERDA:
-                bodyṔersonaje.applyForceToCenter(caminaIzquierda, true);
+                bodyṔersonaje.applyForceToCenter(-50,0, true);
 
             case NEUTRAL:
 
