@@ -186,9 +186,9 @@ public class Nivel1  extends Nivel{
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
 
+        rendePersonaje(batch);
 
-        personaje.render(batch);
-       // personaje.render(batch);
+
         batch.end();
         escenaHUD.draw();
         mundo.step(1/60f,6,2);
@@ -201,6 +201,11 @@ public class Nivel1  extends Nivel{
 
         personaje.getSprite().setPosition(x-5, y-10f);
 
+    }
+
+    private void rendePersonaje(SpriteBatch batch){
+
+        personaje.render(batch);
     }
 
 
