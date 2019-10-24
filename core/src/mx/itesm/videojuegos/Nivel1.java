@@ -155,8 +155,8 @@ public class Nivel1  extends Nivel{
 
         //Evento de boton.
         btnPausa.addListener(new ClickListener(){
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //INSTRUCCIONE
                 juego.setScreen(new PantallaMenuPrincipal(juego));
@@ -184,7 +184,6 @@ public class Nivel1  extends Nivel{
         vista = new StretchViewport(ANCHO, ALTO, camara);
 
         batch = new SpriteBatch(); //administra los trazos.
-
     }
 
     @Override

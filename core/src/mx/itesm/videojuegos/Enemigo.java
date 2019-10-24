@@ -21,7 +21,7 @@ public class Enemigo {
     private Sprite sprite;
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
 
-    public Enemigo(Texture textura, float x, float y){
+    public Enemigo(Texture textura, float x, int indice){
         cargarTexturas(textura);    //Creo que esto ya va en la implentacion tho
 
     }
