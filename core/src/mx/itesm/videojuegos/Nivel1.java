@@ -168,8 +168,8 @@ public class Nivel1  extends Nivel{
         );
 
         //BOTONES movimiento
-        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("flechaDerecha.png")));
-        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("flechaIzquierda.png")));
+        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("btnMover.png")));
+        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("btnMoverPressed.png")));
         ImageButton btnDerecha = new ImageButton(trdDerecha);
         ImageButton btnIzquierda = new ImageButton(trdIzquierda);
         btnDerecha.setPosition(juego.ANCHO - btnDerecha.getWidth() - 80, 0);
