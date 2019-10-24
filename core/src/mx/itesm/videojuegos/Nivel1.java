@@ -258,9 +258,26 @@ public class Nivel1  extends Nivel{
         float x = bodyṔersonaje.getPosition().x;
         float y = bodyṔersonaje.getPosition().y;
 
+        Vector2 caminaDerecha = new Vector2(0,0);
+
+        Vector2 caminaIzquierda = new Vector2(0,0);
 
         personaje.getSprite().setPosition(x-5, y-10f);
 
+        bodyṔersonaje.applyForceToCenter(caminaDerecha, false);
+        bodyṔersonaje.applyForceToCenter(caminaIzquierda, false);
+
+        System.out.println(personaje.getEstadosPersonaje());
+
+        switch (personaje.getEstadosPersonaje()) {
+            case MOV_DERECHA:
+                bodyṔersonaje.applyForceToCenter(caminaDerecha, true);
+            case MOV_IZQUIERDA:
+                bodyṔersonaje.applyForceToCenter(caminaIzquierda, true);
+            case NEUTRAL:
+                bodyṔersonaje.applyForceToCenter(caminaDerecha, false);
+                bodyṔersonaje.applyForceToCenter(caminaIzquierda, false);
+        }
     }
 
     private void rendePersonaje(SpriteBatch batch){
