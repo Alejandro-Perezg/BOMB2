@@ -2,24 +2,18 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
-class PantallaInicio implements Screen {
+class PantallaInicio extends Pantalla {
 
     private final Juego juego;
-    private OrthographicCamera camara;
-    private Viewport vista;
-    private SpriteBatch batch;
 
-    //fondo
+    //sssfondo
     private Texture texturaFondo;
     private Texture title;
     private Texture textoTocar;
@@ -36,23 +30,23 @@ class PantallaInicio implements Screen {
         configurarVista();
         crearMenu();
         //cargar fondo
-        texturaFondo = new Texture( "Fondos/FondoMenu.jpeg");
+        texturaFondo = new Texture( "menus/FondoMenu.jpeg");
     }
 
     private void crearMenu() {
         escenaMenu = new Stage(vista);
-        title = new Texture("title.png");
-        textoTocar = new Texture("TextoTocaContinuar.png");
+        title = new Texture("menus/menuInicio/title.png");
+        textoTocar = new Texture("menus/menuInicio/TextoTocaContinuar.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
 
     private void configurarVista() {
         camara = new OrthographicCamera();
-        camara.position.set(Juego.ANCHO/2,Juego.ALTO/2,0);
+        camara.position.set(ANCHO/2,ALTO/2,0);
         camara.update();
 
-        vista = new StretchViewport(Juego.ANCHO, Juego.ALTO, camara);
+        vista = new StretchViewport(ANCHO, ALTO, camara);
 
         batch = new SpriteBatch(); //administra los trazos.
     }
@@ -66,16 +60,10 @@ class PantallaInicio implements Screen {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        batch.draw(title, Juego.ANCHO/2-(title.getWidth()/2) , 2*Juego.ALTO/3);
-        batch.draw(textoTocar, Juego.ANCHO/2-(title.getWidth()/2+(textoTocar.getWidth()/2) -200) , 2*Juego.ALTO/3 - 300);
+        batch.draw(title, ANCHO/2-(title.getWidth()/2) , 2*ALTO/3);
+        batch.draw(textoTocar, ANCHO/2-(title.getWidth()/2+(textoTocar.getWidth()/2) -200) , 2*ALTO/3 - 300);
         batch.end();
         escenaMenu.draw();
-    }
-
-    private void borrarPantalla() {
-        Gdx.gl.glClearColor(1,1,1,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
     }
 
     @Override
@@ -124,7 +112,7 @@ class PantallaInicio implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 v = new Vector3(screenX,screenY,0);
                 camara.unproject(v);
-                juego.setScreen(new PantallaMenu(juego));
+                juego.setScreen(new PantallaMenuPrincipal(juego));
                 return true;
             }
 
