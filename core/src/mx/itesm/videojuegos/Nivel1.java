@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -69,7 +68,7 @@ public class Nivel1  extends Nivel{
     private World mundo; // Mundo paralelo donde se aplica la física.
 
 
-    private Body bodyṔersonaje;
+    private Body bodyPersonaje;
     private Box2DDebugRenderer debugRenderer;
 
 
@@ -252,29 +251,38 @@ public class Nivel1  extends Nivel{
     }
 
     private void actualizarPersonaje() {
-        float x = bodyṔersonaje.getPosition().x;
-        float y = bodyṔersonaje.getPosition().y;
+        float x = bodyPersonaje.getPosition().x;
+        float y = bodyPersonaje.getPosition().y;
 
         personaje.getSprite().setPosition(x-5, y-10f);
-
-
-        Vector2 caminaDerecha = new Vector2(50,0);
-
-        Vector2 caminaIzquierda = new Vector2(-50,0);
+        x = bodyPersonaje.getPosition().x;
+        y = bodyPersonaje.getPosition().y;
 
 
 
-        System.out.println(personaje.getEstadosPersonaje());
+
+        System.out.println(personaje.getX());
 
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
-                bodyṔersonaje.applyForceToCenter(50,0, true);
+                //bodyPersonaje.applyForceToCenter(50,0, false);
+                System.out.println(personaje.getEstadosPersonaje());
+
+                bodyPersonaje.setTransform(x+5, y,0);
+                break;
 
             case MOV_IZQUIERDA:
-                bodyṔersonaje.applyForceToCenter(-50,0, true);
+                //bodyPersonaje.applyForceToCenter(-50,0, false);
+                System.out.println(personaje.getEstadosPersonaje());
 
+                bodyPersonaje.setTransform(x-5, y, 0);
+
+                break;
             case NEUTRAL:
 
+
+                System.out.println(personaje.getEstadosPersonaje());
+                break;
         }
     }
 
@@ -296,7 +304,7 @@ public class Nivel1  extends Nivel{
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS
-        bodyṔersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
+        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
 
 
 
