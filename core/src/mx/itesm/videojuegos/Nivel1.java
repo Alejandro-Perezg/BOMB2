@@ -300,13 +300,7 @@ public class Nivel1  extends Nivel{
     }
 
     private void crearObjetos() {
-        //Body Def
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
-
-
+        generateBodyPersonaje();
 
         //PLATAFORMA
         BodyDef bodyPisodef = new BodyDef();
@@ -320,6 +314,16 @@ public class Nivel1  extends Nivel{
         bodyPiso.createFixture(pisoShape, 0);
 
         pisoShape.dispose();
+
+
+    }
+
+    private void generateBodyPersonaje(){
+        //Body Def
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
 
 
     }
