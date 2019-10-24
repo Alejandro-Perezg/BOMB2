@@ -82,7 +82,9 @@ public class Enemigo {
         NEUTRAL,
         ATACANDO,
         STUNNED,
-        MUERTO
+        MUERTO,
+        MOV_IZQUIERDA,
+        MOV_DERECHA
     }
 }
 
