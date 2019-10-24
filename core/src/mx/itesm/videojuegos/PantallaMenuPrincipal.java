@@ -49,7 +49,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    juego.setScreen(new NivelDojo(juego));
+                                    juego.setScreen(new Nivel1(juego));
                                 }
                             }
         );
@@ -75,8 +75,6 @@ class PantallaMenuPrincipal extends Pantalla{
                                  public void clicked(InputEvent event, float x, float y) {
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
-
-
 
                                  }
                              }
