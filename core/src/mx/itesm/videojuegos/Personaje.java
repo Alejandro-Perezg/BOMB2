@@ -1,17 +1,9 @@
 package mx.itesm.videojuegos;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-
-
-
 
 
 public class Personaje extends  Objeto{
@@ -21,7 +13,8 @@ public class Personaje extends  Objeto{
     private int daño;   //recibe
     private int poder;
     private float velocidad;
-    private float rangoDeAtaque;
+    private float rangoDeAtaque = 100;
+    private float rangoDePatada = 120;
     private int porcentajeDeStamina;
     private float porcentajePoder;
     public int fuerza; //de daño/ ataque.
@@ -51,7 +44,9 @@ public class Personaje extends  Objeto{
 
 
     public float atacar(int daño){
+
         return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
+
     }
 
     private void empujarEnemigo(){
@@ -60,7 +55,7 @@ public class Personaje extends  Objeto{
 
     public void identificalAreaDeDaño (float rangoDeAtaque){
         if(rangoDeAtaque == getX()){
-            recivirDaño();
+            recibirDano();
         }
 
     }
@@ -101,8 +96,8 @@ public class Personaje extends  Objeto{
     }
 
 
-    private void recivirDaño (){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
-        if(salud >0){
+    private void recibirDano(){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
+        if(salud - daño >0){
             salud -= daño;
         }else{
             estadosPersonaje = EstadosPersonaje.MUERTO;
