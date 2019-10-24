@@ -31,8 +31,6 @@ public abstract class Nivel extends Pantalla {
     private int fuerzaEnemigo;
     private int fuerzaPersonaje;
 
-
-
     private void generarPersonaje() {
         fuerzaEnemigo = enemigo.fuerza;
     }
@@ -58,7 +56,5 @@ public abstract class Nivel extends Pantalla {
     private void reproducirMusica(){
 
     }
-
-
 
 }

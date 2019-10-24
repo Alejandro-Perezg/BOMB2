@@ -38,7 +38,8 @@ public class Nivel1  extends Nivel{
     // Escena de menu (botones)
     private Stage escenaHUD;
 
-    private void Nivel1(){
+
+    private void Nivel1(Juego juego){
         this.juego = juego;
     }
 
@@ -56,7 +57,6 @@ public class Nivel1  extends Nivel{
             case 2:
                 cantidadEnemigos = 15;
                 break;
-
         }
         fuerzaPersonaje = personaje.fuerza;
     }
