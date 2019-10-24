@@ -108,6 +108,9 @@ public class Personaje extends  Objeto{
             estadosPersonaje = EstadosPersonaje.MUERTO;
         }
     }
+    public void render(SpriteBatch batch){
+        sprite.draw(batch);
+    }
 
 
     protected enum EstadosPersonaje{

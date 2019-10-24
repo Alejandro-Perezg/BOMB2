@@ -1,12 +1,19 @@
 package mx.itesm.videojuegos;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -39,7 +46,7 @@ public class Nivel1  extends Nivel{
     private Stage escenaHUD;
 
 
-    private void Nivel1(Juego juego){
+    Nivel1(Juego juego){
         this.juego = juego;
     }
 
@@ -93,9 +100,30 @@ public class Nivel1  extends Nivel{
     private void crearHUD() {
         escenaHUD = new Stage(vista);
 
+        TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausa.png")));
+        TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausaPressed.png")));
+
+
+        final ImageButton btnPausa = new ImageButton(trdPausa,trdPausaPressed);
+        btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
+
+        //Evento de boton.
+        btnPausa.addListener(new ClickListener(){
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //INSTRUCCIONE
+                juego.setScreen(new PantallaMenuPrincipal(juego));
+            }
+        }
+        );
+        escenaHUD.addActor(btnPausa);
+        Gdx.input.setInputProcessor(escenaHUD);
+
     }
 
     private void cargarTexturas() {
+        texturaFondo = new Texture( "fondos/fondo 5.jpg");
     }
 
     private void configurarVista() {
@@ -111,7 +139,22 @@ public class Nivel1  extends Nivel{
 
     @Override
     public void render(float delta) {
+        //ACTUALIZAR NAVE
+        actualizarPersonaje();
 
+        borrarPantalla();
+
+        //batch escalaTodo de acuerdo a la visat y la camara
+        batch.setProjectionMatrix(camara.combined);
+
+        batch.begin();
+        batch.draw(texturaFondo, 0, 0);
+        personaje.render(batch);
+        batch.end();
+        escenaHUD.draw();
+    }
+
+    private void actualizarPersonaje() {
     }
 
     @Override
@@ -126,6 +169,11 @@ public class Nivel1  extends Nivel{
 
     @Override
     public void dispose() {
+
+    }
+    protected void borrarPantalla() {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     }
 }
