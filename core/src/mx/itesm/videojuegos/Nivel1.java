@@ -26,8 +26,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -65,7 +63,7 @@ public class Nivel1  extends Nivel{
     private World mundo; // Mundo paralelo donde se aplica la física.
 
 
-    private Body body;
+    private Body bodyṔersonaje;
     private Box2DDebugRenderer debugRenderer;
 
     Nivel1(Juego juego){
@@ -197,8 +195,8 @@ public class Nivel1  extends Nivel{
     }
 
     private void actualizarPersonaje() {
-        float x = body.getPosition().x;
-        float y = body.getPosition().y;
+        float x = bodyṔersonaje.getPosition().x;
+        float y = bodyṔersonaje.getPosition().y;
 
 
         personaje.getSprite().setPosition(x-5, y-10f);
@@ -218,7 +216,7 @@ public class Nivel1  extends Nivel{
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS
-        body = mundo.createBody(bodyDef);  //Objeto simulado.
+        bodyṔersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
 
 
 

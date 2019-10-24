@@ -54,7 +54,7 @@ public class Personaje {
         sprite = new Sprite(texturas[0][0]);
         sprite.setPosition(x,y);
 
-        this.estadosPersonaje = EstadosPersonaje.MOV_DERECHA;
+        this.estadosPersonaje = EstadosPersonaje.NEUTRAL;
         System.out.println(toString());
 
     }
@@ -67,7 +67,7 @@ public class Personaje {
         switch (estadosPersonaje) {
             case MOV_DERECHA:
             case MOV_IZQUIERDA:
-                System.out.println("Dibujando, moviendo" );
+                //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
 
@@ -85,7 +85,7 @@ public class Personaje {
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
             case NEUTRAL:
-                System.out.println("DIBUJANDO, NEUTERAL");
+                //System.out.println("DIBUJANDO, NEUTERAL");
                 sprite.draw(batch);
                 break;
 
