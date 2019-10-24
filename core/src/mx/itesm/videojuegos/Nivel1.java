@@ -17,6 +17,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+
+
+import com.badlogic.gdx.math.Vector2;
+
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+
+
+
 public class Nivel1  extends Nivel{
     private Juego juego;
 //Variables de nivel
@@ -45,6 +61,12 @@ public class Nivel1  extends Nivel{
     // Escena de menu (botones)
     private Stage escenaHUD;
 
+    private static final float RADIO = 15f;
+    private World mundo; // Mundo paralelo donde se aplica la física.
+
+
+    private Body body;
+    private Box2DDebugRenderer debugRenderer;
 
     Nivel1(Juego juego){
         this.juego = juego;
@@ -55,7 +77,7 @@ public class Nivel1  extends Nivel{
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
-       //Personaje JUGADOR = new Personaje(texturaPersonaje, 100, 30);
+       personaje = new Personaje(texturaPersonaje, 10,10 ,30);
 
 
     }
@@ -99,6 +121,8 @@ public class Nivel1  extends Nivel{
     @Override
     public void show() {
         cargarTexturas();
+        crearMundo();
+        crearObjetos();
         reproducirMusica();
         configurarVista();
         crearHUD();
@@ -157,19 +181,63 @@ public class Nivel1  extends Nivel{
 
         borrarPantalla();
 
+
         //batch escalaTodo de acuerdo a la visat y la camara
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
+
+
+        personaje.render(batch);
        // personaje.render(batch);
         batch.end();
         escenaHUD.draw();
+        mundo.step(1/60f,6,2);
     }
 
     private void actualizarPersonaje() {
+        float x = body.getPosition().x;
+        float y = body.getPosition().y;
+
+
+        personaje.getSprite().setPosition(x-5, y-10f);
 
     }
+
+
+    private void crearMundo() {
+        Box2D.init();  //Se crea el mundo virtual.
+        Vector2 gravedad = new Vector2(0,0);
+        mundo = new World(gravedad, false);
+        debugRenderer = new Box2DDebugRenderer();
+    }
+
+    private void crearObjetos() {
+        //Body Def
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        body = mundo.createBody(bodyDef);  //Objeto simulado.
+
+
+
+        //PLATAFORMA
+        BodyDef bodyPisodef = new BodyDef();
+        bodyPisodef.type = BodyDef.BodyType.StaticBody;
+        bodyPisodef.position.set(ANCHO / 4, 10);
+
+        Body bodyPiso = mundo.createBody(bodyPisodef);
+        PolygonShape pisoShape = new PolygonShape();
+        pisoShape.setAsBox(ANCHO / 4, 10);  //LA MITAD DEL TOTAL
+
+        bodyPiso.createFixture(pisoShape, 0);
+
+        pisoShape.dispose();
+
+
+    }
+
 
     @Override
     public void pause() {

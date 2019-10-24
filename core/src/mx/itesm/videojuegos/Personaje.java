@@ -1,12 +1,19 @@
 package mx.itesm.videojuegos;
 
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Personaje extends  Objeto{
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+import java.util.Arrays;
+
+public class Personaje {
 
     private boolean sexo;
     private int salud;
@@ -32,39 +39,62 @@ public class Personaje extends  Objeto{
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
-    public Personaje(Texture texture, float x, int fuerzaEnemigo) {
+    public Personaje(Texture texture, float x, float y,int fuerzaEnemigo) {
 
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
-        TextureRegion[][] texturas = texturaCompleta.split(32,54);
 
+        TextureRegion[][] texturas = texturaCompleta.split(60,200);
 
+        animacion = new Animation(0.2f, texturas[0][1], texturas[0][2], texturas[0][3],texturas[0][4],texturas[0][5]);
 
-        animacion.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimacion = 0;
 
+        animacion.setPlayMode(Animation.PlayMode.LOOP);
+        sprite = new Sprite(texturas[0][0]);
+        sprite.setPosition(x,y);
+
+        this.estadosPersonaje = EstadosPersonaje.MOV_DERECHA;
+        System.out.println(toString());
+
     }
 
-    public void dibujar(SpriteBatch batch) {
+
+    public void render(SpriteBatch batch){
+
         // Dibuja el personaje dependiendo del estadoMovimiento
 
-
         switch (estadosPersonaje) {
-            case NEUTRAL:
-                sprite.draw(batch);
-        }
+            case MOV_DERECHA:
+            case MOV_IZQUIERDA:
+                System.out.println("Dibujando, moviendo" );
 
-        }
+                timerAnimacion += Gdx.graphics.getDeltaTime();
 
+                 TextureRegion region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
 
-    public void actualizar(){
-
-        switch (estadosPersonaje){
-            case NEUTRAL:
+                if (estadosPersonaje == EstadosPersonaje.MOV_IZQUIERDA) {
+                    if (!region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                } else {
+                    if (region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                }
+                batch.draw(region,sprite.getX(),sprite.getY());
                 break;
+            case NEUTRAL:
+                System.out.println("DIBUJANDO, NEUTERAL");
+                sprite.draw(batch);
+                break;
+
         }
+
+
 
     }
+
 
     public float atacar(int daño){
 
@@ -109,6 +139,7 @@ public class Personaje extends  Objeto{
         return sprite.getY();
     }
 
+
     public void setEstadosPersonaje(EstadosPersonaje estadosPersonaje){
         this.estadosPersonaje = estadosPersonaje;
     }
@@ -126,10 +157,33 @@ public class Personaje extends  Objeto{
             estadosPersonaje = EstadosPersonaje.MUERTO;
         }
     }
-    public void render(SpriteBatch batch){
-        sprite.draw(batch);
+
+    public Sprite getSprite(){
+        return sprite;
     }
 
+
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "sexo=" + sexo +
+                ", salud=" + salud +
+                ", daño=" + daño +
+                ", poder=" + poder +
+                ", velocidad=" + velocidad +
+                ", rangoDeAtaque=" + rangoDeAtaque +
+                ", rangoDePatada=" + rangoDePatada +
+                ", porcentajeDeStamina=" + porcentajeDeStamina +
+                ", porcentajePoder=" + porcentajePoder +
+                ", fuerza=" + fuerza +
+                ", sprite=" + sprite +
+                ", texturaCompleta=" + texturaCompleta +
+                ", texturas=" + Arrays.toString(texturas) +
+                ", animacion=" + animacion +
+                ", timerAnimacion=" + timerAnimacion +
+                ", estadosPersonaje=" + estadosPersonaje +
+                '}';
+    }
 
     protected enum EstadosPersonaje{
         NEUTRAL,
