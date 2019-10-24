@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-
 import java.util.Arrays;
 
 public class Personaje {
@@ -90,9 +87,6 @@ public class Personaje {
                 break;
 
         }
-
-
-
     }
 
 
@@ -140,8 +134,9 @@ public class Personaje {
     }
 
 
-    public void setEstadosPersonaje(EstadosPersonaje estadosPersonaje){
+    public void  setEstadosPersonaje(EstadosPersonaje estadosPersonaje){
         this.estadosPersonaje = estadosPersonaje;
+
     }
 
     public EstadosPersonaje getEstadosPersonaje(){

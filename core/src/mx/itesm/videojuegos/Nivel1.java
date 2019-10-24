@@ -32,6 +32,10 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_DERECHA;
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
+
 
 public class Nivel1  extends Nivel{
     private Juego juego;
@@ -145,10 +149,9 @@ public class Nivel1  extends Nivel{
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
-
+        //BOTON pausa.
         TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausa.png")));
         TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausaPressed.png")));
-
 
         final ImageButton btnPausa = new ImageButton(trdPausa,trdPausaPressed);
         btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
@@ -163,6 +166,49 @@ public class Nivel1  extends Nivel{
             }
         }
         );
+
+        //BOTONES movimiento
+        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("flechaDerecha.png")));
+        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("flechaIzquierda.png")));
+        ImageButton btnDerecha = new ImageButton(trdDerecha);
+        ImageButton btnIzquierda = new ImageButton(trdIzquierda);
+        btnDerecha.setPosition(juego.ANCHO - btnDerecha.getWidth() - 80, 0);
+        btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
+
+        //Listeners
+        btnDerecha.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(MOV_DERECHA);
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(NEUTRAL);
+
+            }
+
+
+        });
+
+        btnIzquierda.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(NEUTRAL);
+            }
+
+
+        });
+        escenaHUD.addActor(btnDerecha);
+        escenaHUD.addActor(btnIzquierda);
+
         escenaHUD.addActor(btnPausa);
         Gdx.input.setInputProcessor(escenaHUD);
 
