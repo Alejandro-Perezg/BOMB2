@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -29,6 +30,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
 
 
 public class Nivel1  extends Nivel{
@@ -66,6 +68,10 @@ public class Nivel1  extends Nivel{
     private Body bodyṔersonaje;
     private Box2DDebugRenderer debugRenderer;
 
+
+    private ArrayList<Body> enemyBodies = new ArrayList<>();
+
+
     Nivel1(Juego juego){
         this.juego = juego;
     }
@@ -92,6 +98,15 @@ public class Nivel1  extends Nivel{
         fuerzaPersonaje = personaje.fuerza;
 
          */
+        int indiceLista;
+
+        for (int i = 0; i<10;i++ ){
+
+            indiceLista = generateBodyEnemigo();
+            System.out.println(indiceLista);
+        }
+
+
     }
 
     public void generarZonaDeDaño(){
@@ -238,6 +253,22 @@ public class Nivel1  extends Nivel{
 
         pisoShape.dispose();
 
+
+    }
+
+
+    private int generateBodyEnemigo(){
+
+        Body enemigoGenerado;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
+
+        enemyBodies.add(enemigoGenerado);
+        System.out.println(enemyBodies.size()-1);
+        return enemyBodies.size() -1;
 
     }
 
