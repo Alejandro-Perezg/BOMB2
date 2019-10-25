@@ -88,8 +88,9 @@ public class Nivel1  extends Nivel{
     private Texto poderListo;
 
 
-    Nivel1(Juego juego){
+    Nivel1(Juego juego, Music musica){
         this.juego = juego;
+        this.musica = musica;
     }
 
 
@@ -211,20 +212,7 @@ public class Nivel1  extends Nivel{
         btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
 
         //Evento de boton.
-        btnPausa.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                //INSTRUCCIONE
-                if (escenaPausa == null){
-                    escenaPausa = new Pausa(vista, batch);
-                }
-                estado = EstadosNivel.PAUSA;
-                escenaPausa.crearPausa(juego);
 
-            }
-          }
-        );
 
         //BOTONES movimiento
         TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMover.png")));
@@ -289,12 +277,30 @@ public class Nivel1  extends Nivel{
             }
         });
 
-
         escenaHUD.addActor(btnPausa);
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
         escenaHUD.addActor(btnAtacar);
+
+        btnPausa.addListener(new ClickListener(){
+                                 @Override
+                                 public void clicked(InputEvent event, float x, float y) {
+                                     super.clicked(event, x, y);
+                                     //INSTRUCCIONE
+                                     if (escenaPausa == null){
+                                         escenaPausa = new Pausa(vista, batch);
+                                     }
+                                     escenaHUD.dispose();
+                                     estado = EstadosNivel.PAUSA;
+                                     escenaPausa.crearPausa(juego, musica);
+
+                                 }
+                             }
+        );
+
+
+
         Gdx.input.setInputProcessor(escenaHUD);
 
     }
@@ -343,6 +349,12 @@ public class Nivel1  extends Nivel{
         batch.end();
         if(estado == EstadosNivel.PAUSA){
             escenaPausa.draw();
+            if (!escenaPausa.isActive()){
+                estado = EstadosNivel.NORMAL;
+                escenaPausa.setActive(true);
+                crearHUD();
+                Gdx.input.setInputProcessor(escenaHUD);
+            }
         }
         escenaHUD.draw();
         mundo.step(1/60f,6,2);
