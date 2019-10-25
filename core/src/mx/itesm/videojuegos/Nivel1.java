@@ -54,6 +54,7 @@ public class Nivel1  extends Nivel{
     private Sprite sprite;
     private Texture texturaFondo;
     private Texture texturaPersonaje;
+    private Texture TexturaPersonajeGolpe;
     private Texture texturaEnemigo;
 //MUSICA
     private Music musica;
@@ -76,6 +77,14 @@ public class Nivel1  extends Nivel{
     private ArrayList<Body> enemyBodies = new ArrayList<>();
 
 
+
+    /////SALUD///////////////////////////
+
+    private Texto salud;
+    private Texto puntuacion;
+    private Texto poderListo;
+
+
     Nivel1(Juego juego){
         this.juego = juego;
     }
@@ -85,7 +94,7 @@ public class Nivel1  extends Nivel{
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
-       personaje = new Personaje(texturaPersonaje, 10,10 ,30);
+       personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe,10,10 ,30);
 
 
     }
@@ -112,6 +121,45 @@ public class Nivel1  extends Nivel{
 
 
     }
+
+    public void showSalud(){
+
+        salud = new Texto();
+
+    }
+
+    public void showScore(){
+
+        puntuacion = new Texto();
+    }
+
+    public void showPoderListo(){
+        poderListo = new Texto();
+    }
+
+
+    public void renderSalud(SpriteBatch batch){
+        int saludInt = personaje.getSalud();
+
+        salud.mostrarMensaje(batch, "SALUD... " +String.valueOf(saludInt), 100,700);
+
+    }
+
+    public void renderScore(SpriteBatch batch){
+        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 300,700);
+    }
+
+    public void  rendePoderListo(SpriteBatch batch){
+        int intPoder = personaje.getPoder();
+
+        if (intPoder >= 100){
+            poderListo.mostrarMensaje(batch, "PODER LISTO", 500,700);
+        }else {
+            poderListo.mostrarMensaje(batch, "PODER..." + intPoder, 500,700);
+        }
+    }
+
+
 
     public void generarZonaDeDaño(){
         /*
@@ -145,6 +193,9 @@ public class Nivel1  extends Nivel{
         crearHUD();
         generarEnemigos();
         generarPersonaje();
+        showSalud();
+        showScore();
+        showPoderListo();
     }
 
     private void crearHUD() {
@@ -228,10 +279,10 @@ public class Nivel1  extends Nivel{
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(NEUTRAL);
             }
-
-
         });
-        escenaHUD.addActor(btnPausa);
+
+
+
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
@@ -244,7 +295,11 @@ public class Nivel1  extends Nivel{
         texturaFondo = new Texture( "fondos/fond1.jpg");
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
+        TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
+
+
         ///CARGAR TEXTURAS JUGADOR???
+
 
     }
 
@@ -273,7 +328,9 @@ public class Nivel1  extends Nivel{
         batch.draw(texturaFondo, 0, 0);
 
         rendePersonaje(batch);
-
+        renderSalud(batch);
+        renderScore(batch);
+        rendePoderListo(batch);
 
         batch.end();
         escenaHUD.draw();

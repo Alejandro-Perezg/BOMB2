@@ -43,33 +43,52 @@ public class Personaje {
 
     private Animation animacionDerecha;
 
+    private Animation GOLPE;
+    private  TextureRegion texturaCompletaGOLPE;
+    private TextureRegion[][] texturasGOLPES;
+
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
     mirandoA mirandoA;
 
-    public Personaje(Texture texture, float x, float y,int fuerzaEnemigo) {
+    public Personaje(Texture texture, Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
 
         daño = fuerzaEnemigo;
+
         this.texturaCompleta= new TextureRegion(texture);
+        this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
+
 
         TextureRegion[][] texturas = texturaCompleta.split(250,393);
-
         animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
+        animacionDerecha = new Animation(0.2f, texturas[0][0]);
 
-        animacionDerecha = new Animation(0/2f, texturas[0][0]);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(250, 373);
+        GOLPE = new Animation(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2],texturasGOLPES[0][3]);
+
+
 
         timerAnimacion = 0;
 
+
         animacion.setPlayMode(Animation.PlayMode.LOOP);
+        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
         sprite = new Sprite(texturas[0][0]);
         sprite.setPosition(x,y);
 
+
+
+
+
         this.estadosPersonaje = EstadosPersonaje.NEUTRAL;
+
         setMirandoA(mirandoA.DERECHA);
 
         System.out.println(toString());
 
     }
+
+
 
 
     public void render(SpriteBatch batch){
@@ -96,6 +115,23 @@ public class Personaje {
                 }
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
+            case ATACANDO:
+
+                timerAnimacion += Gdx.graphics.getDeltaTime();
+                    region= (TextureRegion) GOLPE.getKeyFrame(timerAnimacion);
+
+                if (mirandoA == mirandoA.IZQUIERDA) {
+                    if (!region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                } else {
+                    if (region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                }
+                batch.draw(region,sprite.getX(),sprite.getY());
+                break;
+
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
                 region = (TextureRegion) animacionDerecha.getKeyFrame(timerAnimacion) ;
@@ -181,6 +217,18 @@ public class Personaje {
 
     private void setSalud(){
         this.salud = salud;
+    }
+
+    public int getPoder(){
+        return poder;
+    }
+
+    public void setPoder(int poder){
+        this.poder = poder;
+    }
+
+    public void cargarPoder(int agregar){
+        this.poder = getPoder() + agregar;
     }
 
     @Override

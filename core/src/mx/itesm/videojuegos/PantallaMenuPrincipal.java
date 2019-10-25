@@ -1,14 +1,15 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+//TODO corregir musica en AcercaDe.
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
@@ -16,22 +17,45 @@ class PantallaMenuPrincipal extends Pantalla{
     //FONDO
     private Texture texturaFondo;
 
-    //escena de (botones)
+    //STAGES
     private Stage escenaHUD;
-
-    private Estado estado = Estado.NORMAL;
     private Pausa escenaOpciones;
+
+    //ESTADOS
+    private Estado estado = Estado.NORMAL;
+
+    //AUDIO
+    private Music musica;
+    private float musicTime = 0;
 
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
+    }
+
+    public PantallaMenuPrincipal(Juego juego, float musicTime){
+        this.juego = juego;
+        this.musicTime = musicTime;
+
     }
 
 
 
     @Override
     public void show() {
+        AssetManager manager = new AssetManager();
         cargarTexturas();
+        cargarAudios(manager);
         crearHUD();
+
+    }
+
+    private void cargarAudios(AssetManager manager) {
+        manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
+        manager.finishLoading();
+        musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
+        musica.setLooping(true);
+        musica.setPosition(musicTime);
+        musica.play();
 
     }
 
@@ -118,6 +142,13 @@ class PantallaMenuPrincipal extends Pantalla{
 
         if (estado == Estado.PAUSA) {
             escenaOpciones.draw();
+            if (!escenaOpciones.isActive()){
+                estado = Estado.NORMAL;
+                escenaOpciones.setActive(true);
+
+                Gdx.input.setInputProcessor(escenaHUD);
+            }
+
         } else {
             escenaHUD.draw();
         }
