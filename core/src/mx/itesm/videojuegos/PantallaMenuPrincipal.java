@@ -1,9 +1,11 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -17,18 +19,25 @@ class PantallaMenuPrincipal extends Pantalla{
     //escena de (botones)
     private Stage escenaHUD;
 
+    private Estado estado = Estado.NORMAL;
+    private Pausa escenaOpciones;
+
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
     }
+
+
 
     @Override
     public void show() {
         cargarTexturas();
         crearHUD();
+
     }
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
+        escenaOpciones = new Pausa(vista, batch);
         //Boton jugar
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
         TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca-de.png")));
@@ -63,6 +72,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
                                      juego.setScreen(new PantallaAcercaDe(juego));
+
                                  }
                              }
         );
@@ -75,6 +85,10 @@ class PantallaMenuPrincipal extends Pantalla{
                                  public void clicked(InputEvent event, float x, float y) {
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
+                                     estado = Estado.PAUSA;
+                                     escenaOpciones.crearOpciones();
+
+
 
                                  }
                              }
@@ -87,7 +101,7 @@ class PantallaMenuPrincipal extends Pantalla{
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "menus/FondoMenu.jpeg");
+        texturaFondo = new Texture( "menus/menus.jpg");
     }
 
 
@@ -101,7 +115,14 @@ class PantallaMenuPrincipal extends Pantalla{
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
         batch.end();
-        escenaHUD.draw();
+
+        if (estado == Estado.PAUSA) {
+            escenaOpciones.draw();
+        }
+            escenaHUD.draw();
+
+        System.out.println(estado);
+
     }
 
 
@@ -130,4 +151,9 @@ class PantallaMenuPrincipal extends Pantalla{
         texturaFondo.dispose(); //liberar
     }
 
+}
+
+enum Estado{
+    PAUSA,
+    NORMAL
 }

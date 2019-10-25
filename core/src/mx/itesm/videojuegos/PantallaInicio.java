@@ -15,7 +15,6 @@ class PantallaInicio extends Pantalla {
 
     //sssfondo
     private Texture texturaFondo;
-    private Texture title;
     private Texture textoTocar;
 
     //escena
@@ -30,12 +29,11 @@ class PantallaInicio extends Pantalla {
         configurarVista();
         crearMenu();
         //cargar fondo
-        texturaFondo = new Texture( "menus/FondoMenu.jpeg");
+        texturaFondo = new Texture( "menus/menuInicio/portada.jpg");
     }
 
     private void crearMenu() {
         escenaMenu = new Stage(vista);
-        title = new Texture("menus/menuInicio/title.png");
         textoTocar = new Texture("menus/menuInicio/TextoTocaContinuar.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
@@ -60,8 +58,7 @@ class PantallaInicio extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        batch.draw(title, ANCHO/2-(title.getWidth()/2) , 2*ALTO/3);
-        batch.draw(textoTocar, ANCHO/2-(title.getWidth()/2+(textoTocar.getWidth()/2) -200) , 2*ALTO/3 - 300);
+        batch.draw(textoTocar, ANCHO/2-(textoTocar.getWidth()/2)-50 , 2*ALTO/3 - 300);
         batch.end();
         escenaMenu.draw();
     }
