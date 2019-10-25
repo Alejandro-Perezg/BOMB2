@@ -4,25 +4,35 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class Enemigo {
+    //Stats
     private int salud;
     private int daño;   //recibe
     public float velocidad;
     private float rangoDeAtaque;
     private float probabilidadAtaqueCritico;
     private float probabilidadAtaque;
-    public int fuerza; //de daño/ ataque.
+    public int fuerza; //de daño/ ataque
+
+    //FISICAS
+    private Body body;
+    private Box2DDebugRenderer debugRenderer;
+
 
     //SPRITES copiado de rmroman :)
-    private Animation<TextureRegion> spriteAnimado;         // Animación caminando
-    private float timerAnimacion;                           // Tiempo para cambiar frames de la animación
-
     private Sprite sprite;
+    private Animation spriteAnimado;         // Animación caminando
+    private float timerAnimacion = 0;                           // Tiempo para cambiar frames de la animación
+
+
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
 
-    public Enemigo(Texture textura, float x, int indice){
-        cargarTexturas(textura);    //Creo que esto ya va en la implentacion tho
+    public Enemigo(Texture textura, float x, float y){
+
+        cargarTexturas(textura);
 
     }
 
