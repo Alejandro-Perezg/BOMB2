@@ -5,8 +5,13 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sun.org.apache.bcel.internal.generic.FLOAD;
 
@@ -21,7 +26,7 @@ public class Pausa extends Stage { ;
             super(vista, batch);
         }
 
-        public void crearOpciones(){
+        public void crearOpcionesMenuPrincipal(final Juego juego){
             Pixmap sombra = new Pixmap((int)ANCHO, (int)ALTO, Pixmap.Format.RGBA8888);
             sombra.setColor(0, 0, 0,.3f);
             sombra.fillRectangle(0,0,sombra.getWidth(), sombra.getHeight());
@@ -39,6 +44,25 @@ public class Pausa extends Stage { ;
             imgRectPlantilla.setPosition(368,21);
             this.addActor(imgRectPlantilla);
 
-            //Gdx.input.setInputProcessor(this);
+            TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
+
+            ImageButton btnExit = new ImageButton(trdExit);
+            btnExit.setPosition(455, 134);
+
+            btnExit.addListener(new ClickListener(){
+                                         @Override
+                                         public void clicked(InputEvent event, float x, float y) {
+                                             super.clicked(event, x, y);
+                                             //INSTRUCCIONE
+                                             juego.setScreen(new PantallaMenuPrincipal(juego));
+
+                                         }
+                                     }
+            );
+
+
+            this.addActor(btnExit);
+
+            Gdx.input.setInputProcessor(this);
         }
 }

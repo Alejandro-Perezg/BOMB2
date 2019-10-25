@@ -86,7 +86,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
                                      estado = Estado.PAUSA;
-                                     escenaOpciones.crearOpciones();
+                                     escenaOpciones.crearOpcionesMenuPrincipal(juego);
 
 
 
@@ -118,9 +118,9 @@ class PantallaMenuPrincipal extends Pantalla{
 
         if (estado == Estado.PAUSA) {
             escenaOpciones.draw();
-        }
+        } else {
             escenaHUD.draw();
-
+        }
         System.out.println(estado);
 
     }
