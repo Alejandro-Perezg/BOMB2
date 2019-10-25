@@ -39,7 +39,7 @@ public class PantallaAcercaDe extends Pantalla {
 
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "menus/menuInicio/portada.jpg");
+        texturaFondo = new Texture( "menus/menus.jpg");
         informacion = new Texture("menus/acercaDe/nombres.png");
     }
 
@@ -75,6 +75,7 @@ public class PantallaAcercaDe extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
+        batch.draw(informacion, ANCHO/2-(informacion.getWidth()/2) , 2*ALTO/3 - 300);
         batch.end();
         escenaHUD.draw();
     }
