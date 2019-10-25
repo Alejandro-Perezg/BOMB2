@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud;
+    private int salud = 100;
     private int daño;   //recibe
     private int poder;
     private float velocidad;
@@ -175,6 +175,13 @@ public class Personaje {
     }
 
 
+    public int  getSalud(){
+        return salud;
+    }
+
+    private void setSalud(){
+        this.salud = salud;
+    }
 
     @Override
     public String toString() {

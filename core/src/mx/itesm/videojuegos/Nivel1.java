@@ -76,6 +76,12 @@ public class Nivel1  extends Nivel{
     private ArrayList<Body> enemyBodies = new ArrayList<>();
 
 
+
+    /////SALUD///////////////////////////
+
+    private Texto salud;
+
+
     Nivel1(Juego juego){
         this.juego = juego;
     }
@@ -113,6 +119,19 @@ public class Nivel1  extends Nivel{
 
     }
 
+    public void showSalud(){
+
+        salud = new Texto();
+
+    }
+
+    public void renderSalud(SpriteBatch batch){
+        int saludInt = personaje.getSalud();
+
+        salud.mostrarMensaje(batch, "SALUD... " +String.valueOf(saludInt), 100,700);
+
+    }
+
     public void generarZonaDeDaño(){
         /*
         float rangoDeAtaque = 0;
@@ -145,6 +164,7 @@ public class Nivel1  extends Nivel{
         crearHUD();
         generarEnemigos();
         generarPersonaje();
+        showSalud();
     }
 
     private void crearHUD() {
@@ -275,7 +295,7 @@ public class Nivel1  extends Nivel{
         batch.draw(texturaFondo, 0, 0);
 
         rendePersonaje(batch);
-
+        renderSalud(batch);
 
         batch.end();
         escenaHUD.draw();
