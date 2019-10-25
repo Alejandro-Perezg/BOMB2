@@ -65,6 +65,9 @@ public class Nivel1  extends Nivel{
     private SpriteBatch batch;
     // Escena de menu (botones)
     private Stage escenaHUD;
+    private Pausa escenaPausa;
+    //Estados
+    EstadosNivel estado = EstadosNivel.NORMAL;
 
     private static final float RADIO = 15f;
     private World mundo; // Mundo paralelo donde se aplica la física.
@@ -213,7 +216,12 @@ public class Nivel1  extends Nivel{
                 public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //INSTRUCCIONE
-                juego.setScreen(new PantallaMenuPrincipal(juego));
+                if (escenaPausa == null){
+                    escenaPausa = new Pausa(vista, batch);
+                }
+                estado = EstadosNivel.PAUSA;
+                escenaPausa.crearPausa(juego);
+
             }
           }
         );
@@ -333,6 +341,9 @@ public class Nivel1  extends Nivel{
         rendePoderListo(batch);
 
         batch.end();
+        if(estado == EstadosNivel.PAUSA){
+            escenaPausa.draw();
+        }
         escenaHUD.draw();
         mundo.step(1/60f,6,2);
     }
@@ -440,5 +451,10 @@ public class Nivel1  extends Nivel{
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    }
+
+    enum EstadosNivel{
+        NORMAL,
+        PAUSA
     }
 }

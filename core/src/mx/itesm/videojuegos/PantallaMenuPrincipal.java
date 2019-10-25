@@ -58,20 +58,21 @@ class PantallaMenuPrincipal extends Pantalla{
         manager.finishLoading();
         musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
         musica.setLooping(true);
-        musica.setPosition(musicTime);
         musica.play();
-    }
-    public void ManejarMusica(boolean reproducir){
-        if (reproducir==true){
+        musica.pause();
+        musica.setPosition(musicTime);
+        if (juego.playMusic == true){
             musica.play();
-        }else{
+        } if (juego.playMusic ==false){
             musica.stop();
         }
+
     }
+
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
-        escenaOpciones = new Pausa(vista, batch);
+
         //Boton jugar
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
         TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca-de.png")));
@@ -100,8 +101,10 @@ class PantallaMenuPrincipal extends Pantalla{
                                  @Override
                                  public void clicked(InputEvent event, float x, float y) {
              super.clicked(event, x, y);
-             //INSTRUCCIONE
-             juego.setScreen(new PantallaAcercaDe(juego));
+             //INSTRUCCIONe
+             musica.pause();
+             float musicPosition = musica.getPosition();
+             juego.setScreen(new PantallaAcercaDe(juego, musica,musicPosition));
              }
          }
         );
@@ -111,7 +114,10 @@ class PantallaMenuPrincipal extends Pantalla{
              super.clicked(event, x, y);
              //INSTRUCCIONE
              estado = Estado.PAUSA;
-             escenaOpciones.crearOpcionesMenuPrincipal(juego,menu );
+             if (escenaOpciones == null){
+                 escenaOpciones = new Pausa(vista, batch);
+             }
+             escenaOpciones.crearOpcionesMenuPrincipal(juego,musica );
              }
          }
         );
@@ -136,6 +142,7 @@ class PantallaMenuPrincipal extends Pantalla{
         batch.end();
 
         if (estado == Estado.PAUSA) {
+
             escenaOpciones.draw();
             if (!escenaOpciones.isActive()){
                 estado = Estado.NORMAL;
