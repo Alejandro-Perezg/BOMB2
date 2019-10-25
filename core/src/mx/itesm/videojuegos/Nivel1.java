@@ -31,6 +31,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_DERECHA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
@@ -149,8 +150,8 @@ public class Nivel1  extends Nivel{
     private void crearHUD() {
         escenaHUD = new Stage(vista);
         //BOTON pausa.
-        TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausa.png")));
-        TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("btnpausaPressed.png")));
+        TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausa.png")));
+        TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausaPressed.png")));
 
         final ImageButton btnPausa = new ImageButton(trdPausa,trdPausaPressed);
         btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
@@ -167,11 +168,11 @@ public class Nivel1  extends Nivel{
         );
 
         //BOTONES movimiento
-        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("btnMover.png")));
-        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("btnMoverPressed.png")));
+        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMover.png")));
+        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMoverPressed.png")));
         ImageButton btnDerecha = new ImageButton(trdDerecha);
-        ImageButton btnIzquierda = new ImageButton(trdIzquierda);
         btnDerecha.setPosition(10 + btnDerecha.getWidth() + btnDerecha.getWidth(), 0);
+        ImageButton btnIzquierda = new ImageButton(trdIzquierda);
         btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
 
         //Listeners
@@ -205,16 +206,44 @@ public class Nivel1  extends Nivel{
 
 
         });
+
+
+        //boton atacar.
+        TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
+        TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
+
+        final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
+        btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
+
+        btnAtacar.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(ATACANDO);
+
+
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                personaje.setEstadosPersonaje(NEUTRAL);
+            }
+
+
+        });
+
+
+
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
-        escenaHUD.addActor(btnPausa);
+        escenaHUD.addActor(btnAtacar);
         Gdx.input.setInputProcessor(escenaHUD);
 
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "fondos/fondo2.jpg");
+        texturaFondo = new Texture( "fondos/fond1.jpg");
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         ///CARGAR TEXTURAS JUGADOR???
@@ -269,24 +298,18 @@ public class Nivel1  extends Nivel{
 
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
-
                 bodyPersonaje.setTransform(x+5, y,0);
                 break;
 
             case MOV_IZQUIERDA:
-
                 bodyPersonaje.setTransform(x-5, y, 0);
-
                 break;
             case NEUTRAL:
-
-
                 break;
         }
     }
 
     private void rendePersonaje(SpriteBatch batch){
-
         personaje.render(batch);
     }
 
