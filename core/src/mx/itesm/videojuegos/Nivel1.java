@@ -320,6 +320,7 @@ public class Nivel1  extends Nivel{
         batch = new SpriteBatch(); //administra los trazos.
     }
 
+
     @Override
     public void render(float delta) {
         //ACTUALIZAR NAVE
