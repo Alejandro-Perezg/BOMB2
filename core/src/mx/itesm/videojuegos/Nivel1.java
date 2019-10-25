@@ -54,6 +54,7 @@ public class Nivel1  extends Nivel{
     private Sprite sprite;
     private Texture texturaFondo;
     private Texture texturaPersonaje;
+    private Texture TexturaPersonajeGolpe;
     private Texture texturaEnemigo;
 //MUSICA
     private Music musica;
@@ -93,7 +94,7 @@ public class Nivel1  extends Nivel{
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
-       personaje = new Personaje(texturaPersonaje, 10,10 ,30);
+       personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe,10,10 ,30);
 
 
     }
@@ -294,7 +295,11 @@ public class Nivel1  extends Nivel{
         texturaFondo = new Texture( "fondos/fond1.jpg");
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
+        TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
+
+
         ///CARGAR TEXTURAS JUGADOR???
+
 
     }
 
