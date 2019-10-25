@@ -278,8 +278,6 @@ public class Nivel1  extends Nivel{
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(NEUTRAL);
             }
-
-
         });
 
 
