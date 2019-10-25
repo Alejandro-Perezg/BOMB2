@@ -54,17 +54,22 @@ public class Personaje {
     public Personaje(Texture texture, Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
 
         daño = fuerzaEnemigo;
+
         this.texturaCompleta= new TextureRegion(texture);
+        this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
+
 
         TextureRegion[][] texturas = texturaCompleta.split(250,393);
         animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
         animacionDerecha = new Animation(0.2f, texturas[0][0]);
 
-        this.texturaCompletaGOLPE = new TextureRegion(texture);
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(250, 393);
-        GOLPE = new Animation(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2], texturasGOLPES[0][3]) ;
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(250, 373);
+        GOLPE = new Animation(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2],texturasGOLPES[0][3]);
+
+
 
         timerAnimacion = 0;
+
 
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         GOLPE.setPlayMode(Animation.PlayMode.LOOP);
