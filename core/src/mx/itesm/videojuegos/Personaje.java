@@ -51,7 +51,7 @@ public class Personaje {
 
     mirandoA mirandoA;
 
-    public Personaje(Texture texture    , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
+    public Personaje(Texture texture , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
         this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
