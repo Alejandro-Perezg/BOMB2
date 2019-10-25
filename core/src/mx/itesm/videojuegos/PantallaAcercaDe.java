@@ -17,10 +17,12 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaAcercaDe extends Pantalla {
+
     private final Juego juego;
 
     //fondosss
     private Texture texturaFondo;
+    private Texture informacion;
 
     //escena de menu (botones)
     private Stage escenaHUD;
@@ -36,7 +38,9 @@ public class PantallaAcercaDe extends Pantalla {
     }
 
 
-    private void cargarTexturas() {texturaFondo = new Texture( "menus/FondoMenu.jpeg");
+    private void cargarTexturas() {
+        texturaFondo = new Texture( "menus/menuInicio/portada.jpg");
+        informacion = new Texture("menus/acercaDe/nombres.png");
     }
 
     private void crearHUD() {
