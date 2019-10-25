@@ -216,7 +216,7 @@ public class Nivel1  extends Nivel{
     private void cargarTexturas() {
         texturaFondo = new Texture( "fondos/fondo2.jpg");
 
-        texturaPersonaje = new Texture("EnemigoPrototipo/Enemigo_Proto_200x300.png");
+        texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         ///CARGAR TEXTURAS JUGADOR???
 
     }

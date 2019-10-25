@@ -52,11 +52,11 @@ public class Personaje {
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
 
-        TextureRegion[][] texturas = texturaCompleta.split(60,200);
+        TextureRegion[][] texturas = texturaCompleta.split(250,393);
 
-        animacion = new Animation(0.2f, texturas[0][1], texturas[0][2], texturas[0][3],texturas[0][4],texturas[0][5]);
+        animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
 
-        animacionDerecha = new Animation(0/2f, texturas[0][5]);
+        animacionDerecha = new Animation(0/2f, texturas[0][0]);
 
         timerAnimacion = 0;
 
