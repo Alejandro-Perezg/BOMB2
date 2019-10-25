@@ -56,6 +56,8 @@ public class Nivel1  extends Nivel{
     private Texture texturaPersonaje;
     private Texture TexturaPersonajeGolpe;
     private Texture texturaEnemigo;
+    private Texture textureEnemigoAtacando;
+
 //MUSICA
     private Music musica;
     private Sound efecto;
@@ -86,6 +88,11 @@ public class Nivel1  extends Nivel{
     private Texto salud;
     private Texto puntuacion;
     private Texto poderListo;
+
+
+
+    ///////
+
 
 
     Nivel1(Juego juego, Music musica){
@@ -122,6 +129,7 @@ public class Nivel1  extends Nivel{
             indiceLista = generateBodyEnemigo();
             System.out.println(indiceLista);
         }
+        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20);
 
 
 
@@ -164,6 +172,10 @@ public class Nivel1  extends Nivel{
         }
     }
 
+    private void renderEnemigo(SpriteBatch batch){
+        enemigo.render(batch);
+    }
+
 
 
     public void generarZonaDeDaño(){
@@ -201,6 +213,8 @@ public class Nivel1  extends Nivel{
         showSalud();
         showScore();
         showPoderListo();
+
+
     }
 
     private void crearHUD() {
@@ -312,8 +326,8 @@ public class Nivel1  extends Nivel{
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
 
-        texturaEnemigo = new Texture("sprites_eneigo1/Skeleton Walk.png");
-
+        texturaEnemigo = new Texture("sprites_enemigo1/Skeleton Walk.png");
+        textureEnemigoAtacando = new Texture("sprites_enemigo1/Skeleton Dead.png");
 
     }
 
@@ -346,6 +360,8 @@ public class Nivel1  extends Nivel{
         renderSalud(batch);
         renderScore(batch);
         rendePoderListo(batch);
+        renderEnemigo(batch);
+
 
         batch.end();
         if(estado == EstadosNivel.PAUSA){
