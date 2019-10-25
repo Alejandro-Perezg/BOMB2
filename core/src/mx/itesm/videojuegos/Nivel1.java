@@ -65,6 +65,9 @@ public class Nivel1  extends Nivel{
     private SpriteBatch batch;
     // Escena de menu (botones)
     private Stage escenaHUD;
+    private Pausa escenaPausa;
+    //Estados
+    EstadosNivel estado = EstadosNivel.NORMAL;
 
     private static final float RADIO = 15f;
     private World mundo; // Mundo paralelo donde se aplica la física.
@@ -213,7 +216,12 @@ public class Nivel1  extends Nivel{
                 public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //INSTRUCCIONE
-                juego.setScreen(new PantallaMenuPrincipal(juego));
+                if (escenaPausa == null){
+                    escenaPausa = new Pausa(vista, batch);
+                }
+                estado = EstadosNivel.PAUSA;
+                escenaPausa.crearPausa(juego);
+
             }
           }
         );
@@ -282,7 +290,7 @@ public class Nivel1  extends Nivel{
         });
 
 
-
+        escenaHUD.addActor(btnPausa);
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
@@ -297,8 +305,7 @@ public class Nivel1  extends Nivel{
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
 
-
-        ///CARGAR TEXTURAS JUGADOR???
+        texturaEnemigo = new Texture("sprites_eneigo1/Skeleton Walk.png");
 
 
     }
@@ -312,6 +319,7 @@ public class Nivel1  extends Nivel{
 
         batch = new SpriteBatch(); //administra los trazos.
     }
+
 
     @Override
     public void render(float delta) {
@@ -333,6 +341,9 @@ public class Nivel1  extends Nivel{
         rendePoderListo(batch);
 
         batch.end();
+        if(estado == EstadosNivel.PAUSA){
+            escenaPausa.draw();
+        }
         escenaHUD.draw();
         mundo.step(1/60f,6,2);
     }
@@ -341,7 +352,7 @@ public class Nivel1  extends Nivel{
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
 
-        personaje.getSprite().setPosition(x-5, y-10f);
+        personaje.getSprite().setPosition(x-5, y-200f);
         x = bodyPersonaje.getPosition().x;
         y = bodyPersonaje.getPosition().y;
 
@@ -440,5 +451,10 @@ public class Nivel1  extends Nivel{
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    }
+
+    enum EstadosNivel{
+        NORMAL,
+        PAUSA
     }
 }

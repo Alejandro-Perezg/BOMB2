@@ -3,6 +3,7 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,17 +25,39 @@ public class PantallaAcercaDe extends Pantalla {
     private Texture texturaFondo;
     private Texture informacion;
 
+
     //escena de menu (botones)
     private Stage escenaHUD;
+
+    //AUDIO
+    private Music musica;
+    private float musicPosition;
+
 
     public PantallaAcercaDe (Juego juego) {
         this.juego = juego;
     }
 
+    public PantallaAcercaDe (Juego juego, Music musica, float musicPosition) {
+        this.juego = juego;
+        this.musica = musica;
+        this.musicPosition = musicPosition;
+    }
+
     @Override
     public void show() {
         cargarTexturas();
+        ajustarMusica();
         crearHUD();
+
+    }
+
+    private void ajustarMusica() {
+        musica.pause();
+        musica.setPosition(musicPosition);
+        if (juego.playMusic == true) {
+            musica.play();
+        }
     }
 
 
@@ -58,7 +81,10 @@ public class PantallaAcercaDe extends Pantalla {
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    juego.setScreen(new PantallaMenuPrincipal(juego));
+                                    musicPosition = musica.getPosition();
+                                    musica.stop();
+                                    musica.dispose();
+                                    juego.setScreen(new PantallaMenuPrincipal(juego, musicPosition  ));
                                 }
                             }
         );
