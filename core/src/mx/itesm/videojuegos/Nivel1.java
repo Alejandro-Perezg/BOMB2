@@ -179,6 +179,7 @@ public class Nivel1  extends Nivel{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(MOV_DERECHA);
+                personaje.setMirandoA(personaje.getMirandoA().DERECHA);
                 return true;
             }
 
@@ -192,6 +193,8 @@ public class Nivel1  extends Nivel{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                personaje.setMirandoA(personaje.getMirandoA().IZQUIERDA);
+
                 return true;
             }
 
@@ -260,20 +263,17 @@ public class Nivel1  extends Nivel{
 
 
 
-
         System.out.println(personaje.getX());
+        System.out.println(personaje.getEstadosPersonaje());
+        System.out.println(personaje.mirandoA);
 
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
-                //bodyPersonaje.applyForceToCenter(50,0, false);
-                System.out.println(personaje.getEstadosPersonaje());
 
                 bodyPersonaje.setTransform(x+5, y,0);
                 break;
 
             case MOV_IZQUIERDA:
-                //bodyPersonaje.applyForceToCenter(-50,0, false);
-                System.out.println(personaje.getEstadosPersonaje());
 
                 bodyPersonaje.setTransform(x-5, y, 0);
 
@@ -281,7 +281,6 @@ public class Nivel1  extends Nivel{
             case NEUTRAL:
 
 
-                System.out.println(personaje.getEstadosPersonaje());
                 break;
         }
     }
@@ -334,6 +333,7 @@ public class Nivel1  extends Nivel{
         return enemyBodies.size() -1;
 
     }
+
     private void generateBodyPersonaje(){
         //Body Def
         BodyDef bodyDef = new BodyDef();

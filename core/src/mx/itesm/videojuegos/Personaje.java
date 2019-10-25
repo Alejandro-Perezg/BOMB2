@@ -41,8 +41,11 @@ public class Personaje {
     private Animation animacion;    // Caminando
     private float timerAnimacion;   // tiempo para calcular el frame
 
+    private Animation animacionDerecha;
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
+
+    mirandoA mirandoA;
 
     public Personaje(Texture texture, float x, float y,int fuerzaEnemigo) {
 
@@ -53,6 +56,8 @@ public class Personaje {
 
         animacion = new Animation(0.2f, texturas[0][1], texturas[0][2], texturas[0][3],texturas[0][4],texturas[0][5]);
 
+        animacionDerecha = new Animation(0/2f, texturas[0][5]);
+
         timerAnimacion = 0;
 
         animacion.setPlayMode(Animation.PlayMode.LOOP);
@@ -60,6 +65,8 @@ public class Personaje {
         sprite.setPosition(x,y);
 
         this.estadosPersonaje = EstadosPersonaje.NEUTRAL;
+        setMirandoA(mirandoA.DERECHA);
+
         System.out.println(toString());
 
     }
@@ -91,6 +98,8 @@ public class Personaje {
                 break;
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
+                region = (TextureRegion) animacionDerecha.getKeyFrame(timerAnimacion) ;
+                batch.draw(region, sprite.getX(), sprite.getY());
                 sprite.draw(batch);
                 break;
 
@@ -196,6 +205,20 @@ public class Personaje {
         MUERTO,
         MOV_IZQUIERDA,
         MOV_DERECHA
+    }
+
+    public  void setMirandoA(mirandoA mira){
+        this.mirandoA = mira;
+    }
+
+
+    public mirandoA getMirandoA(){
+        return mirandoA;
+    }
+
+    protected  enum mirandoA{
+        DERECHA,
+        IZQUIERDA
     }
 
 }
