@@ -53,8 +53,9 @@ public class Enemigo {
         cargarTexturas(textura,textureAtacando,x);
         cargarFisica();
 
-        setMirandoA(mirandoA.DERECHA);
         //setMirandoA(mirandoA.DERECHA);
+        setMirandoA(mirandoA.DERECHA);
+
     }
 
     public void cargarFisica() {
@@ -193,6 +194,14 @@ public class Enemigo {
 
     public mirandoA getMirandoA(){
         return mirandoA;
+    }
+
+    public void setEstadosEnemigo(EstadosEnemigo estado){
+        this.estadosEnemigo = estado;
+    }
+
+    public EstadosEnemigo getEstadoEnemigo(){
+        return estadosEnemigo;
     }
 
     protected enum EstadosEnemigo{
