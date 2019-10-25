@@ -45,14 +45,16 @@ public class Enemigo {
 
 
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
-    Personaje.mirandoA mirandoA;
+    Enemigo.mirandoA mirandoA;
 
 
-    public Enemigo(Texture textura, float x, int fuerzaPersonaje){
+    public Enemigo(Texture textura,Texture textureAtacando,  float x, int fuerzaPersonaje){
         daño = fuerzaPersonaje;
-        cargarTexturas(textura,x);
+        cargarTexturas(textura,textureAtacando,x);
         cargarFisica();
 
+        setMirandoA(mirandoA.DERECHA);
+        //setMirandoA(mirandoA.DERECHA);
     }
 
     public void cargarFisica() {
@@ -73,13 +75,17 @@ public class Enemigo {
 
     }
 
-    private void cargarTexturas(Texture textura,float x) {
+    private void cargarTexturas(Texture textura, Texture texturaAtacando,float x) {
         texturaCompleta = new TextureRegion(textura);
-        TextureRegion[][] texturaEnemigo = texturaCompleta.split(23,32);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
+        TextureRegion[][] texturaEnemigo = texturaCompleta.split(22,33);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(37, 43);
 
-        spriteAnimado = new Animation(0.15f, texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
+        spriteAnimado = new Animation(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1],texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
                 ,texturaEnemigo[0][5],texturaEnemigo[0][6],texturaEnemigo[0][7],texturaEnemigo[0][8],texturaEnemigo[0][9],texturaEnemigo[0][10]
-                ,texturaEnemigo[0][11],texturaEnemigo[0][12],texturaEnemigo[0][13]);
+                ,texturaEnemigo[0][11],texturaEnemigo[0][12]);
+
+        GOLPE = new Animation(0.1f, texturasGOLPES);
 
         // Animación infinita
         spriteAnimado.setPlayMode(Animation.PlayMode.LOOP);
@@ -132,7 +138,7 @@ public class Enemigo {
 
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
-                region = (TextureRegion) animacionDerecha.getKeyFrame(timerAnimacion) ;
+                region = (TextureRegion) spriteAnimado.getKeyFrame(timerAnimacion) ;
                 batch.draw(region, sprite.getX(), sprite.getY());
                 sprite.draw(batch);
                 break;
@@ -178,6 +184,17 @@ public class Enemigo {
             sprite.setX(sprite.getX() + 6);
         }
     }
+
+
+    public  void setMirandoA(mirandoA mira){
+        this.mirandoA = mira;
+    }
+
+
+    public mirandoA getMirandoA(){
+        return mirandoA;
+    }
+
     protected enum EstadosEnemigo{
         NEUTRAL,
         ATACANDO,
