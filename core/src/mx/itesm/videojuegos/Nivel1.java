@@ -80,6 +80,8 @@ public class Nivel1  extends Nivel{
     /////SALUD///////////////////////////
 
     private Texto salud;
+    private Texto puntuacion;
+    private Texto poderListo;
 
 
     Nivel1(Juego juego){
@@ -125,12 +127,38 @@ public class Nivel1  extends Nivel{
 
     }
 
+    public void showScore(){
+
+        puntuacion = new Texto();
+    }
+
+    public void showPoderListo(){
+        poderListo = new Texto();
+    }
+
+
     public void renderSalud(SpriteBatch batch){
         int saludInt = personaje.getSalud();
 
         salud.mostrarMensaje(batch, "SALUD... " +String.valueOf(saludInt), 100,700);
 
     }
+
+    public void renderScore(SpriteBatch batch){
+        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 300,700);
+    }
+
+    public void  rendePoderListo(SpriteBatch batch){
+        int intPoder = personaje.getPoder();
+
+        if (intPoder >= 100){
+            poderListo.mostrarMensaje(batch, "PODER LISTO", 500,700);
+        }else {
+            poderListo.mostrarMensaje(batch, "PODER..." + intPoder, 500,700);
+        }
+    }
+
+
 
     public void generarZonaDeDaño(){
         /*
@@ -165,6 +193,8 @@ public class Nivel1  extends Nivel{
         generarEnemigos();
         generarPersonaje();
         showSalud();
+        showScore();
+        showPoderListo();
     }
 
     private void crearHUD() {
@@ -296,6 +326,8 @@ public class Nivel1  extends Nivel{
 
         rendePersonaje(batch);
         renderSalud(batch);
+        renderScore(batch);
+        rendePoderListo(batch);
 
         batch.end();
         escenaHUD.draw();
