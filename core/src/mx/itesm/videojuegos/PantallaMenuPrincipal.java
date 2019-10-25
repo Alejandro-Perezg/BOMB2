@@ -29,17 +29,15 @@ class PantallaMenuPrincipal extends Pantalla{
 
     //AUDIO
     public Music musica;
-    private float musicTime = 0;
 
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
 
     }
 
-    public PantallaMenuPrincipal(Juego juego, float musicTime){
+    public PantallaMenuPrincipal(Juego juego, Music music){
         this.juego = juego;
-        this.musicTime = musicTime;
-        this.menu = menu;
+        this.musica = music;
     }
 
 
@@ -54,13 +52,12 @@ class PantallaMenuPrincipal extends Pantalla{
     }
 
     private void cargarAudios(AssetManager manager) {
-        manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
-        manager.finishLoading();
-        musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
-        musica.setLooping(true);
-        musica.play();
-        musica.pause();
-        musica.setPosition(musicTime);
+        if (musica == null) {
+            manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
+            manager.finishLoading();
+            musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
+            musica.setLooping(true);
+        }
         if (juego.playMusic == true){
             musica.play();
         } if (juego.playMusic ==false){
@@ -92,8 +89,8 @@ class PantallaMenuPrincipal extends Pantalla{
                                 @Override
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
-                                    //INSTRUCCIONE
-                                    juego.setScreen(new Nivel1(juego));
+                                    //INSTRUCCIONES
+                                    juego.setScreen(new Nivel1(juego, musica));
                                 }
                             }
         );
@@ -103,8 +100,8 @@ class PantallaMenuPrincipal extends Pantalla{
              super.clicked(event, x, y);
              //INSTRUCCIONe
              musica.pause();
-             float musicPosition = musica.getPosition();
-             juego.setScreen(new PantallaAcercaDe(juego, musica,musicPosition));
+             //float musicPosition = musica.getPosition();
+             juego.setScreen(new PantallaAcercaDe(juego, musica));
              }
          }
         );
@@ -117,7 +114,7 @@ class PantallaMenuPrincipal extends Pantalla{
              if (escenaOpciones == null){
                  escenaOpciones = new Pausa(vista, batch);
              }
-             escenaOpciones.crearOpcionesMenuPrincipal(juego,musica );
+             escenaOpciones.crearOpcionesMenuPrincipal(juego,musica);
              }
          }
         );
@@ -142,12 +139,10 @@ class PantallaMenuPrincipal extends Pantalla{
         batch.end();
 
         if (estado == Estado.PAUSA) {
-
             escenaOpciones.draw();
             if (!escenaOpciones.isActive()){
                 estado = Estado.NORMAL;
                 escenaOpciones.setActive(true);
-
                 Gdx.input.setInputProcessor(escenaHUD);
             }
 

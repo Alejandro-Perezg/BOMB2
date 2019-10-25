@@ -47,7 +47,6 @@ public class Pausa extends Stage { ;
     }
 
     public void crearOpcionesMenuPrincipal(final Juego juego, final Music musica){
-        this.menu = menu;
         crearPlantillaPausa();
         //boton Salir
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
@@ -109,8 +108,9 @@ public class Pausa extends Stage { ;
 
     }
 
-    public void crearPausa(final Juego juego) {
+    public void crearPausa(final Juego juego, final Music musica) {
         crearPlantillaPausa();
+
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
         ImageButton btnExit = new ImageButton(trdExit);
         btnExit.setPosition(455, 134);
@@ -121,11 +121,29 @@ public class Pausa extends Stage { ;
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
                                     juego.setScreen(new PantallaMenuPrincipal(juego));
+                                    musica.dispose();
                                 }
                             }
         );
 
         this.addActor(btnExit);
+
+        TextureRegionDrawable trdContinue = new TextureRegionDrawable(new TextureRegion(new Texture("menus/continueBtn.png")));
+        ImageButton btnContinue = new ImageButton(trdContinue);
+        btnContinue.setPosition(435, 305);
+
+        btnContinue.addListener(new ClickListener(){
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    super.clicked(event, x, y);
+                                    //INSTRUCCIONE
+                                    active = false;
+                                }
+                            }
+        );
+
+        this.addActor(btnContinue);
+
         Gdx.input.setInputProcessor(this);
     }
 

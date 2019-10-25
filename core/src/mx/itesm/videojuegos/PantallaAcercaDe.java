@@ -31,17 +31,16 @@ public class PantallaAcercaDe extends Pantalla {
 
     //AUDIO
     private Music musica;
-    private float musicPosition;
 
 
     public PantallaAcercaDe (Juego juego) {
         this.juego = juego;
     }
 
-    public PantallaAcercaDe (Juego juego, Music musica, float musicPosition) {
+    public PantallaAcercaDe (Juego juego, Music musica) {
         this.juego = juego;
         this.musica = musica;
-        this.musicPosition = musicPosition;
+        //this.musicPosition = musicPosition;
     }
 
     @Override
@@ -53,8 +52,6 @@ public class PantallaAcercaDe extends Pantalla {
     }
 
     private void ajustarMusica() {
-        musica.pause();
-        musica.setPosition(musicPosition);
         if (juego.playMusic == true) {
             musica.play();
         }
@@ -81,10 +78,7 @@ public class PantallaAcercaDe extends Pantalla {
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    musicPosition = musica.getPosition();
-                                    musica.stop();
-                                    musica.dispose();
-                                    juego.setScreen(new PantallaMenuPrincipal(juego, musicPosition  ));
+                                    juego.setScreen(new PantallaMenuPrincipal(juego, musica));
                                 }
                             }
         );
