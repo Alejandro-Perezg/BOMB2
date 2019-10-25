@@ -79,7 +79,7 @@ public class Enemigo {
     private void cargarTexturas(Texture textura, Texture texturaAtacando,float x) {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
-        TextureRegion[][] texturaEnemigo = texturaCompleta.split(22,33);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        TextureRegion[][] texturaEnemigo = texturaCompleta.split(176,264);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(37, 43);
 
         spriteAnimado = new Animation(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1],texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
@@ -96,10 +96,13 @@ public class Enemigo {
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
         sprite.setPosition(X,0);    // Posición inicial
         this.estadosEnemigo = Enemigo.EstadosEnemigo.NEUTRAL;
+
     }
     public void render(SpriteBatch batch){
         //Dibujar eal enemigo
         timerAnimacion += Gdx.graphics.getDeltaTime();
+        System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
+
         switch (estadosEnemigo) {
             case MOV_DERECHA:
             case MOV_IZQUIERDA:
