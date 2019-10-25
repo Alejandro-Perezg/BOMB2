@@ -282,7 +282,7 @@ public class Nivel1  extends Nivel{
         });
 
 
-
+        escenaHUD.addActor(btnPausa);
         escenaHUD.addActor(btnDerecha);
         escenaHUD.addActor(btnIzquierda);
 
@@ -341,7 +341,7 @@ public class Nivel1  extends Nivel{
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
 
-        personaje.getSprite().setPosition(x-5, y-10f);
+        personaje.getSprite().setPosition(x-5, y-200f);
         x = bodyPersonaje.getPosition().x;
         y = bodyPersonaje.getPosition().y;
 

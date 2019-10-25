@@ -9,10 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import java.security.PrivateKey;
 //TODO corregir musica en AcercaDe.
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
+    private PantallaMenuPrincipal menu;
 
     //FONDO
     private Texture texturaFondo;
@@ -25,17 +28,18 @@ class PantallaMenuPrincipal extends Pantalla{
     private Estado estado = Estado.NORMAL;
 
     //AUDIO
-    private Music musica;
+    public Music musica;
     private float musicTime = 0;
 
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
+
     }
 
     public PantallaMenuPrincipal(Juego juego, float musicTime){
         this.juego = juego;
         this.musicTime = musicTime;
-
+        this.menu = menu;
     }
 
 
@@ -56,7 +60,13 @@ class PantallaMenuPrincipal extends Pantalla{
         musica.setLooping(true);
         musica.setPosition(musicTime);
         musica.play();
-
+    }
+    public void ManejarMusica(boolean reproducir){
+        if (reproducir==true){
+            musica.play();
+        }else{
+            musica.stop();
+        }
     }
 
     private void crearHUD() {
@@ -86,49 +96,34 @@ class PantallaMenuPrincipal extends Pantalla{
                                 }
                             }
         );
-
-        escenaHUD.addActor(btnJugar);
-
-
         btnAcerecaDe.addListener(new ClickListener(){
                                  @Override
                                  public void clicked(InputEvent event, float x, float y) {
-                                     super.clicked(event, x, y);
-                                     //INSTRUCCIONE
-                                     juego.setScreen(new PantallaAcercaDe(juego));
-
-                                 }
-                             }
+             super.clicked(event, x, y);
+             //INSTRUCCIONE
+             juego.setScreen(new PantallaAcercaDe(juego));
+             }
+         }
         );
-
-        escenaHUD.addActor(btnAcerecaDe);
-
-
         btnOpciones.addListener(new ClickListener(){
                                  @Override
                                  public void clicked(InputEvent event, float x, float y) {
-                                     super.clicked(event, x, y);
-                                     //INSTRUCCIONE
-                                     estado = Estado.PAUSA;
-                                     escenaOpciones.crearOpcionesMenuPrincipal(juego);
-
-
-
-                                 }
-                             }
+             super.clicked(event, x, y);
+             //INSTRUCCIONE
+             estado = Estado.PAUSA;
+             escenaOpciones.crearOpcionesMenuPrincipal(juego,menu );
+             }
+         }
         );
-
+        escenaHUD.addActor(btnAcerecaDe);
+        escenaHUD.addActor(btnJugar);
         escenaHUD.addActor(btnOpciones);
-
-
         Gdx.input.setInputProcessor(escenaHUD);
     }
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "menus/menus.jpg");
     }
-
-
 
     @Override
     public void render(float delta) {
@@ -166,12 +161,10 @@ class PantallaMenuPrincipal extends Pantalla{
     public void pause() {
 
     }
-
     @Override
     public void resume() {
 
     }
-
     @Override
     public void hide() {
         dispose();

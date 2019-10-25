@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sun.org.apache.bcel.internal.generic.FLOAD;
 
+import java.awt.Menu;
+
 import javax.swing.text.View;
 
 //TODO Agregar la pausa en el nivel principal.
@@ -25,9 +27,12 @@ import static mx.itesm.videojuegos.Pantalla.ANCHO;
 
 public class Pausa extends Stage { ;
     private boolean active = true;
+    private PantallaMenuPrincipal menu;
+
 
     public Pausa(Viewport vista, SpriteBatch batch){
         super(vista, batch);
+        this.menu = menu;
     }
 
     private void crearPlantillaPausa(){
@@ -39,7 +44,6 @@ public class Pausa extends Stage { ;
         imgRectSombra.setPosition(0,0);
         this.addActor(imgRectSombra);
 
-
         Pixmap plantilla = new Pixmap(543, 677, Pixmap.Format.RGBA8888);
         plantilla.setColor(.172f, .537f, .627f,1);
         plantilla.fillRectangle(0,0,plantilla.getWidth(), plantilla.getHeight());
@@ -47,12 +51,12 @@ public class Pausa extends Stage { ;
         Image imgRectPlantilla = new Image(texturaPlantilla);
         imgRectPlantilla.setPosition(368,21);
         this.addActor(imgRectPlantilla);
-
     }
 
-    public void crearOpcionesMenuPrincipal(final Juego juego){
+    public void crearOpcionesMenuPrincipal(final Juego juego, final PantallaMenuPrincipal menu){
+        this.menu = menu;
         crearPlantillaPausa();
-
+        //boton Salir
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
         ImageButton btnExit = new ImageButton(trdExit);
         btnExit.setPosition(455, 134);
@@ -60,18 +64,44 @@ public class Pausa extends Stage { ;
         btnExit.addListener(new ClickListener(){
                                      @Override
                                      public void clicked(InputEvent event, float x, float y) {
-                                         super.clicked(event, x, y);
-                                         //INSTRUCCIONE
-                                         active = false;
+             super.clicked(event, x, y);
+             //INSTRUCCIONE
+             active = false;
+             }
+         }
+        );
+        //botones solido
+        TextureRegionDrawable trdMute = new TextureRegionDrawable(new TextureRegion(new Texture("menus/mute.png")));
+        ImageButton btnMute = new ImageButton(trdMute);
+        btnMute.setPosition(400, 340);
 
-
-
-                                     }
-                                 }
+        btnMute.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //INSTRUCCIONE
+                menu.ManejarMusica(false);
+            }
+        }
         );
 
+        TextureRegionDrawable trdSonido = new TextureRegionDrawable(new TextureRegion(new Texture("menus/sonido.png")));
+        ImageButton btnSonido = new ImageButton(trdSonido);
+        btnSonido.setPosition(600, 340);
+
+        btnSonido.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    //INSTRUCCIONE
+                   menu.ManejarMusica(true);
+                }
+            }
+        );
 
         this.addActor(btnExit);
+        this.addActor(btnMute);
+        this.addActor(btnSonido);
 
         Gdx.input.setInputProcessor(this);
 
