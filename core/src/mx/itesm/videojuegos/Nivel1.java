@@ -283,6 +283,13 @@ public class Nivel1  extends Nivel{
                 personaje.setEstadosPersonaje(ATACANDO);
 
 
+                ////////////////////////////////////////////////////////////////
+
+                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+                score = 10;
+                personaje.cargarPoder(20);
+
+                /////////////////////////////////////////////////////////////////
                 return true;
             }
 

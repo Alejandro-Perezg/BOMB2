@@ -91,6 +91,9 @@ public class Enemigo {
         // Animación infinita
         spriteAnimado.setPlayMode(Animation.PlayMode.LOOP);
         // Inicia el timer que contará tiempo para saber qué frame se dibuja
+
+        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
+
         timerAnimacion = 0;
         // Crea el sprite con el personaje quieto (idle)
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
