@@ -297,8 +297,7 @@ public class Nivel1  extends Nivel{
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
 
-
-        ///CARGAR TEXTURAS JUGADOR???
+        texturaEnemigo = new Texture("sprites_eneigo1/Skeleton Walk.png");
 
 
     }

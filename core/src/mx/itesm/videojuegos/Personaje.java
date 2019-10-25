@@ -51,10 +51,8 @@ public class Personaje {
 
     mirandoA mirandoA;
 
-    public Personaje(Texture texture, Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
-
+    public Personaje(Texture texture    , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
-
         this.texturaCompleta= new TextureRegion(texture);
         this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
 
@@ -66,30 +64,17 @@ public class Personaje {
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(250, 373);
         GOLPE = new Animation(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2],texturasGOLPES[0][3]);
 
-
-
         timerAnimacion = 0;
-
-
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         GOLPE.setPlayMode(Animation.PlayMode.LOOP);
         sprite = new Sprite(texturas[0][0]);
         sprite.setPosition(x,y);
 
-
-
-
-
         this.estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
         setMirandoA(mirandoA.DERECHA);
-
         System.out.println(toString());
-
     }
-
-
-
 
     public void render(SpriteBatch batch){
 

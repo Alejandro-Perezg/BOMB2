@@ -111,7 +111,7 @@ class PantallaMenuPrincipal extends Pantalla{
              super.clicked(event, x, y);
              //INSTRUCCIONE
              estado = Estado.PAUSA;
-             escenaOpciones.crearOpcionesMenuPrincipal(juego,menu );
+             escenaOpciones.crearOpcionesMenuPrincipal(juego, menu );
              }
          }
         );
