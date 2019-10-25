@@ -8,7 +8,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+
+
+
+
 import java.util.Arrays;
+
+
 
 public class Personaje {
 
@@ -22,6 +28,8 @@ public class Personaje {
     private int porcentajeDeStamina;
     private float porcentajePoder;
     public int fuerza; //de daño/ ataque.
+
+
 
 
     //SPRITES
@@ -156,6 +164,7 @@ public class Personaje {
     public Sprite getSprite(){
         return sprite;
     }
+
 
 
     @Override

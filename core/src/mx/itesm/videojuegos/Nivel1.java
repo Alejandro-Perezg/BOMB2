@@ -68,8 +68,8 @@ public class Nivel1  extends Nivel{
     private World mundo; // Mundo paralelo donde se aplica la física.
 
 
-    private Body bodyPersonaje;
     private Box2DDebugRenderer debugRenderer;
+    private Body bodyPersonaje;
 
 
     private ArrayList<Body> enemyBodies = new ArrayList<>();
@@ -318,15 +318,6 @@ public class Nivel1  extends Nivel{
 
     }
 
-    private void generateBodyPersonaje(){
-        //Body Def
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
-
-
-    }
 
 
     private int generateBodyEnemigo(){
@@ -343,7 +334,15 @@ public class Nivel1  extends Nivel{
         return enemyBodies.size() -1;
 
     }
+    private void generateBodyPersonaje(){
+        //Body Def
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
 
+
+    }
 
     @Override
     public void pause() {
