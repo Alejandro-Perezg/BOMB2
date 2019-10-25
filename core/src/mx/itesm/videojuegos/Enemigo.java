@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class Enemigo {
+
     //Stats
     private int salud;
     private int daño;   //recibe
@@ -22,36 +23,35 @@ public class Enemigo {
     private Box2DDebugRenderer debugRenderer;
 
 
-    //SPRITES copiado de rmroman :)
+    //SPRITES
     private Sprite sprite;
-    private Animation spriteAnimado;         // Animación caminando
-    private float timerAnimacion = 0;                           // Tiempo para cambiar frames de la animación
+                         // Tiempo para cambiar frames de la animación
 
-
+    //Estado inical
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
+    mirandoA mirandoA;
 
-    public Enemigo(Texture textura, float x, float y){
+    public Enemigo(Texture textura, float x, float y, int fuerzaPersonaje){
+        daño = fuerzaPersonaje;
+        TextureRegion texturaCompleta = new TextureRegion(textura);
+        TextureRegion[][] texturas = texturaCompleta.split(250, 393);
 
-        cargarTexturas(textura);
+
+        sprite = new Sprite(texturas[0][0]);
+        sprite.setPosition(x,y);
+
+        this.estadosEnemigo = EstadosEnemigo.NEUTRAL;
+
 
     }
 
-    private void cargarTexturas(Texture textura) {
-       /* TextureRegion texturaCompleta = new TextureRegion(textura);
-        TextureRegion[][] texturaPersonaje = new TextureRegion[0][];    // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+    public void render(SpriteBatch batch){
+        sprite.draw(batch);
 
-        spriteAnimado = new Animation(0.15f, texturaPersonaje[0][3], texturaPersonaje[0][1], texturaPersonaje[0][1] );
-        // Animación infinita
-        spriteAnimado.setPlayMode(Animation.PlayMode.LOOP);
-        // Inicia el timer que contará tiempo para saber qué frame se dibuja
-        timerAnimacion = 0;
-        // Crea el sprite con el personaje quieto (idle)
-        sprite = new Sprite(texturaPersonaje[0][0]);    // QUIETO
-        sprite.setPosition(x,y);    // Posición inicial
-*/
     }
-    public void dibujar(SpriteBatch batch){
-        //Dibujar eal enemigo
+
+    public Sprite getSprite(){
+        return sprite;
     }
 
     public float atacarJugador(int daño){
@@ -95,6 +95,11 @@ public class Enemigo {
         MUERTO,
         MOV_IZQUIERDA,
         MOV_DERECHA
+    }
+
+    protected  enum mirandoA{
+        DERECHA,
+        IZQUIERDA
     }
 }
 
