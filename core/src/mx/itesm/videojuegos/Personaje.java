@@ -183,6 +183,18 @@ public class Personaje {
         this.salud = salud;
     }
 
+    public int getPoder(){
+        return poder;
+    }
+
+    public void setPoder(int poder){
+        this.poder = poder;
+    }
+
+    public void cargarPoder(int agregar){
+        this.poder = getPoder() + agregar;
+    }
+
     @Override
     public String toString() {
         return "Personaje{" +
