@@ -1,6 +1,8 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,10 +12,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -89,9 +94,6 @@ public class Nivel1  extends Nivel{
     private Texto puntuacion;
     private Texto poderListo;
 
-
-
-    ///////
 
 
 
@@ -229,13 +231,20 @@ public class Nivel1  extends Nivel{
         //Evento de boton.
 
 
-        //BOTONES movimiento
+        //BOTONES
         TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMover.png")));
         TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMoverPressed.png")));
-        ImageButton btnDerecha = new ImageButton(trdDerecha);
+        final ImageButton btnDerecha = new ImageButton(trdDerecha);
         btnDerecha.setPosition(10 + btnDerecha.getWidth() + btnDerecha.getWidth(), 0);
-        ImageButton btnIzquierda = new ImageButton(trdIzquierda);
+        final ImageButton btnIzquierda = new ImageButton(trdIzquierda);
         btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
+
+        TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
+        TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
+
+        final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
+        btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
+
 
         //Listeners
         btnDerecha.addListener(new ClickListener() {
@@ -248,7 +257,16 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadosPersonaje(NEUTRAL);
+                if(btnAtacar.isPressed()){
+                    personaje.setEstadosPersonaje(ATACANDO);
+                } else {
+                    personaje.setEstadosPersonaje(NEUTRAL);
+                }
+            }
+
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+
             }
         });
 
@@ -263,26 +281,27 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadosPersonaje(NEUTRAL);
+                if(btnAtacar.isPressed()){
+                    personaje.setEstadosPersonaje(ATACANDO);
+                } else {
+                    personaje.setEstadosPersonaje(NEUTRAL);
+                }
+            }
+
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+
             }
 
 
         });
 
-
+        //TODO AGREGARLE EL DRAG A BTN IZQ Y DER
         //boton atacar.
-        TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
-        TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
-
-        final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
-        btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
-
-        btnAtacar.addListener(new ClickListener() {
+        btnAtacar.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(ATACANDO);
-
-
                 ////////////////////////////////////////////////////////////////
 
                 enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
@@ -295,9 +314,35 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadosPersonaje(NEUTRAL);
+                if(btnDerecha.isPressed()){
+                    personaje.setEstadosPersonaje(MOV_DERECHA);
+                } else if(btnIzquierda.isPressed()){
+                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                } else{
+                    personaje.setEstadosPersonaje(NEUTRAL);
+                }
+
+            }
+
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                /*
+                System.out.println("Pos x: " + x);
+                System.out.println("Pos y: " + y);
+                 */
+                if(x > btnAtacar.getWidth() || x < 0 || y > btnAtacar.getHeight() || y < 0){
+                    if(btnDerecha.isPressed()){
+                        personaje.setEstadosPersonaje(MOV_DERECHA);
+                    }
+                    else if(btnIzquierda.isPressed()){
+                        personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                    } else{
+                        personaje.setEstadosPersonaje(NEUTRAL);
+                    }
+                }
             }
         });
+
 
         escenaHUD.addActor(btnPausa);
         escenaHUD.addActor(btnDerecha);
@@ -393,11 +438,11 @@ public class Nivel1  extends Nivel{
         y = bodyPersonaje.getPosition().y;
 
 
-
+/*
         System.out.println(personaje.getX());
         System.out.println(personaje.getEstadosPersonaje());
         System.out.println(personaje.mirandoA);
-
+*/
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
                 bodyPersonaje.setTransform(x+5, y,0);

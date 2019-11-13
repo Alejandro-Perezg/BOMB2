@@ -15,7 +15,6 @@ import java.security.PrivateKey;
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
-    private PantallaMenuPrincipal menu;
 
     //FONDO
     private Texture texturaFondo;

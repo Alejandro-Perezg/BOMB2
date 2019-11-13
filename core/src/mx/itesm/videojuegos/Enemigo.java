@@ -104,7 +104,7 @@ public class Enemigo {
     public void render(SpriteBatch batch){
         //Dibujar eal enemigo
         timerAnimacion += Gdx.graphics.getDeltaTime();
-        System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
+        //System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
 
         switch (estadosEnemigo) {
             case MOV_DERECHA:
