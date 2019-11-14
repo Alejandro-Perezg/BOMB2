@@ -246,6 +246,8 @@ public class Nivel1  extends Nivel{
         btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
 
 
+        //TODO Asegurarme que el ultimo boton que es presionado tenga prioridad
+
         //Listeners
         btnDerecha.addListener(new ClickListener() {
             @Override
@@ -266,8 +268,11 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                Personaje.mirandoA mirada =  personaje.getMirandoA();
+                System.out.println(mirada);
                 if(x > btnDerecha.getWidth() || x < -1*(btnIzquierda.getWidth() + 2) || y > btnDerecha.getHeight() || y < 0){
                     //Revisar si es La gente incomoda esta implementacion
+                    personaje.setMirandoA(mirada);
                     personaje.setEstadosPersonaje(NEUTRAL);
                 }
 
@@ -299,9 +304,12 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                Personaje.mirandoA mirada =  personaje.getMirandoA();
+                System.out.println(mirada);
                 if(x < 0  || x > btnDerecha.getWidth() + btnIzquierda.getWidth() + 2|| y > btnIzquierda.getHeight() || y < 0){
                     //Revisar si es notable
                     personaje.setEstadosPersonaje(NEUTRAL);
+                    personaje.setMirandoA(mirada);
                 }
 
                 else if (x > btnIzquierda.getWidth() + 2 && x < btnIzquierda.getWidth() + btnDerecha.getWidth()){
@@ -315,7 +323,6 @@ public class Nivel1  extends Nivel{
 
         });
 
-        //TODO AGREGARLE EL DRAG A BTN IZQ Y DER
         //boton atacar.
         btnAtacar.addListener(new InputListener() {
             @Override
