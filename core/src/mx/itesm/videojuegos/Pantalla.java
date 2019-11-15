@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -33,7 +34,7 @@ public abstract class Pantalla implements Screen
         camara.position.set(ANCHO / 2, ALTO / 2, 0);
         camara.update();
         // La vista que escala los elementos gráficos
-        vista = new StretchViewport(ANCHO, ALTO, camara);
+        vista = new ExtendViewport(ANCHO, ALTO, camara);
         // El objeto que administra los trazos gráficos
         batch = new SpriteBatch();
     }

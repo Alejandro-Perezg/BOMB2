@@ -240,11 +240,13 @@ public class Nivel1  extends Nivel{
         btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
 
         TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
-        TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
+        final TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
 
         final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
         btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
 
+
+        //TODO Asegurarme que el ultimo boton que es presionado tenga prioridad
 
         //Listeners
         btnDerecha.addListener(new ClickListener() {
@@ -266,7 +268,19 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                Personaje.mirandoA mirada =  personaje.getMirandoA();
+                System.out.println(mirada);
+                if(x > btnDerecha.getWidth() || x < -1*(btnIzquierda.getWidth() + 2) || y > btnDerecha.getHeight() || y < 0){
+                    //Revisar si es La gente incomoda esta implementacion
+                    personaje.setMirandoA(mirada);
+                    personaje.setEstadosPersonaje(NEUTRAL);
+                }
 
+                else if (x > -1*btnDerecha.getWidth() && x < -2){
+                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                } else {
+                    personaje.setEstadosPersonaje(MOV_DERECHA);
+                }
             }
         });
 
@@ -290,13 +304,25 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                Personaje.mirandoA mirada =  personaje.getMirandoA();
+                System.out.println(mirada);
+                if(x < 0  || x > btnDerecha.getWidth() + btnIzquierda.getWidth() + 2|| y > btnIzquierda.getHeight() || y < 0){
+                    //Revisar si es notable
+                    personaje.setEstadosPersonaje(NEUTRAL);
+                    personaje.setMirandoA(mirada);
+                }
+
+                else if (x > btnIzquierda.getWidth() + 2 && x < btnIzquierda.getWidth() + btnDerecha.getWidth()){
+                    personaje.setEstadosPersonaje(MOV_DERECHA);
+                } else {
+                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                }
 
             }
 
 
         });
 
-        //TODO AGREGARLE EL DRAG A BTN IZQ Y DER
         //boton atacar.
         btnAtacar.addListener(new InputListener() {
             @Override
@@ -326,10 +352,10 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                /*
-                System.out.println("Pos x: " + x);
-                System.out.println("Pos y: " + y);
-                 */
+
+                //System.out.println("Pos x: " + x);
+                //System.out.println("Pos y: " + y);
+
                 if(x > btnAtacar.getWidth() || x < 0 || y > btnAtacar.getHeight() || y < 0){
                     if(btnDerecha.isPressed()){
                         personaje.setEstadosPersonaje(MOV_DERECHA);
@@ -341,6 +367,8 @@ public class Nivel1  extends Nivel{
                     }
                 }
             }
+
+
         });
 
 
