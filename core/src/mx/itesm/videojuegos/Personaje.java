@@ -82,24 +82,33 @@ public class Personaje {
 
         switch (estadosPersonaje) {
             case MOV_DERECHA:
+                timerAnimacion += Gdx.graphics.getDeltaTime();
+
+                TextureRegion region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
+                batch.draw(region,sprite.getX(),sprite.getY());
+
+                this.setMirandoA(mirandoA.DERECHA);
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                }
+                break;
+
+
             case MOV_IZQUIERDA:
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
 
-                 TextureRegion region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
+                region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
 
-                if (estadosPersonaje == EstadosPersonaje.MOV_IZQUIERDA) {
-                    if (!region.isFlipX()) {
-                        region.flip(true,false);
-                    }
-                } else {
-                    if (region.isFlipX()) {
-                        region.flip(true,false);
-                    }
+                this.setMirandoA(mirandoA.IZQUIERDA);
+                if (!region.isFlipX()) {
+                    region.flip(true,false);
                 }
+
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
+
             case ATACANDO:
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
