@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -62,6 +63,10 @@ public class Nivel1  extends Nivel{
     private Texture TexturaPersonajeGolpe;
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
+
+    //palanca
+    private Texture texturaPalanca;
+    private float xPalanca;
 
 //MUSICA
     private Music musica;
@@ -228,102 +233,70 @@ public class Nivel1  extends Nivel{
         final ImageButton btnPausa = new ImageButton(trdPausa,trdPausaPressed);
         btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
 
-        //Evento de boton.
-
 
         //BOTONES
-        TextureRegionDrawable trdDerecha = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMover.png")));
-        TextureRegionDrawable trdIzquierda = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnMoverPressed.png")));
-        final ImageButton btnDerecha = new ImageButton(trdDerecha);
-        btnDerecha.setPosition(10 + btnDerecha.getWidth() + btnDerecha.getWidth(), 0);
-        final ImageButton btnIzquierda = new ImageButton(trdIzquierda);
-        btnIzquierda.setPosition(10 + btnDerecha.getWidth(), 0);
-
         TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
         final TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
-
         final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
         btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
 
+        //Palanca
+        TextureRegionDrawable trdPalanca = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/palanca.png")));
+        final Image palanca = new Image(trdPalanca);
+        palanca.setPosition(110, 0);
+        final float centroPalanca = palanca.getWidth()/2;
 
-        //TODO Asegurarme que el ultimo boton que es presionado tenga prioridad
-
-        //Listeners
-        btnDerecha.addListener(new ClickListener() {
+        //Listeners Palanca
+        palanca.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadosPersonaje(MOV_DERECHA);
-                personaje.setMirandoA(personaje.getMirandoA().DERECHA);
+                if(x < centroPalanca){
+                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                } else{
+                    personaje.setEstadosPersonaje(MOV_DERECHA);
+                }
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if(btnAtacar.isPressed()){
-                    personaje.setEstadosPersonaje(ATACANDO);
-                } else {
-                    personaje.setEstadosPersonaje(NEUTRAL);
+                switch (personaje.estadosPersonaje){
+                    case ATACANDO:
+                        personaje.setEstadosPersonaje(ATACANDO);
+                        break;
+                    default:
+                        personaje.setEstadosPersonaje(NEUTRAL);
+                        break;
+
                 }
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                Personaje.mirandoA mirada =  personaje.getMirandoA();
-                System.out.println(mirada);
-                if(x > btnDerecha.getWidth() || x < -1*(btnIzquierda.getWidth() + 2) || y > btnDerecha.getHeight() || y < 0){
-                    //Revisar si es La gente incomoda esta implementacion
-                    personaje.setMirandoA(mirada);
-                    personaje.setEstadosPersonaje(NEUTRAL);
-                }
+                if (y < palanca.getHeight() && y > 0 && x > 0 && x < palanca.getWidth()) {
+                    if (x < centroPalanca && x > 0) {
+                        personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                    } else if (x < palanca.getWidth() && x > centroPalanca){
+                        personaje.setEstadosPersonaje(MOV_DERECHA);
+                    }
+                } else{
+                    switch (personaje.estadosPersonaje){
+                        case ATACANDO:
+                            personaje.setEstadosPersonaje(ATACANDO);
+                            break;
+                        default:
+                            personaje.setEstadosPersonaje(NEUTRAL);
+                            break;
 
-                else if (x > -1*btnDerecha.getWidth() && x < -2){
-                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                } else {
-                    personaje.setEstadosPersonaje(MOV_DERECHA);
-                }
-            }
-        });
-
-        btnIzquierda.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                personaje.setMirandoA(personaje.getMirandoA().IZQUIERDA);
-
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if(btnAtacar.isPressed()){
-                    personaje.setEstadosPersonaje(ATACANDO);
-                } else {
-                    personaje.setEstadosPersonaje(NEUTRAL);
+                    }
                 }
             }
 
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                Personaje.mirandoA mirada =  personaje.getMirandoA();
-                System.out.println(mirada);
-                if(x < 0  || x > btnDerecha.getWidth() + btnIzquierda.getWidth() + 2|| y > btnIzquierda.getHeight() || y < 0){
-                    //Revisar si es notable
-                    personaje.setEstadosPersonaje(NEUTRAL);
-                    personaje.setMirandoA(mirada);
-                }
 
-                else if (x > btnIzquierda.getWidth() + 2 && x < btnIzquierda.getWidth() + btnDerecha.getWidth()){
-                    personaje.setEstadosPersonaje(MOV_DERECHA);
-                } else {
-                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                }
-
-            }
 
 
         });
 
-        //boton atacar.
         btnAtacar.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -340,12 +313,19 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if(btnDerecha.isPressed()){
-                    personaje.setEstadosPersonaje(MOV_DERECHA);
-                } else if(btnIzquierda.isPressed()){
-                    personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                } else{
-                    personaje.setEstadosPersonaje(NEUTRAL);
+                switch (personaje.getEstadosPersonaje()){
+                    case MOV_DERECHA:
+                        personaje.setEstadosPersonaje(MOV_DERECHA);
+                        break;
+                    case MOV_IZQUIERDA:
+                        personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                        break;
+                    case ATACANDO:
+                        personaje.setEstadosPersonaje(NEUTRAL);
+                        break;
+                    default:
+                        personaje.setEstadosPersonaje(NEUTRAL);
+                        break;
                 }
 
             }
@@ -357,14 +337,19 @@ public class Nivel1  extends Nivel{
                 //System.out.println("Pos y: " + y);
 
                 if(x > btnAtacar.getWidth() || x < 0 || y > btnAtacar.getHeight() || y < 0){
-                    if(btnDerecha.isPressed()){
-                        personaje.setEstadosPersonaje(MOV_DERECHA);
+                    switch (personaje.getEstadosPersonaje()){
+                        case MOV_DERECHA:
+                            personaje.setEstadosPersonaje(MOV_DERECHA);
+                            break;
+                        case MOV_IZQUIERDA:
+                            personaje.setEstadosPersonaje(MOV_IZQUIERDA);
+                            break;
+                        default:
+                            personaje.setEstadosPersonaje(NEUTRAL);
+                            break;
                     }
-                    else if(btnIzquierda.isPressed()){
-                        personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                    } else{
-                        personaje.setEstadosPersonaje(NEUTRAL);
-                    }
+                } else{
+                    personaje.setEstadosPersonaje(ATACANDO);
                 }
             }
 
@@ -372,11 +357,6 @@ public class Nivel1  extends Nivel{
         });
 
 
-        escenaHUD.addActor(btnPausa);
-        escenaHUD.addActor(btnDerecha);
-        escenaHUD.addActor(btnIzquierda);
-
-        escenaHUD.addActor(btnAtacar);
 
         btnPausa.addListener(new ClickListener(){
                                  @Override
@@ -395,6 +375,9 @@ public class Nivel1  extends Nivel{
         );
 
 
+        escenaHUD.addActor(btnPausa);
+        escenaHUD.addActor(palanca);
+        escenaHUD.addActor(btnAtacar);
 
         Gdx.input.setInputProcessor(escenaHUD);
 
@@ -408,6 +391,8 @@ public class Nivel1  extends Nivel{
 
         texturaEnemigo = new Texture("sprites_enemigo1/skeletonWalk2.png");
         textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonDead.png");
+
+        texturaPalanca = new Texture("Nivel/palanca.png");
 
     }
 
@@ -435,14 +420,11 @@ public class Nivel1  extends Nivel{
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-
         rendePersonaje(batch);
         renderSalud(batch);
         renderScore(batch);
         rendePoderListo(batch);
         renderEnemigo(batch);
-
-
         batch.end();
         if(estado == EstadosNivel.PAUSA){
             escenaPausa.draw();
@@ -454,6 +436,9 @@ public class Nivel1  extends Nivel{
             }
         }
         escenaHUD.draw();
+
+
+
         mundo.step(1/60f,6,2);
     }
 
@@ -527,7 +512,7 @@ public class Nivel1  extends Nivel{
         enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
 
         enemyBodies.add(enemigoGenerado);
-        System.out.println(enemyBodies.size()-1);
+        //System.out.println(enemyBodies.size()-1);
         return enemyBodies.size() -1;
 
     }
