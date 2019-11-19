@@ -66,7 +66,9 @@ public class Nivel1  extends Nivel{
 
     //palanca
     private Texture texturaPalanca;
-    private float xPalanca;
+    private Sprite spritePalanca;
+    private float palancaY ;
+
 
 //MUSICA
     private Music musica;
@@ -221,10 +223,15 @@ public class Nivel1  extends Nivel{
         showScore();
         showPoderListo();
 
+        spritePalanca = new Sprite(texturaPalanca);
+        spritePalanca.setPosition(260, 0);
+
+
 
     }
 
     private void crearHUD() {
+
         escenaHUD = new Stage(vista);
         //BOTON pausa.
         TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausa.png")));
@@ -241,15 +248,17 @@ public class Nivel1  extends Nivel{
         btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
 
         //Palanca
-        TextureRegionDrawable trdPalanca = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/palanca.png")));
-        final Image palanca = new Image(trdPalanca);
-        palanca.setPosition(110, 0);
-        final float centroPalanca = palanca.getWidth()/2;
+        TextureRegionDrawable trdPalanca = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/palancaBarra.png")));
+        final Image barraPalanca = new Image(trdPalanca);
+        barraPalanca.setPosition(110, 0);
+        final float centroPalanca = barraPalanca.getWidth()/2;
+        palancaY = (barraPalanca.getY() + (barraPalanca.getHeight() / 2))-50;
 
         //Listeners Palanca
-        palanca.addListener(new InputListener(){
+        barraPalanca.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                spritePalanca.setPosition((x+barraPalanca.getX())-50, palancaY);
                 if(x < centroPalanca){
                     personaje.setEstadosPersonaje(MOV_IZQUIERDA);
                 } else{
@@ -260,6 +269,7 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                spritePalanca.setPosition((barraPalanca.getX() + centroPalanca)-50, palancaY);
                 switch (personaje.estadosPersonaje){
                     case ATACANDO:
                         personaje.setEstadosPersonaje(ATACANDO);
@@ -273,13 +283,22 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if (y < palanca.getHeight() && y > 0 && x > 0 && x < palanca.getWidth()) {
+                if (y < barraPalanca.getHeight() && y > 0 && x > 0 && x < barraPalanca.getWidth()) {
+                    if (x < 50){
+                        spritePalanca.setPosition(barraPalanca.getX(), palancaY);
+                    } else if(x > barraPalanca.getWidth() - 50 ){
+                        spritePalanca.setPosition(barraPalanca.getX() + barraPalanca.getWidth() - 100 , palancaY);
+                    }else {
+                    spritePalanca.setPosition((x+barraPalanca.getX())-50, palancaY);
+                    }
+
                     if (x < centroPalanca && x > 0) {
                         personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                    } else if (x < palanca.getWidth() && x > centroPalanca){
+                    } else if (x < barraPalanca.getWidth() && x > centroPalanca){
                         personaje.setEstadosPersonaje(MOV_DERECHA);
                     }
                 } else{
+                    spritePalanca.setPosition((barraPalanca.getX() + centroPalanca)-50, palancaY);
                     switch (personaje.estadosPersonaje){
                         case ATACANDO:
                             personaje.setEstadosPersonaje(ATACANDO);
@@ -376,7 +395,7 @@ public class Nivel1  extends Nivel{
 
 
         escenaHUD.addActor(btnPausa);
-        escenaHUD.addActor(palanca);
+        escenaHUD.addActor(barraPalanca);
         escenaHUD.addActor(btnAtacar);
 
         Gdx.input.setInputProcessor(escenaHUD);
@@ -392,7 +411,8 @@ public class Nivel1  extends Nivel{
         texturaEnemigo = new Texture("sprites_enemigo1/skeletonWalk2.png");
         textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonDead.png");
 
-        texturaPalanca = new Texture("Nivel/palanca.png");
+        texturaPalanca  =new Texture("Nivel/palanca.png");
+
 
     }
 
@@ -426,16 +446,26 @@ public class Nivel1  extends Nivel{
         rendePoderListo(batch);
         renderEnemigo(batch);
         batch.end();
+
+
+
         if(estado == EstadosNivel.PAUSA){
             escenaPausa.draw();
             if (!escenaPausa.isActive()){
                 estado = EstadosNivel.NORMAL;
                 escenaPausa.setActive(true);
                 crearHUD();
+                escenaPausa.dispose();
                 Gdx.input.setInputProcessor(escenaHUD);
             }
         }
         escenaHUD.draw();
+        batch.begin();
+        spritePalanca.draw(batch);
+
+        batch.end();
+
+
 
 
 
