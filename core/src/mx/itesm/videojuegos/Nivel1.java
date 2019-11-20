@@ -91,15 +91,18 @@ public class Nivel1  extends Nivel{
     private Body bodyPersonaje;
 
 
-    private ArrayList<Body> enemyBodies = new ArrayList<>();
-
-
-
-    /////SALUD///////////////////////////
+    /////TEXTOSSSS/////////
 
     private Texto salud;
     private Texto puntuacion;
     private Texto poderListo;
+
+
+/////////ARRAY DE ENEMIGOS
+    private ArrayList<Enemigo> arrayEnemigos  = new ArrayList<>();
+    private ArrayList<Body> enemyBodies = new ArrayList<>();
+
+
 
 
 
@@ -119,26 +122,17 @@ public class Nivel1  extends Nivel{
 
     }
     private void generarEnemigos(){
-        /*
-        switch(idNivel){
-            case 1:
-                cantidadEnemigos = 10;
-                        break;
-            case 2:
-                cantidadEnemigos = 15;
-                break;
+
+
+        for (int i = 0; i<5;i++ ){
+
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20);
+            arrayEnemigos.add(enemigo);
+            generateBodyEnemigo();
+
         }
-        fuerzaPersonaje = personaje.fuerza;
 
-         */
-        int indiceLista;
-
-        for (int i = 0; i<10;i++ ){
-
-            indiceLista = generateBodyEnemigo();
-            System.out.println(indiceLista);
-        }
-        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20);
+        System.out.println(arrayEnemigos);
 
 
 
@@ -182,7 +176,18 @@ public class Nivel1  extends Nivel{
     }
 
     private void renderEnemigo(SpriteBatch batch){
-        enemigo.render(batch);
+        for (int i = enemyBodies.size()-1; i >0; i--){
+            arrayEnemigos.get(i).render(batch);
+
+            System.out.println(enemyBodies.get(i).toString());
+            System.out.println(arrayEnemigos.get(i).toString());
+            System.out.println(i);
+        }
+
+    }
+
+    public ArrayList<Body> getEnemyBodies() {
+        return enemyBodies;
     }
 
 
@@ -225,7 +230,6 @@ public class Nivel1  extends Nivel{
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
-
 
 
     }
@@ -310,7 +314,6 @@ public class Nivel1  extends Nivel{
                     }
                 }
             }
-
 
 
 
@@ -534,21 +537,27 @@ public class Nivel1  extends Nivel{
 
     private int generateBodyEnemigo(){
 
-        Body enemigoGenerado;
+            Body enemigoGenerado;
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.DynamicBody;
+            bodyDef.position.set(200, 200); //METROS
+            enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
 
-        enemyBodies.add(enemigoGenerado);
-        //System.out.println(enemyBodies.size()-1);
+            enemyBodies.add(enemigoGenerado);
+            //System.out.println(enemyBodies.size()-1);
+
+
+
+
+        System.out.println(enemyBodies);
+
         return enemyBodies.size() -1;
 
     }
 
     private void generateBodyPersonaje(){
-        //Body Def
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS

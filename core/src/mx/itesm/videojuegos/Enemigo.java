@@ -176,7 +176,7 @@ public class Enemigo {
 
     }
 
-    public void recivirDaño (int daño){
+    public void recibirDaño (int daño){
         if(salud >0){
             salud -= daño;
         }else{
