@@ -41,6 +41,8 @@ public class Enemigo {
     private Animation GOLPE;
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
+
+    private Personaje personaje;
 // Tiempo para cambiar frames de la animación
 
 
