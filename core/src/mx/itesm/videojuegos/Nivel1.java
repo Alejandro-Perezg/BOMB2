@@ -169,6 +169,9 @@ public class Nivel1  extends Nivel {
         }
     }
 
+
+
+
     private void renderEnemigo(SpriteBatch batch) {
 
      /*
