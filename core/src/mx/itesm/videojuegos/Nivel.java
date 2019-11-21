@@ -12,9 +12,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public abstract class Nivel extends Pantalla {
     // Variables de Screen
     private  Juego juego;
-    private OrthographicCamera camara;
-    private Viewport vista;
-    private SpriteBatch batch;
     // Escena de menu (botones)
     private Stage escenaHUD;
 

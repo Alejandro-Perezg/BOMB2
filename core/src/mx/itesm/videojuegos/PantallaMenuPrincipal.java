@@ -132,6 +132,7 @@ class PantallaMenuPrincipal extends Pantalla{
         borrarPantalla();
         //batch escalaTodo de acuerdo a la visat y la camara
         batch.setProjectionMatrix(camara.combined);
+        System.out.println(vista.getScreenHeight());
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);

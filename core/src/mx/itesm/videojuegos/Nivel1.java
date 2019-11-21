@@ -35,6 +35,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
@@ -73,10 +74,7 @@ public class Nivel1  extends Nivel{
 //MUSICA
     private Music musica;
     private Sound efecto;
-//Variables de Screen
-    private OrthographicCamera camara;
-    private Viewport vista;
-    private SpriteBatch batch;
+//Variables de Screen;
     // Escena de menu (botones)
     private Stage escenaHUD;
     private Pausa escenaPausa;
@@ -136,9 +134,9 @@ public class Nivel1  extends Nivel{
         for (int i = 0; i<10;i++ ){
 
             indiceLista = generateBodyEnemigo();
-            System.out.println(indiceLista);
+           // System.out.println(indiceLista);
         }
-        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20);
+        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20, personaje);
 
 
 
@@ -215,10 +213,9 @@ public class Nivel1  extends Nivel{
         crearMundo();
         crearObjetos();
         reproducirMusica();
-        configurarVista();
         crearHUD();
-        generarEnemigos();
         generarPersonaje();
+        generarEnemigos();
         showSalud();
         showScore();
         showPoderListo();
@@ -409,28 +406,23 @@ public class Nivel1  extends Nivel{
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
 
         texturaEnemigo = new Texture("sprites_enemigo1/skeletonWalk2.png");
-        textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonDead.png");
+        textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonHit.png");
 
         texturaPalanca  =new Texture("Nivel/palanca.png");
 
 
     }
 
-    private void configurarVista() {
-        camara = new OrthographicCamera();
-        camara.position.set(ANCHO/2,ALTO/2,0);
-        camara.update();
-
-        vista = new StretchViewport(ANCHO, ALTO, camara);
-
-        batch = new SpriteBatch(); //administra los trazos.
-    }
 
 
     @Override
     public void render(float delta) {
+        DecimalFormat df = new DecimalFormat("#.#############");
+
         //ACTUALIZAR NAVE
         actualizarPersonaje();
+
+        enemigo.comportamiento(df.format(delta));
 
         borrarPantalla();
 
