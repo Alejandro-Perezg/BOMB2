@@ -235,7 +235,6 @@ public class Enemigo {
         if(salud >0){
             salud -= daño;
         }else{
-            estadosEnemigo = EstadosEnemigo.ATACANDO.MUERTO;
         }
     }
 
