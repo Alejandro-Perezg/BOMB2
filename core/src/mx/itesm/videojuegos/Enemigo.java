@@ -100,13 +100,11 @@ public class Enemigo {
     private void cargarTexturas(Texture textura, Texture texturaAtacando,float x) {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
-        TextureRegion[][] texturaEnemigo = texturaCompleta.split(176,264);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        TextureRegion[][] texturaEnemigo = texturaCompleta.split(175,350);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(176, 264);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(703, 355);
 
-        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1],texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
-                ,texturaEnemigo[0][5],texturaEnemigo[0][6],texturaEnemigo[0][7],texturaEnemigo[0][8],texturaEnemigo[0][9],texturaEnemigo[0][10]
-                ,texturaEnemigo[0][11],texturaEnemigo[0][12]);
+        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][3], texturaEnemigo[0][3], texturaEnemigo[0][2],texturaEnemigo[0][2],texturaEnemigo[0][1],texturaEnemigo[0][1], texturaEnemigo[0][0]);
 
         //GOLPE = new Animation<>(0.1f, texturasGOLPES[0][1], texturasGOLPES[0][2]);
 

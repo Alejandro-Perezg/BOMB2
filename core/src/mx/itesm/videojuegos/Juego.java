@@ -1,14 +1,25 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 
 public class Juego extends Game {
     public static boolean playMusic = true;
 
+
+    private final AssetManager manager = new AssetManager();
     @Override
     public void create() {
-        setScreen(new PantallaInicio(this)); //referencia del administracion  para pasar de pantalla a otr
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        setScreen(new PantallaCargando(this,TipoPantalla.PANTALLAINICIO)); //referencia del administracion  para pasar de pantalla a otr
 
+    }
+
+    public AssetManager getManager() {
+        return manager;
     }
 }
 

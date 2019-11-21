@@ -2,12 +2,15 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+
+import java.util.ArrayList;
 
 class PantallaInicio extends Pantalla {
 
@@ -19,9 +22,11 @@ class PantallaInicio extends Pantalla {
 
     //escena
     private Stage escenaMenu;
+    private AssetManager manager;
 
     public PantallaInicio(Juego juego) {
         this.juego = juego;   //this de pantalla inicio consrtuctor
+        manager = juego.getManager();
     }
 
     @Override
@@ -29,12 +34,13 @@ class PantallaInicio extends Pantalla {
         configurarVista();
         crearMenu();
         //cargar fondo
-        texturaFondo = new Texture( "menus/menuInicio/portada.jpg");
+        texturaFondo = manager.get("menus/menuInicio/" +
+                "TextoTocaContinuar.png");
     }
 
     private void crearMenu() {
         escenaMenu = new Stage(vista);
-        textoTocar = new Texture("menus/menuInicio/TextoTocaContinuar.png");
+        textoTocar =manager.get("menus/menuInicio/TextoTocaContinuar.png");
 
         Gdx.input.setInputProcessor(new ProcesadorEntrada());
     }
@@ -85,7 +91,8 @@ class PantallaInicio extends Pantalla {
 
     @Override
     public void dispose() {
-        texturaFondo.dispose(); //liberar
+        //texturaFondo.dispose(); //liberar
+        manager.unload("menus/menuInicio/TextoTocaContinuar.png");
     }
 
         //  Escucha y atiende eventos de touch
@@ -132,5 +139,6 @@ class PantallaInicio extends Pantalla {
             public boolean scrolled(int amount) {
                 return false;
             }
-        }
+
     }
+}
