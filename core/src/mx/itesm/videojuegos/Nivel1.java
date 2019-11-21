@@ -35,6 +35,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
@@ -73,10 +74,7 @@ public class Nivel1  extends Nivel{
 //MUSICA
     private Music musica;
     private Sound efecto;
-//Variables de Screen
-    private OrthographicCamera camara;
-    private Viewport vista;
-    private SpriteBatch batch;
+//Variables de Screen;
     // Escena de menu (botones)
     private Stage escenaHUD;
     private Pausa escenaPausa;
@@ -91,18 +89,15 @@ public class Nivel1  extends Nivel{
     private Body bodyPersonaje;
 
 
-    /////TEXTOSSSS/////////
+    private ArrayList<Body> enemyBodies = new ArrayList<>();
+
+
+
+    /////SALUD///////////////////////////
 
     private Texto salud;
     private Texto puntuacion;
     private Texto poderListo;
-
-
-/////////ARRAY DE ENEMIGOS
-    private ArrayList<Enemigo> arrayEnemigos  = new ArrayList<>();
-    private ArrayList<Body> enemyBodies = new ArrayList<>();
-
-
 
 
 
@@ -122,17 +117,26 @@ public class Nivel1  extends Nivel{
 
     }
     private void generarEnemigos(){
-
-
-        for (int i = 0; i<5;i++ ){
-
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20);
-            arrayEnemigos.add(enemigo);
-            generateBodyEnemigo();
-
+        /*
+        switch(idNivel){
+            case 1:
+                cantidadEnemigos = 10;
+                        break;
+            case 2:
+                cantidadEnemigos = 15;
+                break;
         }
+        fuerzaPersonaje = personaje.fuerza;
 
-        System.out.println(arrayEnemigos);
+         */
+        int indiceLista;
+
+        for (int i = 0; i<10;i++ ){
+
+            indiceLista = generateBodyEnemigo();
+           // System.out.println(indiceLista);
+        }
+        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20, personaje);
 
 
 
@@ -176,18 +180,7 @@ public class Nivel1  extends Nivel{
     }
 
     private void renderEnemigo(SpriteBatch batch){
-        for (int i = enemyBodies.size()-1; i >0; i--){
-            arrayEnemigos.get(i).render(batch);
-
-            System.out.println(enemyBodies.get(i).toString());
-            System.out.println(arrayEnemigos.get(i).toString());
-            System.out.println(i);
-        }
-
-    }
-
-    public ArrayList<Body> getEnemyBodies() {
-        return enemyBodies;
+        enemigo.render(batch);
     }
 
 
@@ -220,16 +213,16 @@ public class Nivel1  extends Nivel{
         crearMundo();
         crearObjetos();
         reproducirMusica();
-        configurarVista();
         crearHUD();
-        generarEnemigos();
         generarPersonaje();
+        generarEnemigos();
         showSalud();
         showScore();
         showPoderListo();
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
+
 
 
     }
@@ -314,6 +307,7 @@ public class Nivel1  extends Nivel{
                     }
                 }
             }
+
 
 
 
@@ -412,28 +406,23 @@ public class Nivel1  extends Nivel{
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
 
         texturaEnemigo = new Texture("sprites_enemigo1/skeletonWalk2.png");
-        textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonDead.png");
+        textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonHit.png");
 
         texturaPalanca  =new Texture("Nivel/palanca.png");
 
 
     }
 
-    private void configurarVista() {
-        camara = new OrthographicCamera();
-        camara.position.set(ANCHO/2,ALTO/2,0);
-        camara.update();
-
-        vista = new StretchViewport(ANCHO, ALTO, camara);
-
-        batch = new SpriteBatch(); //administra los trazos.
-    }
 
 
     @Override
     public void render(float delta) {
+        DecimalFormat df = new DecimalFormat("#.#############");
+
         //ACTUALIZAR NAVE
         actualizarPersonaje();
+
+        enemigo.comportamiento(df.format(delta));
 
         borrarPantalla();
 
@@ -537,27 +526,21 @@ public class Nivel1  extends Nivel{
 
     private int generateBodyEnemigo(){
 
-            Body enemigoGenerado;
+        Body enemigoGenerado;
 
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.DynamicBody;
-            bodyDef.position.set(200, 200); //METROS
-            enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
 
-            enemyBodies.add(enemigoGenerado);
-            //System.out.println(enemyBodies.size()-1);
-
-
-
-
-        System.out.println(enemyBodies);
-
+        enemyBodies.add(enemigoGenerado);
+        //System.out.println(enemyBodies.size()-1);
         return enemyBodies.size() -1;
 
     }
 
     private void generateBodyPersonaje(){
-
+        //Body Def
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS

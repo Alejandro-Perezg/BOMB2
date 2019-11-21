@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import java.lang.reflect.Array;
+
 import static com.badlogic.gdx.Input.Keys.X;
 
 
@@ -24,7 +26,9 @@ public class Enemigo {
     private float probabilidadAtaqueCritico;
     private float probabilidadAtaque;
     public int fuerza; //de daño/ ataque
-
+    private boolean aturdido = true;
+    private int framesAturdidos = -1;
+    private int framesAtacando = 0; //60;
     //FISICAS
     private Body body;
     private Box2DDebugRenderer debugRenderer;
@@ -34,23 +38,23 @@ public class Enemigo {
     private Sprite sprite;
     private TextureRegion texturaCompleta;
     private TextureRegion[][] texturas;
-    private Animation spriteAnimado;         // Animación caminando
+    private Animation<TextureRegion> spriteAnimado;         // Animación caminando
     private float timerAnimacion = 0;
     private Animation animacionDerecha;
 
-    private Animation GOLPE;
+    private Animation<TextureRegion> GOLPE;
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
 
     private Personaje personaje;
 // Tiempo para cambiar frames de la animación
-
-
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
+    EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
     Enemigo.mirandoA mirandoA;
 
 
-    public Enemigo(Texture textura,Texture textureAtacando,  float x, int fuerzaPersonaje){
+    public Enemigo(Texture textura,Texture textureAtacando,  float x, int fuerzaPersonaje, Personaje personaje){
+        this.personaje = personaje;
         daño = fuerzaPersonaje;
         cargarTexturas(textura,textureAtacando,x);
         cargarFisica();
@@ -64,7 +68,7 @@ public class Enemigo {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(Juego.ANCHO,0 );
+        bodyDef.position.set(Pantalla.ANCHO,0 );
 
         PolygonShape box = new PolygonShape();
         box.setAsBox(23,32);
@@ -82,19 +86,20 @@ public class Enemigo {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
         TextureRegion[][] texturaEnemigo = texturaCompleta.split(176,264);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(37, 43);
 
-        spriteAnimado = new Animation(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1],texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(176, 264);
+
+        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1],texturaEnemigo[0][2], texturaEnemigo[0][3],texturaEnemigo[0][4]
                 ,texturaEnemigo[0][5],texturaEnemigo[0][6],texturaEnemigo[0][7],texturaEnemigo[0][8],texturaEnemigo[0][9],texturaEnemigo[0][10]
                 ,texturaEnemigo[0][11],texturaEnemigo[0][12]);
 
-        GOLPE = new Animation(0.1f, texturasGOLPES);
+        //GOLPE = new Animation<>(0.1f, texturasGOLPES[0][1], texturasGOLPES[0][2]);
 
         // Animación infinita
         spriteAnimado.setPlayMode(Animation.PlayMode.LOOP);
         // Inicia el timer que contará tiempo para saber qué frame se dibuja
 
-        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
+//        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
 
         timerAnimacion = 0;
         // Crea el sprite con el personaje quieto (idle)
@@ -103,6 +108,7 @@ public class Enemigo {
         this.estadosEnemigo = Enemigo.EstadosEnemigo.NEUTRAL;
 
     }
+
     public void render(SpriteBatch batch){
         //Dibujar eal enemigo
         timerAnimacion += Gdx.graphics.getDeltaTime();
@@ -110,28 +116,33 @@ public class Enemigo {
 
         switch (estadosEnemigo) {
             case MOV_DERECHA:
+                timerAnimacion += Gdx.graphics.getDeltaTime();
+                TextureRegion region = spriteAnimado.getKeyFrame(timerAnimacion);
+
+                if (region.isFlipX()) {
+                    region.flip(true,false);
+                }
+                this.sprite.setPosition(sprite.getX() + 3 , sprite.getY());
+
+                batch.draw(region,sprite.getX(),sprite.getY());
+                break;
+
             case MOV_IZQUIERDA:
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
+                region = spriteAnimado.getKeyFrame(timerAnimacion);
 
-                TextureRegion region = (TextureRegion) spriteAnimado.getKeyFrame(timerAnimacion);
-
-                if (estadosEnemigo == Enemigo.EstadosEnemigo.MOV_IZQUIERDA) {
-                    if (!region.isFlipX()) {
-                        region.flip(true,false);
-                    }
-                } else {
-                    if (region.isFlipX()) {
-                        region.flip(true,false);
-                    }
+                if (!region.isFlipX()) {
+                    region.flip(true,false);
                 }
+                this.sprite.setPosition(sprite.getX() - 3 , sprite.getY());
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
             case ATACANDO:
-
+/*
                 timerAnimacion += Gdx.graphics.getDeltaTime();
-                region= (TextureRegion) GOLPE.getKeyFrame(timerAnimacion);
+                region= GOLPE.getKeyFrame(timerAnimacion);
 
                 if (mirandoA == mirandoA.IZQUIERDA) {
                     if (!region.isFlipX()) {
@@ -143,11 +154,14 @@ public class Enemigo {
                     }
                 }
                 batch.draw(region,sprite.getX(),sprite.getY());
+
+ */
+                batch.draw(texturaCompleta, sprite.getX(), sprite.getY());
                 break;
 
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
-                region = (TextureRegion) spriteAnimado.getKeyFrame(timerAnimacion) ;
+                region = spriteAnimado.getKeyFrame(timerAnimacion);
                 batch.draw(region, sprite.getX(), sprite.getY());
                 sprite.draw(batch);
                 break;
@@ -157,6 +171,47 @@ public class Enemigo {
 
 
         }
+    }
+
+    public void comportamiento(String random){
+        //System.out.println(estadosEnemigo);
+        char rngChar = (random.toCharArray())[7];
+        int rng = Integer.parseInt(String.valueOf(rngChar));
+        System.out.println(rng);
+        if (aturdido){
+            //System.out.println(framesAturdidos);
+            aturdir(rng*5);
+        } else if (framesAtacando > 0) {
+            estadosEnemigo = EstadosEnemigo.ATACANDO;
+            framesAtacando -= 1;
+        }else{
+
+            float leftX = personaje.getX();
+            float rightX = leftX + personaje.getSprite().getWidth();
+
+            if ((sprite.getX() > rightX)) {
+                this.estadosEnemigo = EstadosEnemigo.MOV_IZQUIERDA;
+            } else if (sprite.getX() + sprite.getWidth() < leftX) {
+                this.estadosEnemigo = EstadosEnemigo.MOV_DERECHA;
+            } else {
+                nextEstadoEnemigo = EstadosEnemigo.ATACANDO;
+                aturdido = true;
+                framesAtacando = 60;
+
+                }
+        }
+    }
+
+    private void aturdir(int rng) {
+        estadosEnemigo = EstadosEnemigo.NEUTRAL;
+        if (framesAturdidos <= -1 ){
+            this.framesAturdidos = rng;
+        } else if (framesAturdidos == 0) {
+            this.aturdido = false;
+            estadosEnemigo = nextEstadoEnemigo;
+        }
+        framesAturdidos -= 1;
+       // System.out.println(framesAturdidos);
     }
 
     public float atacarJugador(int daño){
@@ -184,15 +239,6 @@ public class Enemigo {
         }
     }
 
-
-    public void perseguir(float posicionDeJugador){     //Se llama en nivel con el personaje.getX
-        float xP = posicionDeJugador;
-        if ((sprite.getX() > xP)) {
-            sprite.setX(sprite.getX() - 6);
-        } if(sprite.getX() < xP) {
-            sprite.setX(sprite.getX() + 6);
-        }
-    }
 
 
     public  void setMirandoA(mirandoA mira){
