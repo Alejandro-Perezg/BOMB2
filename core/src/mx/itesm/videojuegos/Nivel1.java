@@ -44,17 +44,18 @@ import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 
-public class Nivel1  extends Nivel{
+public class Nivel1  extends Nivel {
     private Juego juego;
-//Variables de nivel
+    //Variables de nivel
     private int idNivel = 1;
     private int score = 0;
     public int coordenadasDano;
-// PERSONAJE
+    // PERSONAJE
     private Personaje personaje;
     private int fuerzaPersonaje;
-//ENEMIGO
-    private Enemigo enemigo;
+    //ENEMIGO
+
+
     private int fuerzaEnemigo;
     private int cantidadEnemigos;
     //TEXTURAS
@@ -68,13 +69,13 @@ public class Nivel1  extends Nivel{
     //palanca
     private Texture texturaPalanca;
     private Sprite spritePalanca;
-    private float palancaY ;
+    private float palancaY;
 
 
-//MUSICA
+    //MUSICA
     private Music musica;
     private Sound efecto;
-//Variables de Screen;
+    //Variables de Screen;
     // Escena de menu (botones)
     private Stage escenaHUD;
     private Pausa escenaPausa;
@@ -86,10 +87,6 @@ public class Nivel1  extends Nivel{
 
 
     private Box2DDebugRenderer debugRenderer;
-    private Body bodyPersonaje;
-
-
-
 
 
     /////TEXTOSSSS/////////
@@ -100,13 +97,10 @@ public class Nivel1  extends Nivel{
 
 
     /////////ARRAY DE ENEMIGOS
-    private ArrayList<Enemigo> arrayEnemigos  = new ArrayList<>();
-    private ArrayList<Body> enemyBodies = new ArrayList<>();
+    private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
 
 
-
-
-    Nivel1(Juego juego, Music musica){
+    Nivel1(Juego juego, Music musica) {
         this.juego = juego;
         this.musica = musica;
     }
@@ -116,85 +110,86 @@ public class Nivel1  extends Nivel{
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
-       personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe,10,10 ,30);
-
+        personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe, 10, 10, 30);
+        personaje.generateBodyPersonaje(mundo);
 
     }
-    private void generarEnemigos(){
+
+    private void generarEnemigos() {
 
 
-        for (int i = 0; i<5;i++ ){
-
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 600,20, personaje);
+        for (int i = 0; i < 5; i++) {
+            Enemigo enemigo;
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 100*i, 20, personaje);
+            enemigo.generateBodyEnemigo(mundo);
             arrayEnemigos.add(enemigo);
-            generateBodyEnemigo();
 
         }
 
         System.out.println(arrayEnemigos);
 
 
-
     }
 
 
-
-    public void showSalud(){
+    public void showSalud() {
 
         salud = new Texto();
 
     }
 
-    public void showScore(){
+    public void showScore() {
 
         puntuacion = new Texto();
     }
 
-    public void showPoderListo(){
+    public void showPoderListo() {
         poderListo = new Texto();
     }
 
 
-    public void renderSalud(SpriteBatch batch){
+    public void renderSalud(SpriteBatch batch) {
         int saludInt = personaje.getSalud();
 
-        salud.mostrarMensaje(batch, "SALUD... " +String.valueOf(saludInt), 100,700);
+        salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
 
     }
 
-    public void renderScore(SpriteBatch batch){
-        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 300,700);
+    public void renderScore(SpriteBatch batch) {
+        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 300, 700);
     }
 
-    public void  rendePoderListo(SpriteBatch batch){
+    public void rendePoderListo(SpriteBatch batch) {
         int intPoder = personaje.getPoder();
 
-        if (intPoder >= 100){
-            poderListo.mostrarMensaje(batch, "PODER LISTO", 500,700);
-        }else {
-            poderListo.mostrarMensaje(batch, "PODER..." + intPoder, 500,700);
+        if (intPoder >= 100) {
+            poderListo.mostrarMensaje(batch, "PODER LISTO", 500, 700);
+        } else {
+            poderListo.mostrarMensaje(batch, "PODER..." + intPoder, 500, 700);
         }
     }
 
-    private void renderEnemigo(SpriteBatch batch){
-        for (int i = enemyBodies.size()-1; i >0; i--){
+    private void renderEnemigo(SpriteBatch batch) {
+
+     /*
+        for (int i = enemyBodies.size() - 1; i > 0; i--) {
             arrayEnemigos.get(i).render(batch);
 
             System.out.println(enemyBodies.get(i).toString());
             System.out.println(arrayEnemigos.get(i).toString());
             System.out.println(i);
         }
+*/
+        for (int i = arrayEnemigos.size(); i >0; i--){
+            System.out.println(arrayEnemigos.get(i-1));
+            arrayEnemigos.get(i-1).render(batch);
+        }
 
     }
 
-    public ArrayList<Body> getEnemyBodies() {
-        return enemyBodies;
-    }
 
 
-
-
-    public void generarZonaDeDaño(){
+    public void generarZonaDeDaño() {
         /*
         float rangoDeAtaque = 0;
         if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
@@ -210,10 +205,9 @@ public class Nivel1  extends Nivel{
          */
     }
 
-    private void reproducirMusica(){
+    private void reproducirMusica() {
 
     }
-
 
 
     @Override
@@ -233,7 +227,6 @@ public class Nivel1  extends Nivel{
         spritePalanca.setPosition(260, 0);
 
 
-
     }
 
     private void crearHUD() {
@@ -243,31 +236,31 @@ public class Nivel1  extends Nivel{
         TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausa.png")));
         TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausaPressed.png")));
 
-        final ImageButton btnPausa = new ImageButton(trdPausa,trdPausaPressed);
-        btnPausa.setPosition(ANCHO-btnPausa.getWidth(), ALTO - btnPausa.getHeight());
+        final ImageButton btnPausa = new ImageButton(trdPausa, trdPausaPressed);
+        btnPausa.setPosition(ANCHO - btnPausa.getWidth(), ALTO - btnPausa.getHeight());
 
 
         //BOTONES
         TextureRegionDrawable trdAtacar = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2.png")));
         final TextureRegionDrawable trdAtacarPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/fist2Pressed.png")));
-        final ImageButton btnAtacar = new ImageButton(trdAtacar,trdAtacarPressed);
-        btnAtacar.setPosition(ANCHO-btnAtacar.getWidth()-50,  btnAtacar.getHeight()-200);
+        final ImageButton btnAtacar = new ImageButton(trdAtacar, trdAtacarPressed);
+        btnAtacar.setPosition(ANCHO - btnAtacar.getWidth() - 50, btnAtacar.getHeight() - 200);
 
         //Palanca
         TextureRegionDrawable trdPalanca = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/palancaBarra.png")));
         final Image barraPalanca = new Image(trdPalanca);
         barraPalanca.setPosition(110, 0);
-        final float centroPalanca = barraPalanca.getWidth()/2;
-        palancaY = (barraPalanca.getY() + (barraPalanca.getHeight() / 2))-50;
+        final float centroPalanca = barraPalanca.getWidth() / 2;
+        palancaY = (barraPalanca.getY() + (barraPalanca.getHeight() / 2)) - 50;
 
         //Listeners Palanca
-        barraPalanca.addListener(new InputListener(){
+        barraPalanca.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                spritePalanca.setPosition((x+barraPalanca.getX())-50, palancaY);
-                if(x < centroPalanca){
+                spritePalanca.setPosition((x + barraPalanca.getX()) - 50, palancaY);
+                if (x < centroPalanca) {
                     personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                } else{
+                } else {
                     personaje.setEstadosPersonaje(MOV_DERECHA);
                 }
                 return true;
@@ -275,8 +268,8 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                spritePalanca.setPosition((barraPalanca.getX() + centroPalanca)-50, palancaY);
-                switch (personaje.estadosPersonaje){
+                spritePalanca.setPosition((barraPalanca.getX() + centroPalanca) - 50, palancaY);
+                switch (personaje.estadosPersonaje) {
                     case ATACANDO:
                         personaje.setEstadosPersonaje(ATACANDO);
                         break;
@@ -290,22 +283,22 @@ public class Nivel1  extends Nivel{
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 if (y < barraPalanca.getHeight() && y > 0 && x > 0 && x < barraPalanca.getWidth()) {
-                    if (x < 50){
+                    if (x < 50) {
                         spritePalanca.setPosition(barraPalanca.getX(), palancaY);
-                    } else if(x > barraPalanca.getWidth() - 50 ){
-                        spritePalanca.setPosition(barraPalanca.getX() + barraPalanca.getWidth() - 100 , palancaY);
-                    }else {
-                    spritePalanca.setPosition((x+barraPalanca.getX())-50, palancaY);
+                    } else if (x > barraPalanca.getWidth() - 50) {
+                        spritePalanca.setPosition(barraPalanca.getX() + barraPalanca.getWidth() - 100, palancaY);
+                    } else {
+                        spritePalanca.setPosition((x + barraPalanca.getX()) - 50, palancaY);
                     }
 
                     if (x < centroPalanca && x > 0) {
                         personaje.setEstadosPersonaje(MOV_IZQUIERDA);
-                    } else if (x < barraPalanca.getWidth() && x > centroPalanca){
+                    } else if (x < barraPalanca.getWidth() && x > centroPalanca) {
                         personaje.setEstadosPersonaje(MOV_DERECHA);
                     }
-                } else{
-                    spritePalanca.setPosition((barraPalanca.getX() + centroPalanca)-50, palancaY);
-                    switch (personaje.estadosPersonaje){
+                } else {
+                    spritePalanca.setPosition((barraPalanca.getX() + centroPalanca) - 50, palancaY);
+                    switch (personaje.estadosPersonaje) {
                         case ATACANDO:
                             personaje.setEstadosPersonaje(ATACANDO);
                             break;
@@ -318,8 +311,6 @@ public class Nivel1  extends Nivel{
             }
 
 
-
-
         });
 
         btnAtacar.addListener(new InputListener() {
@@ -328,7 +319,12 @@ public class Nivel1  extends Nivel{
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
 
-                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+
+                for (int i = arrayEnemigos.size(); i >0; i--){
+                    arrayEnemigos.get(i-1).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+                }
+
+//                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
                 score = 10;
                 personaje.cargarPoder(20);
 
@@ -338,7 +334,7 @@ public class Nivel1  extends Nivel{
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                switch (personaje.getEstadosPersonaje()){
+                switch (personaje.getEstadosPersonaje()) {
                     case MOV_DERECHA:
                         personaje.setEstadosPersonaje(MOV_DERECHA);
                         break;
@@ -361,8 +357,8 @@ public class Nivel1  extends Nivel{
                 //System.out.println("Pos x: " + x);
                 //System.out.println("Pos y: " + y);
 
-                if(x > btnAtacar.getWidth() || x < 0 || y > btnAtacar.getHeight() || y < 0){
-                    switch (personaje.getEstadosPersonaje()){
+                if (x > btnAtacar.getWidth() || x < 0 || y > btnAtacar.getHeight() || y < 0) {
+                    switch (personaje.getEstadosPersonaje()) {
                         case MOV_DERECHA:
                             personaje.setEstadosPersonaje(MOV_DERECHA);
                             break;
@@ -373,7 +369,7 @@ public class Nivel1  extends Nivel{
                             personaje.setEstadosPersonaje(NEUTRAL);
                             break;
                     }
-                } else{
+                } else {
                     personaje.setEstadosPersonaje(ATACANDO);
                 }
             }
@@ -382,13 +378,12 @@ public class Nivel1  extends Nivel{
         });
 
 
-
-        btnPausa.addListener(new ClickListener(){
+        btnPausa.addListener(new ClickListener() {
                                  @Override
                                  public void clicked(InputEvent event, float x, float y) {
                                      super.clicked(event, x, y);
                                      //INSTRUCCIONE
-                                     if (escenaPausa == null){
+                                     if (escenaPausa == null) {
                                          escenaPausa = new Pausa(vista, batch);
                                      }
                                      escenaHUD.dispose();
@@ -409,7 +404,7 @@ public class Nivel1  extends Nivel{
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "fondos/fond1.jpg");
+        texturaFondo = new Texture("fondos/fond1.jpg");
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
@@ -417,11 +412,10 @@ public class Nivel1  extends Nivel{
         texturaEnemigo = new Texture("sprites_enemigo1/skeletonWalk2.png");
         textureEnemigoAtacando = new Texture("sprites_enemigo1/skeletonHit.png");
 
-        texturaPalanca  =new Texture("Nivel/palanca.png");
+        texturaPalanca = new Texture("Nivel/palanca.png");
 
 
     }
-
 
 
     @Override
@@ -429,9 +423,14 @@ public class Nivel1  extends Nivel{
         DecimalFormat df = new DecimalFormat("#.#############");
 
         //ACTUALIZAR NAVE
-        actualizarPersonaje();
+        personaje.actualizarPersonaje();
 
-        enemigo.comportamiento(df.format(delta));
+
+
+        for (int i = arrayEnemigos.size(); i >0; i--){
+            arrayEnemigos.get(i-1).comportamiento(df.format(delta));
+        }
+        //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
         borrarPantalla();
 
@@ -445,14 +444,13 @@ public class Nivel1  extends Nivel{
         renderSalud(batch);
         renderScore(batch);
         rendePoderListo(batch);
-        renderEnemigo(batch);
+        renderEnemigo(batch); //Cambiar por array
         batch.end();
 
 
-
-        if(estado == EstadosNivel.PAUSA){
+        if (estado == EstadosNivel.PAUSA) {
             escenaPausa.draw();
-            if (!escenaPausa.isActive()){
+            if (!escenaPausa.isActive()) {
                 estado = EstadosNivel.NORMAL;
                 escenaPausa.setActive(true);
                 crearHUD();
@@ -467,53 +465,49 @@ public class Nivel1  extends Nivel{
         batch.end();
 
 
-
-
-
-        mundo.step(1/60f,6,2);
+        mundo.step(1 / 60f, 6, 2);
     }
-
+/*
     private void actualizarPersonaje() {
-        float x = bodyPersonaje.getPosition().x;
-        float y = bodyPersonaje.getPosition().y;
+        float x = personaje.bodyPersonaje.getPosition().x;
+        float y = personaje.bodyPersonaje.getPosition().y;
 
-        personaje.getSprite().setPosition(x-5, y-200f);
-        x = bodyPersonaje.getPosition().x;
-        y = bodyPersonaje.getPosition().y;
+        personaje.getSprite().setPosition(x - 5, y - 200f);
+        x = personaje.bodyPersonaje.getPosition().x;
+        y = personaje.bodyPersonaje.getPosition().y;
 
 
 /*
         System.out.println(personaje.getX());
         System.out.println(personaje.getEstadosPersonaje());
         System.out.println(personaje.mirandoA);
-*/
+
         switch (personaje.getEstadosPersonaje()) {
             case MOV_DERECHA:
-                bodyPersonaje.setTransform(x+5, y,0);
+                personaje.bodyPersonaje.setTransform(x + 5, y, 0);
                 break;
 
             case MOV_IZQUIERDA:
-                bodyPersonaje.setTransform(x-5, y, 0);
+                personaje.bodyPersonaje.setTransform(x - 5, y, 0);
                 break;
             case NEUTRAL:
                 break;
         }
     }
-
-    private void rendePersonaje(SpriteBatch batch){
+*/
+    private void rendePersonaje(SpriteBatch batch) {
         personaje.render(batch);
     }
 
 
     private void crearMundo() {
         Box2D.init();  //Se crea el mundo virtual.
-        Vector2 gravedad = new Vector2(0,0);
+        Vector2 gravedad = new Vector2(0, 0);
         mundo = new World(gravedad, false);
         debugRenderer = new Box2DDebugRenderer();
     }
 
     private void crearObjetos() {
-        generateBodyPersonaje();
 
         //PLATAFORMA
         BodyDef bodyPisodef = new BodyDef();
@@ -532,8 +526,10 @@ public class Nivel1  extends Nivel{
     }
 
 
+    ////////se va a eliminar, implementar en enemigo
 
-    private int generateBodyEnemigo(){
+    /*
+    private void generateBodyEnemigo() {
 
         Body enemigoGenerado;
 
@@ -544,10 +540,12 @@ public class Nivel1  extends Nivel{
 
         enemyBodies.add(enemigoGenerado);
         //System.out.println(enemyBodies.size()-1);
-        return enemyBodies.size() -1;
 
     }
+*/
 
+////SE VA A ELIMINAR
+    /*
     private void generateBodyPersonaje(){
         //Body Def
         BodyDef bodyDef = new BodyDef();
@@ -555,8 +553,9 @@ public class Nivel1  extends Nivel{
         bodyDef.position.set(200, 200); //METROS
         bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
 
-
     }
+    */
+
 
     @Override
     public void pause() {

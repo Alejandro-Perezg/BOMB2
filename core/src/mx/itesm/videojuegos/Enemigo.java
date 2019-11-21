@@ -16,6 +16,17 @@ import java.lang.reflect.Array;
 import static com.badlogic.gdx.Input.Keys.X;
 
 
+///BODY
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+
+
+
+
 
 public class Enemigo {
     //Stats
@@ -51,6 +62,10 @@ public class Enemigo {
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
     EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
     Enemigo.mirandoA mirandoA;
+
+
+    ////
+    Body enemigoGenerado;
 
 
     public Enemigo(Texture textura,Texture textureAtacando,  float x, int fuerzaPersonaje, Personaje personaje){
@@ -104,7 +119,7 @@ public class Enemigo {
         timerAnimacion = 0;
         // Crea el sprite con el personaje quieto (idle)
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
-        sprite.setPosition(X,0);    // Posición inicial
+        sprite.setPosition(x,0);    // Posición inicial
         this.estadosEnemigo = Enemigo.EstadosEnemigo.NEUTRAL;
 
     }
@@ -177,7 +192,7 @@ public class Enemigo {
         //System.out.println(estadosEnemigo);
         char rngChar = (random.toCharArray())[7];
         int rng = Integer.parseInt(String.valueOf(rngChar));
-        System.out.println(rng);
+        //System.out.println(rng);
         if (aturdido){
             //System.out.println(framesAturdidos);
             aturdir(rng*5);
@@ -269,6 +284,16 @@ public class Enemigo {
         DERECHA,
         IZQUIERDA
     }
+
+    public void generateBodyEnemigo(World mundo) {
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        mundo.createBody(bodyDef);
+
+    }
+
 }
 
 

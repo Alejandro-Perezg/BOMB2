@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-
-
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 
 import java.util.Arrays;
@@ -46,6 +46,14 @@ public class Personaje {
     private Animation GOLPE;
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
+
+
+
+
+
+    public Body bodyPersonaje;
+
+
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
@@ -289,5 +297,44 @@ public class Personaje {
         DERECHA,
         IZQUIERDA
     }
+
+
+    public void generateBodyPersonaje(World mundo){
+        //Body Def
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(200, 200); //METROS
+        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
+
+    }
+
+
+    public void actualizarPersonaje() {
+        float x = bodyPersonaje.getPosition().x;
+        float y = bodyPersonaje.getPosition().y;
+
+        getSprite().setPosition(x - 5, y - 200f);
+        x = bodyPersonaje.getPosition().x;
+        y = bodyPersonaje.getPosition().y;
+
+
+/*
+        System.out.println(personaje.getX());
+        System.out.println(personaje.getEstadosPersonaje());
+        System.out.println(personaje.mirandoA);
+*/
+        switch (getEstadosPersonaje()) {
+            case MOV_DERECHA:
+                bodyPersonaje.setTransform(x + 5, y, 0);
+                break;
+
+            case MOV_IZQUIERDA:
+                bodyPersonaje.setTransform(x - 5, y, 0);
+                break;
+            case NEUTRAL:
+                break;
+        }
+    }
+
 
 }
