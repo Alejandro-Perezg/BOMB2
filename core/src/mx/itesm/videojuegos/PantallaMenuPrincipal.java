@@ -74,13 +74,15 @@ class PantallaMenuPrincipal extends Pantalla{
         TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca-de.png")));
         TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
 
-        ImageButton btnJugar = new ImageButton(trdJugar);
+        TextureRegionDrawable trdJugarPre = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar_pr.png")));
+
+        ImageButton btnJugar = new ImageButton(trdJugar,trdJugarPre);
         ImageButton btnAcerecaDe = new ImageButton(trdAcercaDe);
         ImageButton btnOpciones = new ImageButton(trdOpciones);
 
 
-        btnJugar.setPosition(375, 390);
-        btnAcerecaDe.setPosition(375, 227);
+        btnJugar.setPosition(375, 500);
+        btnAcerecaDe.setPosition(375, 300);
         btnOpciones.setPosition(385, 102);
 
         //Evento de boton.
