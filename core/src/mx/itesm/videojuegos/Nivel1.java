@@ -184,12 +184,11 @@ public class Nivel1  extends Nivel {
         }
 */
         for (int i = arrayEnemigos.size(); i >0; i--){
-            System.out.println(arrayEnemigos.get(i-1));
+            //System.out.println(arrayEnemigos.get(i-1));
             arrayEnemigos.get(i-1).render(batch);
         }
 
     }
-
 
 
     public void generarZonaDeDaño() {

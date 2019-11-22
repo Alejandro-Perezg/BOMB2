@@ -65,7 +65,13 @@ public class Enemigo {
 
 
     ////
-    Body enemigoGenerado;
+    //Body enemigoGenerado;
+    public Body bodyPersonaje;
+
+
+    float x;
+    float y;
+
 
 
     public Enemigo(Texture textura,Texture textureAtacando,  float x, int fuerzaPersonaje, Personaje personaje){
@@ -127,6 +133,9 @@ public class Enemigo {
         timerAnimacion += Gdx.graphics.getDeltaTime();
         //System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
 
+
+
+
         switch (estadosEnemigo) {
             case MOV_DERECHA:
                 timerAnimacion += Gdx.graphics.getDeltaTime();
@@ -135,6 +144,7 @@ public class Enemigo {
                 if (region.isFlipX()) {
                     region.flip(true,false);
                 }
+
                 this.sprite.setPosition(sprite.getX() + 3 , sprite.getY());
 
                 batch.draw(region,sprite.getX(),sprite.getY());
@@ -149,7 +159,9 @@ public class Enemigo {
                 if (!region.isFlipX()) {
                     region.flip(true,false);
                 }
+
                 this.sprite.setPosition(sprite.getX() - 3 , sprite.getY());
+
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
             case ATACANDO:
@@ -270,6 +282,10 @@ public class Enemigo {
         return estadosEnemigo;
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     protected enum EstadosEnemigo{
         NEUTRAL,
         ATACANDO,
@@ -284,8 +300,8 @@ public class Enemigo {
     }
 
     public void generateBodyEnemigo(World mundo) {
-
         BodyDef bodyDef = new BodyDef();
+
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS
         mundo.createBody(bodyDef);
