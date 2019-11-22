@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_DERECHA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MUERTO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 
@@ -98,6 +99,16 @@ public class Nivel1  extends Nivel {
 
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
+
+    public  ArrayList<Enemigo> getArrayEnemigos(){
+        return arrayEnemigos;
+    }
+
+    public void setArrayEnemigos(ArrayList<Enemigo> listaRecibida){
+
+        this.arrayEnemigos = listaRecibida;
+
+    }
 
 
     Nivel1(Juego juego, Music musica) {
@@ -435,6 +446,7 @@ public class Nivel1  extends Nivel {
         for (int i = arrayEnemigos.size(); i >0; i--){
             arrayEnemigos.get(i-1).comportamiento(df.format(delta));
             arrayEnemigos.get(i-1).actualizarEnemigo();
+            eliminarEnemigosMuertos();
         }
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
@@ -562,6 +574,14 @@ public class Nivel1  extends Nivel {
     }
     */
 
+    public void eliminarEnemigosMuertos(){
+        for (int i = 0; i<  arrayEnemigos.size(); i++) {
+            System.out.println(arrayEnemigos.get(i));
+            if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
+                arrayEnemigos.remove(i);
+            }
+        }
+    }
 
     @Override
     public void pause() {
