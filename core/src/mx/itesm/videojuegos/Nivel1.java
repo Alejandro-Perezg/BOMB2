@@ -121,7 +121,7 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i < 5; i++) {
             Enemigo enemigo;
             enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 100*i, 20, personaje);
-            enemigo.generateBodyEnemigo(mundo);
+            enemigo.generateBodyEnemigo(mundo, 100*i);
             arrayEnemigos.add(enemigo);
 
         }
@@ -430,8 +430,11 @@ public class Nivel1  extends Nivel {
 
 
 
+
+
         for (int i = arrayEnemigos.size(); i >0; i--){
             arrayEnemigos.get(i-1).comportamiento(df.format(delta));
+            arrayEnemigos.get(i-1).actualizarEnemigo();
         }
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 

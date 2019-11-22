@@ -44,7 +44,6 @@ public class Enemigo {
     private Body body;
     private Box2DDebugRenderer debugRenderer;
 
-
     //SPRITES
     private Sprite sprite;
     private TextureRegion texturaCompleta;
@@ -67,6 +66,7 @@ public class Enemigo {
     ////
     //Body enemigoGenerado;
     public Body bodyPersonaje;
+    BodyDef bodyDef = new BodyDef();
 
 
     float x;
@@ -134,8 +134,6 @@ public class Enemigo {
         //System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
 
 
-
-
         switch (estadosEnemigo) {
             case MOV_DERECHA:
                 timerAnimacion += Gdx.graphics.getDeltaTime();
@@ -145,9 +143,13 @@ public class Enemigo {
                     region.flip(true,false);
                 }
 
-                this.sprite.setPosition(sprite.getX() + 3 , sprite.getY());
+//                this.sprite.setPosition(sprite.getX() + 3 , sprite.getY());
+                this.sprite.setPosition(sprite.getX() , sprite.getY());
+
+
 
                 batch.draw(region,sprite.getX(),sprite.getY());
+
                 break;
 
             case MOV_IZQUIERDA:
@@ -160,7 +162,10 @@ public class Enemigo {
                     region.flip(true,false);
                 }
 
-                this.sprite.setPosition(sprite.getX() - 3 , sprite.getY());
+//                this.sprite.setPosition(sprite.getX() - 3 , sprite.getY());
+                this.sprite.setPosition(sprite.getX() -3 , sprite.getY());
+
+
 
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
@@ -299,13 +304,43 @@ public class Enemigo {
         IZQUIERDA
     }
 
-    public void generateBodyEnemigo(World mundo) {
-        BodyDef bodyDef = new BodyDef();
+    public void generateBodyEnemigo(World mundo, int x) {
 
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        mundo.createBody(bodyDef);
+        bodyDef.position.set(x, 200); //METROS
 
+        bodyPersonaje = mundo.createBody(bodyDef);
+
+
+    }
+
+    public void actualizarEnemigo() {
+
+        x = bodyPersonaje.getPosition().x;
+        y = bodyPersonaje.getPosition().y;
+
+        getSprite().setPosition(x - 5, y - 200f);
+
+        x = bodyPersonaje.getPosition().x;
+        y = bodyPersonaje.getPosition().y;
+
+
+/*
+        System.out.println(personaje.getX());
+        System.out.println(personaje.getEstadosPersonaje());
+        System.out.println(personaje.mirandoA);
+*/
+        switch (getEstadoEnemigo()) {
+            case MOV_DERECHA:
+                bodyPersonaje.setTransform(x + 5, y, 0);
+                break;
+
+            case MOV_IZQUIERDA:
+                bodyPersonaje.setTransform(x - 5, y, 0);
+                break;
+            case NEUTRAL:
+                break;
+        }
     }
 
 }
