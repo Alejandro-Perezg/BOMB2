@@ -97,6 +97,14 @@ public class Nivel1  extends Nivel {
     private Texto poderListo;
 
 
+    private boolean phase1 = false;
+    private boolean phase2 = false;
+    private boolean phase3 = false;
+    private boolean phase4 = false;
+
+
+
+
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
 
@@ -124,21 +132,31 @@ public class Nivel1  extends Nivel {
         personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe, 10, 10, 30);
         personaje.generateBodyPersonaje(mundo);
 
+
+
     }
 
     private void generarEnemigos() {
 
 
         for (int i = 0; i < 5; i++) {
+            System.out.println(i);
             Enemigo enemigo;
             enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 100*i, 20, personaje);
             enemigo.generateBodyEnemigo(mundo, 100*i);
             arrayEnemigos.add(enemigo);
 
+
+            phase1 = true;
         }
 
         System.out.println(arrayEnemigos);
 
+
+    }
+
+    /////////varia
+    public void phaseManager(){
 
     }
 
@@ -575,10 +593,12 @@ public class Nivel1  extends Nivel {
     */
 
     public void eliminarEnemigosMuertos(){
-        for (int i = 0; i<  arrayEnemigos.size(); i++) {
-            System.out.println(arrayEnemigos.get(i));
-            if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
-                arrayEnemigos.remove(i);
+        for (int i = 1; i<=  arrayEnemigos.size(); i++) {
+            //System.out.println(arrayEnemigos.get(i-1));
+            //System.out.println(i-1);
+
+            if (arrayEnemigos.get(i-1).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
+                arrayEnemigos.remove(i-1);
             }
         }
     }
