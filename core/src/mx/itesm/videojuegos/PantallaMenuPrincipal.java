@@ -18,7 +18,6 @@ class PantallaMenuPrincipal extends Pantalla{
 
     //FONDO
     private Texture texturaFondo;
-
     //STAGES
     private Stage escenaHUD;
     private Pausa escenaOpciones;
@@ -127,6 +126,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "menus/fondoMenu.png");
+
     }
 
     @Override
