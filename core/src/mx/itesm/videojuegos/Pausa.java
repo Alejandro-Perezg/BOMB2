@@ -53,7 +53,7 @@ public class Pausa extends Stage { ;
         //boton Salir
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
         ImageButton btnExit = new ImageButton(trdExit);
-        btnExit.setPosition(470, 200);
+        btnExit.setPosition(470, 190);
 
         btnExit.addListener(new ClickListener(){
                                      @Override
@@ -70,7 +70,7 @@ public class Pausa extends Stage { ;
         }else{musicaOn = false;}
 
         TextureRegionDrawable trdMusic = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/musicOn.png")));
-        TextureRegionDrawable trdMusic_pr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/musicOn_pr.png")));
+        TextureRegionDrawable trdMusic_pr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/soundOn.png")));
         final ImageButton btnMute;
         if(musicaOn){
             btnMute = new ImageButton(trdMusic);
@@ -79,7 +79,7 @@ public class Pausa extends Stage { ;
         }
 
 
-        btnMute.setPosition(430, 300);
+        btnMute.setPosition(450, 315);
 
         btnMute.addListener(new ClickListener(){
             @Override
@@ -98,15 +98,15 @@ public class Pausa extends Stage { ;
                     juego.playMusic = true;
                     musica.play();
                     musicaOn =true;
-
+                    
                 }
             }
         }
         );
 
-        TextureRegionDrawable trdMusicOn = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/musicOn.png")));
+        TextureRegionDrawable trdMusicOn = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/soundOn.png")));
         ImageButton btnSonido = new ImageButton(trdMusicOn);
-        btnSonido.setPosition(600, 340);
+        btnSonido.setPosition(670, 315);
 
         btnSonido.addListener(new ClickListener(){
                 @Override
