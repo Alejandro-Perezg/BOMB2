@@ -46,8 +46,6 @@ public abstract class Nivel extends Pantalla {
             rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
 
         }
-        enemigo.identificalAreaDeDaño(rangoDeAtaque);
-        personaje.identificalAreaDeDaño(rangoDeAtaque);
     }
 
     private void reproducirMusica(){

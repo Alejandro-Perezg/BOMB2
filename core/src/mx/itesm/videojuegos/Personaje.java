@@ -57,7 +57,7 @@ public class Personaje {
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
-    mirandoA mirandoA;
+    static mirandoA mirandoA;
 
     public Personaje(Texture texture , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
@@ -90,6 +90,7 @@ public class Personaje {
 
         switch (estadosPersonaje) {
             case MOV_DERECHA:
+                setMirandoA(mirandoA.DERECHA);
                 timerAnimacion += Gdx.graphics.getDeltaTime();
 
                 TextureRegion region = (TextureRegion) animacion.getKeyFrame(timerAnimacion);
@@ -103,6 +104,7 @@ public class Personaje {
 
 
             case MOV_IZQUIERDA:
+                setMirandoA(mirandoA.IZQUIERDA);
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
@@ -175,12 +177,7 @@ public class Personaje {
 
     }
 
-    public void identificalAreaDeDaño (float rangoDeAtaque){
-        if(rangoDeAtaque == getX()){
-            recibirDano();
-        }
 
-    }
     private void recogerItem (){
 
     }
@@ -220,12 +217,8 @@ public class Personaje {
     }
 
 
-    private void recibirDano(){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
-        if(salud - daño >0){
-            salud -= daño;
-        }else{
-            estadosPersonaje = EstadosPersonaje.MUERTO;
-        }
+    private void recibirDano(int dano){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
+        this.salud -= dano;
     }
 
     public Sprite getSprite(){

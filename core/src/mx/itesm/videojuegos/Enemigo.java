@@ -30,6 +30,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 
 public class Enemigo {
+    private static Enemigo.mirandoA mirndoA;
+    public static Enemigo.mirandoA mirandoA;
     //Stats
     private int salud = 20;
     private int daño;   //recibe
@@ -54,17 +56,16 @@ public class Enemigo {
     private Animation animacionDerecha;
 
     private Animation<TextureRegion> GOLPE;
-    private TextureRegion texturaCompletaGOLPE;
+    private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
 
     private Personaje personaje;
-    // Tiempo para cambiar frames de la animación
+// Tiempo para cambiar frames de la animación
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
     EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
-    Enemigo.mirandoA mirandoA;
-
 
     ////
+    //Body enemigoGenerado;
     public Body bodyPersonaje;
     BodyDef bodyDef = new BodyDef();
 
@@ -76,7 +77,7 @@ public class Enemigo {
     public Enemigo(Texture textura, Texture textureAtacando, float x, int fuerzaPersonaje, Personaje personaje) {
         this.personaje = personaje;
         daño = fuerzaPersonaje;
-        cargarTexturas(textura, textureAtacando, x);
+        cargarTexturas(textura,textureAtacando,x);
         cargarFisica();
 
         //setMirandoA(mirandoA.DERECHA);
@@ -88,10 +89,10 @@ public class Enemigo {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(Pantalla.ANCHO, 0);
+        bodyDef.position.set(Pantalla.ANCHO,0 );
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(23, 32);
+        box.setAsBox(23,32);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
@@ -102,14 +103,14 @@ public class Enemigo {
 
     }
 
-    private void cargarTexturas(Texture textura, Texture texturaAtacando, float x) {
+    private void cargarTexturas(Texture textura, Texture texturaAtacando,float x) {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
-        TextureRegion[][] texturaEnemigo = texturaCompleta.split(175, 350);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        TextureRegion[][] texturaEnemigo = texturaCompleta.split(175,350);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(703, 355);
 
-        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][3], texturaEnemigo[0][3], texturaEnemigo[0][2], texturaEnemigo[0][2], texturaEnemigo[0][1], texturaEnemigo[0][1], texturaEnemigo[0][0]);
+        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][3], texturaEnemigo[0][3], texturaEnemigo[0][2],texturaEnemigo[0][2],texturaEnemigo[0][1],texturaEnemigo[0][1], texturaEnemigo[0][0]);
 
         //GOLPE = new Animation<>(0.1f, texturasGOLPES[0][1], texturasGOLPES[0][2]);
 
@@ -122,12 +123,12 @@ public class Enemigo {
         timerAnimacion = 0;
         // Crea el sprite con el personaje quieto (idle)
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
-        sprite.setPosition(x, 0);    // Posición inicial
+        sprite.setPosition(x,0);    // Posición inicial
         this.estadosEnemigo = Enemigo.EstadosEnemigo.NEUTRAL;
 
     }
 
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch){
         //Dibujar eal enemigo
         timerAnimacion += Gdx.graphics.getDeltaTime();
         //System.out.println("ESTADO ENEMIGO" + estadosEnemigo + mirandoA);
@@ -135,36 +136,39 @@ public class Enemigo {
 
         switch (estadosEnemigo) {
             case MOV_DERECHA:
+                this.mirandoA = Enemigo.mirndoA.DERECHA;
                 timerAnimacion += Gdx.graphics.getDeltaTime();
                 TextureRegion region = spriteAnimado.getKeyFrame(timerAnimacion);
 
                 if (region.isFlipX()) {
-                    region.flip(true, false);
+                    region.flip(true,false);
                 }
 
-//                this.sprite.setPosition(sprite.getX() + 3 , sprite.getY());
                 this.sprite.setPosition(sprite.getX(), sprite.getY());
 
 
-                batch.draw(region, sprite.getX(), sprite.getY());
+
+                batch.draw(region,sprite.getX(),sprite.getY());
 
                 break;
 
             case MOV_IZQUIERDA:
+                this.mirandoA = Enemigo.mirndoA.IZQUIERDA;
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
                 region = spriteAnimado.getKeyFrame(timerAnimacion);
 
                 if (!region.isFlipX()) {
-                    region.flip(true, false);
+                    region.flip(true,false);
                 }
 
 //                this.sprite.setPosition(sprite.getX() - 3 , sprite.getY());
-                this.sprite.setPosition(sprite.getX() - 3, sprite.getY());
+                this.sprite.setPosition(sprite.getX() -3 , sprite.getY());
 
 
-                batch.draw(region, sprite.getX(), sprite.getY());
+
+                batch.draw(region,sprite.getX(),sprite.getY());
                 break;
             case ATACANDO:
 /*
@@ -194,21 +198,24 @@ public class Enemigo {
                 break;
 
 
+
+
+
         }
     }
 
-    public void comportamiento(String random) {
+    public void comportamiento(String random){
         //System.out.println(estadosEnemigo);
         char rngChar = (random.toCharArray())[7];
         int rng = Integer.parseInt(String.valueOf(rngChar));
         //System.out.println(rng);
-        if (aturdido) {
+        if (aturdido){
             //System.out.println(framesAturdidos);
-            aturdir(rng * 5);
+            aturdir(rng*5);
         } else if (framesAtacando > 0) {
             estadosEnemigo = EstadosEnemigo.ATACANDO;
             framesAtacando -= 1;
-        } else {
+        }else{
 
             float leftX = personaje.getX();
             float rightX = leftX + personaje.getSprite().getWidth();
@@ -222,62 +229,48 @@ public class Enemigo {
                 aturdido = true;
                 framesAtacando = 60;
 
-            }
+                }
         }
     }
 
     private void aturdir(int rng) {
         estadosEnemigo = EstadosEnemigo.NEUTRAL;
-        if (framesAturdidos <= -1) {
+        if (framesAturdidos <= -1 ){
             this.framesAturdidos = rng;
         } else if (framesAturdidos == 0) {
             this.aturdido = false;
             estadosEnemigo = nextEstadoEnemigo;
         }
         framesAturdidos -= 1;
-        // System.out.println(framesAturdidos);
+       // System.out.println(framesAturdidos);
     }
 
-    public float atacarJugador(int daño) {
+    public float atacarJugador(int daño){
 
         return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
     }
 
-    public void identificalAreaDeDaño(float rangoDeAtaque) {
-        //if (enemigo.getX )
 
-    }
-
-    private void seguirJugador() {
-
-    }
-
-    private void stun() {
-
-    }
-
-    public void recibirDaño(int daño) {
-        if (salud > 0) {
-            salud -= daño;
-        } else {
-        }
+    public void recibirDano (int dano){
+        salud -= dano;
     }
 
 
-    public void setMirandoA(mirandoA mira) {
+
+    public  void setMirandoA(mirandoA mira){
         this.mirandoA = mira;
     }
 
 
-    public mirandoA getMirandoA() {
+    public mirandoA getMirandoA(){
         return mirandoA;
     }
 
-    public void setEstadosEnemigo(EstadosEnemigo estado) {
+    public void setEstadosEnemigo(EstadosEnemigo estado){
         this.estadosEnemigo = estado;
     }
 
-    public EstadosEnemigo getEstadoEnemigo() {
+    public EstadosEnemigo getEstadoEnemigo(){
         return estadosEnemigo;
     }
 
@@ -285,7 +278,11 @@ public class Enemigo {
         return sprite;
     }
 
-    protected enum EstadosEnemigo {
+    public float getX(){
+        return sprite.getX();
+    }
+
+    protected enum EstadosEnemigo{
         NEUTRAL,
         ATACANDO,
         STUNNED,
@@ -319,12 +316,6 @@ public class Enemigo {
         x = bodyPersonaje.getPosition().x;
         y = bodyPersonaje.getPosition().y;
 
-
-/*
-        System.out.println(personaje.getX());
-        System.out.println(personaje.getEstadosPersonaje());
-        System.out.println(personaje.mirandoA);
-*/
         switch (getEstadoEnemigo()) {
             case MOV_DERECHA:
                 bodyPersonaje.setTransform(x + 5, y, 0);
