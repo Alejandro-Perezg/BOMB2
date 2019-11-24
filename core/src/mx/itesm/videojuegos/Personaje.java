@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud = 00;
+    private int salud = 100;
     private int daño;   //recibe
     private int poder;
     private float velocidad;

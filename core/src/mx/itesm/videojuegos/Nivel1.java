@@ -359,7 +359,7 @@ public class Nivel1  extends Nivel {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
-/*
+
                 for (int i = 0; i <arrayEnemigos.size(); i++){
                     //System.out.println(i);
                     //System.out.println(arrayEnemigos.get(i));
@@ -376,11 +376,9 @@ public class Nivel1  extends Nivel {
 
                 }
 
- */
 
 
 
-//                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
                 score = 10;
                 personaje.cargarPoder(20);
 
@@ -482,10 +480,14 @@ public class Nivel1  extends Nivel {
         //ACTUALIZAR NAVE
         personaje.actualizarPersonaje();
 
+        for (int i = 0; i <arrayEnemigos.size(); i++) {
+//            System.out.println(i);
+              arrayEnemigos.get(i).comportamiento(df.format(delta));
+              arrayEnemigos.get(i).actualizarEnemigo();
 
+        }
 
-
-       // eliminarEnemigosMuertos();
+        eliminarEnemigosMuertos();
 
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
