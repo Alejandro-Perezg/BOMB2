@@ -116,11 +116,6 @@ public class Nivel1  extends Nivel {
         return arrayEnemigos;
     }
 
-    public void setArrayEnemigos(ArrayList<Enemigo> listaRecibida){
-
-        this.arrayEnemigos = listaRecibida;
-
-    }
 
 
     Nivel1(Juego juego, Music musica) {
@@ -223,9 +218,9 @@ public class Nivel1  extends Nivel {
             System.out.println(i);
         }
 */
-        for (int i = arrayEnemigos.size(); i >0; i--){
+        for (int i = 0; i <arrayEnemigos.size(); i++){
             //System.out.println(arrayEnemigos.get(i-1));
-            arrayEnemigos.get(i-1).render(batch);
+            arrayEnemigos.get(i).render(batch);
         }
 
     }
@@ -258,12 +253,12 @@ public class Nivel1  extends Nivel {
         crearMundo();
         crearObjetos();
         reproducirMusica();
-        crearHUD();
         generarPersonaje();
         generarEnemigos();
         showSalud();
         showScore();
         showPoderListo();
+        crearHUD();
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
@@ -364,8 +359,9 @@ public class Nivel1  extends Nivel {
                 ////////////////////////////////////////////////////////////////
 
 
-                for (int i = arrayEnemigos.size(); i >0; i--){
-                    arrayEnemigos.get(i-1).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+                for (int i = 0; i <arrayEnemigos.size(); i++){
+                    System.out.println(arrayEnemigos.get(i));
+                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
                 }
 
 //                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
@@ -474,11 +470,12 @@ public class Nivel1  extends Nivel {
 
 
 
-        for (int i = arrayEnemigos.size(); i >0; i--){
-            arrayEnemigos.get(i-1).comportamiento(df.format(delta));
-            arrayEnemigos.get(i-1).actualizarEnemigo();
+        for (int i =0; i <arrayEnemigos.size(); i++){
+            arrayEnemigos.get(i).comportamiento(df.format(delta));
+            arrayEnemigos.get(i).actualizarEnemigo();
             eliminarEnemigosMuertos();
         }
+
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
         borrarPantalla();
