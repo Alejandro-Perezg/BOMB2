@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.security.PrivateKey;
-//TODO corregir musica en AcercaDe.
+
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;

@@ -53,20 +53,33 @@ public class ImpactManager {
             for(int i = 0; i < arrayEnemigos.size(); i++){
                 Enemigo enem = arrayEnemigos.get(i);
                 float left = enem.getX();
-                float right =left + enem.getSprite().getWidth();
-                if (right > areaDeAtaquePersonajeIzquierda || left < areaDeAtaquePersonajeDerecha) {
-                    if (right < areaDeAtaquePersonajeDerecha || left > areaDeAtaquePersonajeIzquierda) {
-                        // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
-                        //enem.recibirDano(10);
-                        System.out.println("POW!!");
-                    }
+                float right =left + 175;//enem.getSprite().getWidth();
+                if (right < areaDeAtaquePersonajeDerecha && right > areaDeAtaquePersonajeIzquierda ||
+                left > areaDeAtaquePersonajeIzquierda && left < areaDeAtaquePersonajeDerecha) {
+                    // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
+                    //enem.recibirDano(10);
+                    System.out.println( "\n"+ "PERSONAJE Left: " + areaDeAtaquePersonajeIzquierda);
+                    System.out.println("PERSONAJE Right: " + areaDeAtaquePersonajeDerecha);
+                    System.out.println("ENEMIGO: " + i + " Left: " + left);
+                    System.out.println("ENEMIGO: " + i + " Right: " + right + "\n");
                 }
 
             }
         }
 
         if (arrayEnemigosAtacando.size() > 0) {
-
+            for(int i = 0; i < arrayEnemigosAtacando.size(); i++){
+                if(arrayEnemigosAtacando.get(i).getEstadoEnemigo() == Enemigo.EstadosEnemigo.ATACANDO) {
+                    float left = personaje.getX();
+                    float right = left + personaje.getSprite().getWidth();
+                    if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
+                            left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
+                        // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
+                        //enem.recibirDano(10);
+                        System.out.println("pow");
+                    }
+                }
+            }
         }
 
     }
@@ -74,11 +87,11 @@ public class ImpactManager {
     private void crearAreaDeAtaqueEnemigo(Enemigo enem){
         float x = enem.getX();
         if (enem.getMirandoA() == Enemigo.mirandoA.DERECHA) {
-            areasDeAtaqueEnemigoIzquierda.add(x + enem.getSprite().getWidth()/2);
-            areasDeAtaqueEnemigoDerecha.add(x + rangoAtaqueEnemigo + enem.getSprite().getWidth());
+            areasDeAtaqueEnemigoIzquierda.add(x + 175/2);//enem.getSprite().getWidth()/2);
+            areasDeAtaqueEnemigoDerecha.add(x + rangoAtaqueEnemigo + 175);//enem.getSprite().getWidth());
         } else{
             areasDeAtaqueEnemigoIzquierda.add(x  - rangoAtaqueEnemigo);
-            areasDeAtaqueEnemigoDerecha.add( x + enem.getSprite().getWidth()/2);
+            areasDeAtaqueEnemigoDerecha.add( x + 175/5);//enem.getSprite().getWidth()/2);
         }
 
     }

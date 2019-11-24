@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-//TODO Agregar la pausa en el nivel principal.
 
 import static mx.itesm.videojuegos.Pantalla.ALTO;
 import static mx.itesm.videojuegos.Pantalla.ANCHO;

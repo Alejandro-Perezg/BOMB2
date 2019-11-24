@@ -148,7 +148,6 @@ public class Nivel1  extends Nivel {
             phase1 = true;
         }
 
-        System.out.println(arrayEnemigos);
 
 
     }
@@ -368,8 +367,8 @@ public class Nivel1  extends Nivel {
                     ////////
 
                     //AQUI SE CALCULAN LAS COLISIONES
-                    System.out.println(i);
-                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+                    //System.out.println(i);
+                    //arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
 
 
                     ////////
@@ -481,6 +480,7 @@ public class Nivel1  extends Nivel {
         personaje.actualizarPersonaje();
 
         for (int i = 0; i <arrayEnemigos.size(); i++) {
+            //arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.ATACANDO);
 //            System.out.println(i);
               arrayEnemigos.get(i).comportamiento(df.format(delta));
               arrayEnemigos.get(i).actualizarEnemigo();
@@ -489,8 +489,7 @@ public class Nivel1  extends Nivel {
 
         eliminarEnemigosMuertos();
 
-        //enemigo.comportamiento(df.format(delta)); //Func act enemigos
-
+        //TODO arreglar problema de caida de framrete
         impactManager.revisarAtaques();
 
         borrarPantalla();
@@ -511,6 +510,7 @@ public class Nivel1  extends Nivel {
 
         if (estado == EstadosNivel.PAUSA) {
             escenaPausa.draw();
+
             if (!escenaPausa.isActive()) {
                 estado = EstadosNivel.NORMAL;
                 escenaPausa.setActive(true);
@@ -518,12 +518,13 @@ public class Nivel1  extends Nivel {
                 escenaPausa.dispose();
                 Gdx.input.setInputProcessor(escenaHUD);
             }
-        }
-        escenaHUD.draw();
-        batch.begin();
-        spritePalanca.draw(batch);
+        } else {
+            escenaHUD.draw();
+            batch.begin();
+            spritePalanca.draw(batch);
 
-        batch.end();
+            batch.end();
+        }
 
 
         mundo.step(1 / 60f, 6, 2);
