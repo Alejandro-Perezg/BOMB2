@@ -67,6 +67,10 @@ public class Nivel1  extends Nivel {
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
 
+    private Texture barraSaludArriba;
+    private Texture barraSaludAbajo;
+
+
     //palanca
     private Texture texturaPalanca;
     private Sprite spritePalanca;
@@ -108,15 +112,7 @@ public class Nivel1  extends Nivel {
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
 
-    public  ArrayList<Enemigo> getArrayEnemigos(){
-        return arrayEnemigos;
-    }
 
-    public void setArrayEnemigos(ArrayList<Enemigo> listaRecibida){
-
-        this.arrayEnemigos = listaRecibida;
-
-    }
 
 
     Nivel1(Juego juego, Music musica) {
@@ -162,6 +158,10 @@ public class Nivel1  extends Nivel {
 
 
     public void showSalud() {
+        ///AGREGAR PROCEDURAL PIXMAP...
+
+        barraSaludArriba = personaje.crearbarraSalud();
+        barraSaludAbajo = personaje.crearBarraSaludAtras();
 
         salud = new Texto();
 
@@ -173,6 +173,7 @@ public class Nivel1  extends Nivel {
     }
 
     public void showPoderListo() {
+        ////AGREGAR PROCEDURAL PIXMAP
         poderListo = new Texto();
     }
 
@@ -180,7 +181,9 @@ public class Nivel1  extends Nivel {
     public void renderSalud(SpriteBatch batch) {
         int saludInt = personaje.getSalud();
 
-        salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
+        //salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
+        batch.draw(barraSaludAbajo,50,700);
+        batch.draw(barraSaludArriba,50,700);
 
     }
 
@@ -212,9 +215,9 @@ public class Nivel1  extends Nivel {
             System.out.println(i);
         }
 */
-        for (int i = arrayEnemigos.size(); i >0; i--){
+        for (int i = 0; i <arrayEnemigos.size(); i++){
             //System.out.println(arrayEnemigos.get(i-1));
-            arrayEnemigos.get(i-1).render(batch);
+            arrayEnemigos.get(i).render(batch);
         }
 
     }
@@ -247,12 +250,12 @@ public class Nivel1  extends Nivel {
         crearMundo();
         crearObjetos();
         reproducirMusica();
-        crearHUD();
         generarPersonaje();
         generarEnemigos();
         showSalud();
         showScore();
         showPoderListo();
+        crearHUD();
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
@@ -261,6 +264,8 @@ public class Nivel1  extends Nivel {
     }
 
     private void crearHUD() {
+
+
 
         escenaHUD = new Stage(vista);
         //BOTON pausa.
@@ -350,10 +355,23 @@ public class Nivel1  extends Nivel {
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
 
+                for (int i = 0; i <arrayEnemigos.size(); i++){
+                    //System.out.println(i);
+                    //System.out.println(arrayEnemigos.get(i));
+                    //System.out.println(arrayEnemigos.get(i).getEstadoEnemigo());
 
-                for (int i = arrayEnemigos.size(); i >0; i--){
-                    arrayEnemigos.get(i-1).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+                    ////////
+
+                    //AQUI SE CALCULAN LAS COLISIONES
+                    System.out.println(i);
+                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+
+
+                    ////////
+
                 }
+
+
 
 //                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
                 score = 10;
@@ -460,12 +478,8 @@ public class Nivel1  extends Nivel {
 
 
 
+        eliminarEnemigosMuertos();
 
-        for (int i = arrayEnemigos.size(); i >0; i--){
-            arrayEnemigos.get(i-1).comportamiento(df.format(delta));
-            arrayEnemigos.get(i-1).actualizarEnemigo();
-            eliminarEnemigosMuertos();
-        }
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
         borrarPantalla();
@@ -593,13 +607,19 @@ public class Nivel1  extends Nivel {
     */
 
     public void eliminarEnemigosMuertos(){
-        for (int i = 1; i<=  arrayEnemigos.size(); i++) {
+
+
+
+        for (int i = 0; i <  arrayEnemigos.size(); i++) {
             //System.out.println(arrayEnemigos.get(i-1));
             //System.out.println(i-1);
+            //System.out.println(arrayEnemigos.size());
+            //System.out.println(i);
 
-            if (arrayEnemigos.get(i-1).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
-                arrayEnemigos.remove(i-1);
+            if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
+                arrayEnemigos.remove(i);
             }
+
         }
     }
 

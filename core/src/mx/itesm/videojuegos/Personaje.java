@@ -2,6 +2,7 @@ package mx.itesm.videojuegos;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud = 100;
+    private int salud = 00;
     private int daño;   //recibe
     private int poder;
     private float velocidad;
@@ -329,7 +330,30 @@ public class Personaje {
         }
     }
 
+    public Texture crearBarraSaludAtras(){
+
+        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(1,0,0,1);
+
+        pixmap.fillRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        Texture textura = new Texture(pixmap);
+        pixmap.dispose();
+        return textura;
+    }
 
 
+    public Texture crearbarraSalud() {
+
+
+        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(0,1,0,1);
+
+        pixmap.fillRectangle(0 , 0, salud*2, pixmap.getHeight());
+        Texture textura = new Texture(pixmap);
+        pixmap.dispose();
+        return textura;
+    }
 
 }
