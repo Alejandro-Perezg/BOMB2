@@ -41,22 +41,12 @@ public class PantallaNivel extends Pantalla {
     @Override
     public void show() {
         AssetManager manager = new AssetManager();
-        configurarVista();
         cargarTexturas();
         cargarAudios(manager);
         crearHUD();
 
     }
 
-    private void configurarVista() {
-        camara = new OrthographicCamera();
-        camara.position.set(ANCHO/2,ALTO/2,0);
-        camara.update();
-
-        vista = new StretchViewport(ANCHO, ALTO, camara);
-
-        batch = new SpriteBatch(); //administra los trazos.
-    }
 
     private void crearHUD() {
         escenaMenuNivel = new Stage(vista);

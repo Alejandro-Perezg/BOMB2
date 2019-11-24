@@ -34,7 +34,7 @@ public abstract class Pantalla implements Screen
         camara.position.set(ANCHO / 2, ALTO / 2, 0);
         camara.update();
         // La vista que escala los elementos gráficos
-        vista = new ExtendViewport(ANCHO, ALTO, camara);
+        vista = new StretchViewport(ANCHO, ALTO, camara);
         // El objeto que administra los trazos gráficos
         batch = new SpriteBatch();
     }
