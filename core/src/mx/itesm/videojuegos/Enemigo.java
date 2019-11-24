@@ -309,6 +309,8 @@ public class Enemigo {
 
     }
 
+
+
     public void actualizarEnemigo() {
 
         x = bodyPersonaje.getPosition().x;

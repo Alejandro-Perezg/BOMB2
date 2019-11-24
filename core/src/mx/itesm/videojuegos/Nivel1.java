@@ -112,9 +112,6 @@ public class Nivel1  extends Nivel {
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
 
-    public  ArrayList<Enemigo> getArrayEnemigos(){
-        return arrayEnemigos;
-    }
 
 
 
@@ -358,11 +355,23 @@ public class Nivel1  extends Nivel {
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
 
-
                 for (int i = 0; i <arrayEnemigos.size(); i++){
-                    System.out.println(arrayEnemigos.get(i));
+                    //System.out.println(i);
+                    //System.out.println(arrayEnemigos.get(i));
+                    //System.out.println(arrayEnemigos.get(i).getEstadoEnemigo());
+
+                    ////////
+
+                    //AQUI SE CALCULAN LAS COLISIONES
+                    System.out.println(i);
                     arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
+
+
+                    ////////
+
                 }
+
+
 
 //                enemigo.setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
                 score = 10;
@@ -469,12 +478,7 @@ public class Nivel1  extends Nivel {
 
 
 
-
-        for (int i =0; i <arrayEnemigos.size(); i++){
-            arrayEnemigos.get(i).comportamiento(df.format(delta));
-            arrayEnemigos.get(i).actualizarEnemigo();
-            eliminarEnemigosMuertos();
-        }
+        eliminarEnemigosMuertos();
 
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
 
@@ -603,13 +607,19 @@ public class Nivel1  extends Nivel {
     */
 
     public void eliminarEnemigosMuertos(){
-        for (int i = 1; i<=  arrayEnemigos.size(); i++) {
+
+
+
+        for (int i = 0; i <  arrayEnemigos.size(); i++) {
             //System.out.println(arrayEnemigos.get(i-1));
             //System.out.println(i-1);
+            //System.out.println(arrayEnemigos.size());
+            //System.out.println(i);
 
-            if (arrayEnemigos.get(i-1).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
-                arrayEnemigos.remove(i-1);
+            if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
+                arrayEnemigos.remove(i);
             }
+
         }
     }
 
