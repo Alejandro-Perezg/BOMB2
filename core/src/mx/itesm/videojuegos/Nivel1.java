@@ -112,6 +112,8 @@ public class Nivel1  extends Nivel {
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
 
+    private ImpactManager impactManager;
+
 
 
 
@@ -252,6 +254,7 @@ public class Nivel1  extends Nivel {
         reproducirMusica();
         generarPersonaje();
         generarEnemigos();
+        impactManager = new ImpactManager(personaje, arrayEnemigos);
         showSalud();
         showScore();
         showPoderListo();
@@ -259,6 +262,8 @@ public class Nivel1  extends Nivel {
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
+
+      //  impactManager = new ImpactManager(personaje, arrayEnemigos);
 
 
     }
@@ -354,7 +359,7 @@ public class Nivel1  extends Nivel {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
-
+/*
                 for (int i = 0; i <arrayEnemigos.size(); i++){
                     //System.out.println(i);
                     //System.out.println(arrayEnemigos.get(i));
@@ -370,6 +375,8 @@ public class Nivel1  extends Nivel {
                     ////////
 
                 }
+
+ */
 
 
 
@@ -478,9 +485,11 @@ public class Nivel1  extends Nivel {
 
 
 
-        eliminarEnemigosMuertos();
+       // eliminarEnemigosMuertos();
 
         //enemigo.comportamiento(df.format(delta)); //Func act enemigos
+
+        impactManager.revisarAtaques();
 
         borrarPantalla();
 

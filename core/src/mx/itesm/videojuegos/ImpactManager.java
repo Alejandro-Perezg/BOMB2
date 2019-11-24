@@ -10,20 +10,21 @@ public class ImpactManager {
 
     //Enemigos
     private ArrayList<Enemigo> arrayEnemigos;
-    private ArrayList<Enemigo> arrayEnemigosAtacando;
+    private ArrayList<Enemigo> arrayEnemigosAtacando = new ArrayList<>();
 
     //rangos de ataque
-    private float rangoAtaquePersonaje = personaje.getSprite().getWidth() /2;
+    private float rangoAtaquePersonaje;
     private float areaDeAtaquePersonajeIzquierda;
     private float areaDeAtaquePersonajeDerecha;
     private float rangoAtaqueEnemigo = rangoAtaquePersonaje;
-    private ArrayList<Float> areasDeAtaqueEnemigoIzquierda;
-    private ArrayList<Float> areasDeAtaqueEnemigoDerecha;
+    private ArrayList<Float> areasDeAtaqueEnemigoIzquierda = new ArrayList<>();
+    private ArrayList<Float> areasDeAtaqueEnemigoDerecha = new ArrayList<>();
 
 
     public ImpactManager(Personaje personaje, ArrayList<Enemigo> arrayEnemigos){
         this.arrayEnemigos = arrayEnemigos;
         this.personaje = personaje;
+        this.rangoAtaquePersonaje = this.personaje.getSprite().getWidth() /2;
     }
 
     private void revisarEnemigosAtacando(){
@@ -53,8 +54,19 @@ public class ImpactManager {
                 Enemigo enem = arrayEnemigos.get(i);
                 float left = enem.getX();
                 float right =left + enem.getSprite().getWidth();
+                if (right > areaDeAtaquePersonajeIzquierda || left < areaDeAtaquePersonajeDerecha) {
+                    if (right < areaDeAtaquePersonajeDerecha || left > areaDeAtaquePersonajeIzquierda) {
+                        // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
+                        //enem.recibirDano(10);
+                        System.out.println("POW!!");
+                    }
+                }
 
             }
+        }
+
+        if (arrayEnemigosAtacando.size() > 0) {
+
         }
 
     }
