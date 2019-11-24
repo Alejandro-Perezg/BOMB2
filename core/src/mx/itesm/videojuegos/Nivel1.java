@@ -67,6 +67,10 @@ public class Nivel1  extends Nivel {
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
 
+    private Texture barraSaludArriba;
+    private Texture barraSaludAbajo;
+
+
     //palanca
     private Texture texturaPalanca;
     private Sprite spritePalanca;
@@ -162,6 +166,10 @@ public class Nivel1  extends Nivel {
 
 
     public void showSalud() {
+        ///AGREGAR PROCEDURAL PIXMAP...
+
+        barraSaludArriba = personaje.crearbarraSalud();
+        barraSaludAbajo = personaje.crearBarraSaludAtras();
 
         salud = new Texto();
 
@@ -173,6 +181,7 @@ public class Nivel1  extends Nivel {
     }
 
     public void showPoderListo() {
+        ////AGREGAR PROCEDURAL PIXMAP
         poderListo = new Texto();
     }
 
@@ -180,7 +189,9 @@ public class Nivel1  extends Nivel {
     public void renderSalud(SpriteBatch batch) {
         int saludInt = personaje.getSalud();
 
-        salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
+        //salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
+        batch.draw(barraSaludAbajo,50,700);
+        batch.draw(barraSaludArriba,50,700);
 
     }
 
@@ -261,6 +272,8 @@ public class Nivel1  extends Nivel {
     }
 
     private void crearHUD() {
+
+
 
         escenaHUD = new Stage(vista);
         //BOTON pausa.
