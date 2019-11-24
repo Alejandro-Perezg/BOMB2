@@ -54,7 +54,7 @@ public class Pausa extends Stage { ;
         //boton Salir
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
         ImageButton btnExit = new ImageButton(trdExit);
-        btnExit.setPosition(505, 105);
+        btnExit.setPosition(470, 200);
 
         btnExit.addListener(new ClickListener(){
                                      @Override
@@ -139,7 +139,7 @@ public class Pausa extends Stage { ;
 
         TextureRegionDrawable trdExit = new TextureRegionDrawable(new TextureRegion(new Texture("menus/btnExit.png")));
         ImageButton btnExit = new ImageButton(trdExit);
-        btnExit.setPosition(455, 134);
+        btnExit.setPosition(300, 400);
 
         btnExit.addListener(new ClickListener(){
                                 @Override
