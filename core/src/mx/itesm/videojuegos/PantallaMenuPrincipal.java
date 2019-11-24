@@ -90,7 +90,8 @@ class PantallaMenuPrincipal extends Pantalla{
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONES
-                                    juego.setScreen(new Nivel1(juego, musica));
+                                    juego.setScreen(new PantallaNivel(juego,musica));
+
                                 }
                             }
         );
