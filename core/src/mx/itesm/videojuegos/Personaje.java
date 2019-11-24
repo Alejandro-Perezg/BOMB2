@@ -70,7 +70,7 @@ public class Personaje {
         animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
         animacionDerecha = new Animation(0.3f, texturas[0][0]);
 
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(192, 389);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(220, 389);
         GOLPE = new Animation(0.1f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2],texturasGOLPES[0][3]);
 
         timerAnimacion = 0;
@@ -138,16 +138,6 @@ public class Personaje {
                 break;
 
             case NEUTRAL:
-
-                /*
-                //System.out.println("DIBUJANDO, NEUTERAL");
-                region = (TextureRegion) animacionDerecha.getKeyFrame(timerAnimacion) ;
-                batch.draw(region, sprite.getX(), sprite.getY());
-                sprite.draw(batch);
-                break;
-*/
-
-                //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
 

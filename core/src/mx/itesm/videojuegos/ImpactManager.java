@@ -76,7 +76,7 @@ public class ImpactManager {
                             left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
                         // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
                         //enem.recibirDano(10);
-                        System.out.println("pow");
+                        //System.out.println("pow");
                     }
                 }
             }

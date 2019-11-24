@@ -11,18 +11,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import static com.badlogic.gdx.Input.Keys.X;
-
 
 ///BODY
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 
@@ -49,11 +39,11 @@ public class Enemigo {
     private Sprite sprite;
     private TextureRegion texturaCompleta;
     private TextureRegion[][] texturas;
-    private Animation<TextureRegion> spriteAnimado;         // Animación caminando
+    private Animation<TextureRegion> animacionMoverse;         // Animación caminando
     private float timerAnimacion = 0;
     private Animation animacionDerecha;
 
-    private Animation<TextureRegion> GOLPE;
+    private Animation<TextureRegion> animacionGolpe;
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
 
@@ -108,14 +98,16 @@ public class Enemigo {
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
         TextureRegion[][] texturaEnemigo = texturaCompleta.split(175, 350);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(703, 355);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
 
-        spriteAnimado = new Animation<>(0.1f, texturaEnemigo[0][3], texturaEnemigo[0][3], texturaEnemigo[0][2], texturaEnemigo[0][2], texturaEnemigo[0][1], texturaEnemigo[0][1], texturaEnemigo[0][0]);
+        animacionMoverse = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
 
-        //GOLPE = new Animation<>(0.1f, texturasGOLPES[0][1], texturasGOLPES[0][2]);
+        animacionGolpe = new Animation<>(0.1f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
 
         // Animación infinita
-        spriteAnimado.setPlayMode(Animation.PlayMode.LOOP);
+        animacionMoverse.setPlayMode(Animation.PlayMode.LOOP);
+        animacionGolpe.setPlayMode(Animation.PlayMode.LOOP);
+
         // Inicia el timer que contará tiempo para saber qué frame se dibuja
 
 //        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
@@ -124,7 +116,7 @@ public class Enemigo {
         // Crea el sprite con el personaje quieto (idle)
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
         sprite.setPosition(x, 0);    // Posición inicial
-        this.estadosEnemigo = Enemigo.EstadosEnemigo.NEUTRAL;
+        this.estadosEnemigo = EstadosEnemigo.NEUTRAL;
 
     }
 
@@ -138,7 +130,7 @@ public class Enemigo {
             case MOV_DERECHA:
                 this.mirandoA = Enemigo.mirandoA.DERECHA;
                 timerAnimacion += Gdx.graphics.getDeltaTime();
-                TextureRegion region = spriteAnimado.getKeyFrame(timerAnimacion);
+                TextureRegion region = animacionMoverse.getKeyFrame(timerAnimacion);
 
                 if (region.isFlipX()) {
                     region.flip(true, false);
@@ -157,7 +149,7 @@ public class Enemigo {
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
-                region = spriteAnimado.getKeyFrame(timerAnimacion);
+                region = animacionMoverse.getKeyFrame(timerAnimacion);
 
                 if (!region.isFlipX()) {
                     region.flip(true, false);
@@ -170,9 +162,9 @@ public class Enemigo {
                 batch.draw(region, sprite.getX(), sprite.getY());
                 break;
             case ATACANDO:
-/*
+
                 timerAnimacion += Gdx.graphics.getDeltaTime();
-                region= GOLPE.getKeyFrame(timerAnimacion);
+                region= animacionGolpe.getKeyFrame(timerAnimacion);
 
                 if (mirandoA == mirandoA.IZQUIERDA) {
                     if (!region.isFlipX()) {
@@ -184,14 +176,11 @@ public class Enemigo {
                     }
                 }
                 batch.draw(region,sprite.getX(),sprite.getY());
-
- */
-                batch.draw(texturaCompleta, sprite.getX(), sprite.getY());
                 break;
 
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
-                region = spriteAnimado.getKeyFrame(timerAnimacion);
+                region = animacionMoverse.getKeyFrame(timerAnimacion);
                 batch.draw(region, sprite.getX(), sprite.getY());
                 sprite.draw(batch);
                 break;
