@@ -323,7 +323,7 @@ public class Personaje {
 
     public Texture crearBarraSaludAtras(){
 
-        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(300, 50, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(1,0,0,1);
 
@@ -337,11 +337,33 @@ public class Personaje {
     public Texture crearbarraSalud() {
 
 
-        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(300, 50, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(0,1,0,1);
 
-        pixmap.fillRectangle(0 , 0, salud*2, pixmap.getHeight());
+        pixmap.fillRectangle(0 , 0, salud*3, pixmap.getHeight());
+        Texture textura = new Texture(pixmap);
+        pixmap.dispose();
+        return textura;
+    }
+
+    public Texture crearBarraEnergiaAtras(){
+        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(1,0,0,1);
+
+        pixmap.fillRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        Texture textura = new Texture(pixmap);
+        pixmap.dispose();
+        return textura;
+    }
+
+    public Texture crearBarraEnergia(){
+        Pixmap pixmap = new Pixmap(200, 50, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(1,0,0,1);
+
+        pixmap.fillRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
         Texture textura = new Texture(pixmap);
         pixmap.dispose();
         return textura;

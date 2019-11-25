@@ -71,6 +71,9 @@ public class Nivel1  extends Nivel {
     private Texture barraSaludArriba;
     private Texture barraSaludAbajo;
 
+    private Texture barraEnergiaArriba;
+    private Texture barraEnergiaAbajo;
+
 
     //palanca
     private Texture texturaPalanca;
@@ -172,6 +175,7 @@ public class Nivel1  extends Nivel {
     public void showScore() {
 
         puntuacion = new Texto();
+
     }
 
     public void showPoderListo() {
@@ -184,13 +188,15 @@ public class Nivel1  extends Nivel {
         int saludInt = personaje.getSalud();
 
         //salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
-        batch.draw(barraSaludAbajo,50,700);
-        batch.draw(barraSaludArriba,50,700);
+        batch.draw(barraSaludAbajo,50,650);
+        batch.draw(barraSaludArriba,50,650);
 
     }
 
     public void renderScore(SpriteBatch batch) {
-        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 300, 700);
+        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 500, 700);
+
+
     }
 
     public void rendePoderListo(SpriteBatch batch) {
@@ -240,7 +246,7 @@ public class Nivel1  extends Nivel {
         impactManager = new ImpactManager(personaje, arrayEnemigos);
         showSalud();
         showScore();
-        showPoderListo();
+        //showPoderListo();
         crearHUD();
 
         spritePalanca = new Sprite(texturaPalanca);
@@ -489,7 +495,7 @@ public class Nivel1  extends Nivel {
         rendePersonaje(batch);
         renderSalud(batch);
         renderScore(batch);
-        rendePoderListo(batch);
+        //rendePoderListo(batch);
         renderEnemigo(batch); //Cambiar por array
         batch.end();
 
