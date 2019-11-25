@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 
 
 public class Juego extends Game {
@@ -21,6 +22,8 @@ public class Juego extends Game {
     public AssetManager getManager() {
         return manager;
     }
+
+
 }
 
 

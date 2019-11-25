@@ -1,5 +1,6 @@
 package mx.itesm.videojuegos;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -44,12 +46,12 @@ public class PantallaSeleccionNivel extends Pantalla {
         cargarTexturas();
         cargarAudios(manager);
         crearHUD();
-
     }
 
 
     private void crearHUD() {
         escenaMenuNivel = new Stage(vista);
+        escenaMenuNivel.addAction(Actions.fadeIn(0.5f));
         TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
         TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
@@ -70,6 +72,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                                   @Override
                                   public void clicked(InputEvent event, float x, float y) {
                                       super.clicked(event, x, y);
+
                                       //INSTRUCCIONE
                                       juego.setScreen(new Nivel1(juego,musica));
                                   }
@@ -79,13 +82,23 @@ public class PantallaSeleccionNivel extends Pantalla {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 //INSTRUCCIONE
-                juego.setScreen(new PantallaMenuPrincipal(juego,musica));
+                escenaMenuNivel.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaMenuPrincipal(juego,musica));
+                    }
+                })));
+
+
+               // juego.setScreen(new PantallaMenuPrincipal(juego,musica));
             }
         });
+
         escenaMenuNivel.addActor(btnNiv1);
         escenaMenuNivel.addActor(label);
         escenaMenuNivel.addActor(btnBack);
         escenaMenuNivel.addActor(btnNiv2);
+        escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         Gdx.input.setInputProcessor(escenaMenuNivel);
     }
 
@@ -122,7 +135,12 @@ public class PantallaSeleccionNivel extends Pantalla {
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
         batch.end();
+
+        escenaMenuNivel.act(Gdx.graphics.getDeltaTime());
+
         escenaMenuNivel.draw();
+
+
 
     }
 

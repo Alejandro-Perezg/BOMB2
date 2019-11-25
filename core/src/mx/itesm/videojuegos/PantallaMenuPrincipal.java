@@ -1,15 +1,17 @@
 package mx.itesm.videojuegos;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
@@ -90,7 +92,15 @@ class PantallaMenuPrincipal extends Pantalla{
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONES
-                                    juego.setScreen(new PantallaSeleccionNivel(juego,musica));
+
+                                    escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaSeleccionNivel(juego,musica));
+                                        }
+                                    })));
+                                    //juego.setScreen(new PantallaSeleccionNivel(juego,musica));
+
 
                                 }
                             }
@@ -101,7 +111,7 @@ class PantallaMenuPrincipal extends Pantalla{
              super.clicked(event, x, y);
              //INSTRUCCIONe
              musica.pause();
-             //float musicPosition = musica.getPosition();
+
              juego.setScreen(new PantallaAcercaDe(juego, musica));
              }
          }
@@ -119,11 +129,14 @@ class PantallaMenuPrincipal extends Pantalla{
              }
          }
         );
+
+        escenaHUD.addAction(Actions.fadeIn(1));
         escenaHUD.addActor(btnAcerecaDe);
         escenaHUD.addActor(btnJugar);
         escenaHUD.addActor(btnOpciones);
         Gdx.input.setInputProcessor(escenaHUD);
     }
+
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "menus/fondoMenu.png");
@@ -150,9 +163,12 @@ class PantallaMenuPrincipal extends Pantalla{
             }
 
         } else {
+            escenaHUD.act(Gdx.graphics.getDeltaTime());
             escenaHUD.draw();
+
         }
         System.out.println(estado);
+
 
     }
 
