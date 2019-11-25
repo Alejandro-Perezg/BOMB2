@@ -85,6 +85,7 @@ public class Personaje {
         System.out.println(toString());
     }
 
+
     public void render(SpriteBatch batch){
 
         // Dibuja el personaje dependiendo del estadoMovimiento
