@@ -108,11 +108,12 @@ public class Enemigo {
 
         animacionGolpe = new Animation<>(0.32f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
 
-        animacionStuned = new Animation<>(0.1f, texturaSTUNED[0][0],texturaSTUNED[0][1] ,texturaSTUNED[0][2],texturaSTUNED[0][3]);
+        animacionStuned  = new Animation<>(0.6f, texturaSTUNED[0][0], texturaSTUNED[0][1], texturaSTUNED[0][2], texturaSTUNED[0][3]);
 
         // Animación infinita
         animacionMoverse.setPlayMode(Animation.PlayMode.LOOP);
         animacionGolpe.setPlayMode(Animation.PlayMode.LOOP);
+        animacionStuned.setPlayMode(Animation.PlayMode.LOOP);
 
         // Inicia el timer que contará tiempo para saber qué frame se dibuja
         timerAnimacion = 0;
@@ -182,7 +183,8 @@ public class Enemigo {
                 break;
 
             case STUNNED:
-                batch.draw(texturaStuned,sprite.getX(),sprite.getY());
+                region = animacionStuned.getKeyFrame(timerAnimacion);
+                batch.draw(region, sprite.getX(), sprite.getY());
                 break;
 
             case NEUTRAL:

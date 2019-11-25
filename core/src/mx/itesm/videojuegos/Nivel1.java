@@ -457,8 +457,6 @@ public class Nivel1  extends Nivel {
         texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
 
         texturaPalanca = new Texture("Nivel/palanca.png");
-
-
     }
 
 
