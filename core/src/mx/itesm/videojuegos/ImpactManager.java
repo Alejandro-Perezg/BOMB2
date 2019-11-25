@@ -48,6 +48,8 @@ public class ImpactManager {
     public void revisarAtaques(){
         revisarPersonajeAtacando();
         revisarEnemigosAtacando();
+
+        //Revisa ataques personaje
         if (personajeAtacando) {
             crearAreaDeAtaquePersonaje();
             for(int i = 0; i < arrayEnemigos.size(); i++){
@@ -56,17 +58,21 @@ public class ImpactManager {
                 float right =left + 175;//enem.getSprite().getWidth();
                 if (right < areaDeAtaquePersonajeDerecha && right > areaDeAtaquePersonajeIzquierda ||
                 left > areaDeAtaquePersonajeIzquierda && left < areaDeAtaquePersonajeDerecha) {
-                    // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
-                    //enem.recibirDano(10);
+                    enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
+                    enem.recibirDano(10);
+                    /*
                     System.out.println( "\n"+ "PERSONAJE Left: " + areaDeAtaquePersonajeIzquierda);
                     System.out.println("PERSONAJE Right: " + areaDeAtaquePersonajeDerecha);
                     System.out.println("ENEMIGO: " + i + " Left: " + left);
                     System.out.println("ENEMIGO: " + i + " Right: " + right + "\n");
+
+                     */
                 }
 
             }
         }
 
+        //Revisa ataques enemigos
         if (arrayEnemigosAtacando.size() > 0) {
             for(int i = 0; i < arrayEnemigosAtacando.size(); i++){
                 if(arrayEnemigosAtacando.get(i).getEstadoEnemigo() == Enemigo.EstadosEnemigo.ATACANDO) {
@@ -74,7 +80,6 @@ public class ImpactManager {
                     float right = left + personaje.getSprite().getWidth();
                     if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
                             left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
-                        // enem.setEstadosEnemigo(Enemigo.EstadosEnemigo.STUNNED);
                         //enem.recibirDano(10);
                         //System.out.println("pow");
                     }

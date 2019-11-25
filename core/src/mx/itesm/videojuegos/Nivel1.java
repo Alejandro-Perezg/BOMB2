@@ -223,23 +223,6 @@ public class Nivel1  extends Nivel {
 
     }
 
-
-    public void generarZonaDeDaño() {
-        /*
-        float rangoDeAtaque = 0;
-        if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
-            rangoDeAtaque = enemigo.atacarJugador(fuerzaEnemigo);
-
-        }else if(personaje.estadosPersonaje == Personaje.EstadosPersonaje.ATACANDO){
-        rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
-
-    }
-        enemigo.identificalAreaDeDaño(rangoDeAtaque);
-        personaje.identificalAreaDeDaño(rangoDeAtaque);
-
-         */
-    }
-
     private void reproducirMusica() {
 
     }
@@ -474,6 +457,8 @@ public class Nivel1  extends Nivel {
     @Override
     public void render(float delta) {
         DecimalFormat df = new DecimalFormat("#.#############");
+
+
 
         //ACTUALIZAR NAVE
         personaje.actualizarPersonaje();

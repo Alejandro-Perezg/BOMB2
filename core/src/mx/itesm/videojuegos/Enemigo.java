@@ -21,16 +21,16 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Enemigo {
     //Stats
-    private int salud = 20;
-    private int daño;   //recibe
+    private int salud = 30;
     public float velocidad;
     private float rangoDeAtaque = 20;
     private float probabilidadAtaqueCritico;
     private float probabilidadAtaque;
     public int fuerza; //de daño/ ataque
-    private boolean aturdido = true;
+    private boolean retrasado = true;
     private int framesAturdidos = -1;
     private int framesAtacando = 0; //60;
+    private int framesStunned = -1;
     //FISICAS
     private Body body;
     private Box2DDebugRenderer debugRenderer;
@@ -48,25 +48,24 @@ public class Enemigo {
     private TextureRegion[][] texturasGOLPES;
 
     private Personaje personaje;
-// Tiempo para cambiar frames de la animación
+
+    //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
     EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
     static Enemigo.mirandoA mirandoA;
 
+    private boolean puedoRecibirDano = true;
 
-    ////
     //Body enemigoGenerado;
     public Body bodyPersonaje;
     BodyDef bodyDef = new BodyDef();
+    private float x;
+    private float y;
 
-
-    float x;
-    float y;
 
 
     public Enemigo(Texture textura, Texture textureAtacando, float x, int fuerzaPersonaje, Personaje personaje) {
         this.personaje = personaje;
-        daño = fuerzaPersonaje;
         cargarTexturas(textura,textureAtacando,x);
         cargarFisica();
 
@@ -100,18 +99,17 @@ public class Enemigo {
 
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
 
-        animacionMoverse = new Animation<>(0.2f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
+        animacionMoverse = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
 
-        animacionGolpe = new Animation<>(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
+        animacionGolpe = new Animation<>(0.32f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
+
+
 
         // Animación infinita
         animacionMoverse.setPlayMode(Animation.PlayMode.LOOP);
         animacionGolpe.setPlayMode(Animation.PlayMode.LOOP);
 
         // Inicia el timer que contará tiempo para saber qué frame se dibuja
-
-//        GOLPE.setPlayMode(Animation.PlayMode.LOOP);
-
         timerAnimacion = 0;
         // Crea el sprite con el personaje quieto (idle)
         sprite = new Sprite(texturaEnemigo[0][0]);    // QUIETO
@@ -178,6 +176,10 @@ public class Enemigo {
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
 
+            case STUNNED:
+                batch.draw(texturaCompletaGOLPE,sprite.getX(),sprite.getY());
+                break;
+
             case NEUTRAL:
                 //System.out.println("DIBUJANDO, NEUTERAL");
                 region = animacionMoverse.getKeyFrame(timerAnimacion);
@@ -189,14 +191,27 @@ public class Enemigo {
         }
     }
 
-    public void comportamiento(String random){
-        //System.out.println(estadosEnemigo);
+    public void comportamiento(String random) {
+        System.out.println("Salud enem: " + salud);
         char rngChar = (random.toCharArray())[7];
         int rng = Integer.parseInt(String.valueOf(rngChar));
-        //System.out.println(rng);
-        if (aturdido){
-            //System.out.println(framesAturdidos);
-            aturdir(rng * 5);
+        if (salud <= 0) {
+            estadosEnemigo = EstadosEnemigo.MUERTO;
+        } else if (estadosEnemigo == EstadosEnemigo.STUNNED) {
+            if (framesStunned <= -1) {
+                puedoRecibirDano = false;
+                framesStunned = 60;
+                retrasado = false;
+                framesAturdidos = -1;
+                framesAtacando = 0;
+            } else if (framesStunned == 0) {
+                estadosEnemigo = EstadosEnemigo.NEUTRAL;
+                puedoRecibirDano = true;
+            }
+
+            framesStunned -= 1;
+        } else if (retrasado) {
+            retrasar(rng * 5);
         } else if (framesAtacando > 0) {
             estadosEnemigo = EstadosEnemigo.ATACANDO;
             framesAtacando -= 1;
@@ -211,19 +226,18 @@ public class Enemigo {
                 this.estadosEnemigo = EstadosEnemigo.MOV_DERECHA;
             } else {
                 nextEstadoEnemigo = EstadosEnemigo.ATACANDO;
-                aturdido = true;
+                retrasado = true;
                 framesAtacando = 60;
-
             }
         }
     }
 
-    private void aturdir(int rng) {
+    private void retrasar(int rng) {
         estadosEnemigo = EstadosEnemigo.NEUTRAL;
         if (framesAturdidos <= -1) {
             this.framesAturdidos = rng;
         } else if (framesAturdidos == 0) {
-            this.aturdido = false;
+            this.retrasado = false;
             estadosEnemigo = nextEstadoEnemigo;
         }
         framesAturdidos -= 1;
@@ -237,7 +251,10 @@ public class Enemigo {
 
 
     public void recibirDano (int dano){
-        salud -= dano;
+        if (puedoRecibirDano) {
+            salud -= dano;
+        }
+
     }
 
 
