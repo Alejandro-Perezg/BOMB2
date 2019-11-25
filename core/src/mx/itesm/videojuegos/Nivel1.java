@@ -66,6 +66,7 @@ public class Nivel1  extends Nivel {
     private Texture TexturaPersonajeGolpe;
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
+    private Texture texturaEnemigoStuned;
 
     private Texture barraSaludArriba;
     private Texture barraSaludAbajo;
@@ -140,7 +141,7 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i < 5; i++) {
             System.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, 100*i, 20, personaje);
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,100*i, 20, personaje);
             enemigo.generateBodyEnemigo(mundo, 100*i);
             arrayEnemigos.add(enemigo);
 
@@ -447,6 +448,7 @@ public class Nivel1  extends Nivel {
         texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
 
         textureEnemigoAtacando = new Texture("sprites_enemigo1/enemigoGolpear.png");
+        texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
 
         texturaPalanca = new Texture("Nivel/palanca.png");
 

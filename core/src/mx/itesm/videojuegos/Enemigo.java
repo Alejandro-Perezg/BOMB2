@@ -45,6 +45,8 @@ public class Enemigo {
 
     private Animation<TextureRegion> animacionGolpe;
     private  TextureRegion texturaCompletaGOLPE;
+    private TextureRegion texturaStuned;
+    private Animation<TextureRegion> animacionStuned;
     private TextureRegion[][] texturasGOLPES;
 
     private Personaje personaje;
@@ -64,9 +66,9 @@ public class Enemigo {
 
 
 
-    public Enemigo(Texture textura, Texture textureAtacando, float x, int fuerzaPersonaje, Personaje personaje) {
+    public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje) {
         this.personaje = personaje;
-        cargarTexturas(textura,textureAtacando,x);
+        cargarTexturas(textura,textureAtacando,texturaEnemigoStuned, x);
         cargarFisica();
 
         //setMirandoA(mirandoA.DERECHA);
@@ -92,18 +94,21 @@ public class Enemigo {
 
     }
 
-    private void cargarTexturas(Texture textura, Texture texturaAtacando, float x) {
+    private void cargarTexturas(Texture textura, Texture texturaAtacando, Texture texturaEnemigoStuned, float x) {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
+        texturaStuned = new TextureRegion(texturaEnemigoStuned);
         TextureRegion[][] texturaEnemigo = texturaCompleta.split(175, 350);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
+
+        TextureRegion[][] texturaSTUNED = texturaStuned.split(175,350);
 
         animacionMoverse = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
 
         animacionGolpe = new Animation<>(0.32f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
 
-
+        animacionStuned = new Animation<>(0.1f, texturaSTUNED[0][0],texturaSTUNED[0][1] ,texturaSTUNED[0][2],texturaSTUNED[0][3]);
 
         // Animación infinita
         animacionMoverse.setPlayMode(Animation.PlayMode.LOOP);
@@ -177,7 +182,7 @@ public class Enemigo {
                 break;
 
             case STUNNED:
-                batch.draw(texturaCompletaGOLPE,sprite.getX(),sprite.getY());
+                batch.draw(texturaStuned,sprite.getX(),sprite.getY());
                 break;
 
             case NEUTRAL:
