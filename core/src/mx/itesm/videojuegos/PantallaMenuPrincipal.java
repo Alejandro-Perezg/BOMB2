@@ -10,8 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import java.security.PrivateKey;
-
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
@@ -92,7 +90,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONES
-                                    juego.setScreen(new PantallaNivel(juego,musica));
+                                    juego.setScreen(new PantallaSeleccionNivel(juego,musica));
 
                                 }
                             }

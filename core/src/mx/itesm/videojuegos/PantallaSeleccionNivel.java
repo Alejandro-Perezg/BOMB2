@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-public class PantallaNivel extends Pantalla {
+public class PantallaSeleccionNivel extends Pantalla {
 
     private final Juego juego;
 
@@ -32,7 +32,7 @@ public class PantallaNivel extends Pantalla {
     //AUDIO
     public Music musica;
 
-    public PantallaNivel(Juego juego, Music music){
+    public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
 
@@ -51,19 +51,20 @@ public class PantallaNivel extends Pantalla {
     private void crearHUD() {
         escenaMenuNivel = new Stage(vista);
         TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
+        TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
         TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
         TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
         TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
 
-        ImageButton btnBack = new ImageButton(Back);
+        ImageButton btnBack = new ImageButton(Back,BackPr);
         ImageButton btnNiv1= new ImageButton(btnN1);
         ImageButton btnNiv2 = new ImageButton(btnN2);
         ImageButton label = new ImageButton(Label);
 
-        label.setPosition(0,ALTO-label.getHeight()-100);
+        label.setPosition(10,ALTO-label.getHeight()-120);
         btnNiv1.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2);
-        btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-50);
-        btnBack.setPosition(0,ALTO-btnBack.getHeight());
+        btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-80);
+        btnBack.setPosition(10,ALTO-btnBack.getHeight()-20);
 
         btnNiv1.addListener(new ClickListener(){
                                   @Override

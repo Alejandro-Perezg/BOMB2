@@ -65,8 +65,8 @@ public class PantallaAcercaDe extends Pantalla {
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
-        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/back.png")));
-        TextureRegionDrawable trdBackPressed = new TextureRegionDrawable(new TextureRegion(new Texture("menus/backPressed.png")));
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
+        TextureRegionDrawable trdBackPressed = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
 
 
         final ImageButton btnBack = new ImageButton(trdBack,trdBackPressed);
