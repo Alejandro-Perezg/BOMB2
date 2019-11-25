@@ -70,19 +70,21 @@ class PantallaMenuPrincipal extends Pantalla{
 
         //Boton jugar
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
-        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca-de.png")));
+        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de.png")));
+        TextureRegionDrawable trdAcercaDePr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de_pr.png")));
         TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
+        TextureRegionDrawable trdOpcionesPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones_pr.png")));
 
         TextureRegionDrawable trdJugarPre = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar_pr.png")));
 
         ImageButton btnJugar = new ImageButton(trdJugar,trdJugarPre);
-        ImageButton btnAcerecaDe = new ImageButton(trdAcercaDe);
-        ImageButton btnOpciones = new ImageButton(trdOpciones);
+        ImageButton btnAcerecaDe = new ImageButton(trdAcercaDe,trdAcercaDePr);
+        ImageButton btnOpciones = new ImageButton(trdOpciones,trdOpcionesPr);
 
 
-        btnJugar.setPosition(375, 500);
-        btnAcerecaDe.setPosition(375, 300);
-        btnOpciones.setPosition(385, 102);
+        btnJugar.setPosition(ANCHO/2 - (btnJugar.getWidth()/2), 550);
+        btnAcerecaDe.setPosition(ANCHO/2 - (btnAcerecaDe.getWidth()/2), 350);
+        btnOpciones.setPosition(ANCHO/2 - (btnOpciones.getWidth()/2), 150);
 
         //Evento de boton.
         btnJugar.addListener(new ClickListener(){
