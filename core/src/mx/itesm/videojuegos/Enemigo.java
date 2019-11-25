@@ -100,9 +100,9 @@ public class Enemigo {
 
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
 
-        animacionMoverse = new Animation<>(0.1f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
+        animacionMoverse = new Animation<>(0.2f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
 
-        animacionGolpe = new Animation<>(0.1f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
+        animacionGolpe = new Animation<>(0.2f, texturasGOLPES[0][0], texturasGOLPES[0][1],  texturasGOLPES[0][2],  texturasGOLPES[0][3]);
 
         // Animación infinita
         animacionMoverse.setPlayMode(Animation.PlayMode.LOOP);

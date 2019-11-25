@@ -275,7 +275,6 @@ public class Nivel1  extends Nivel {
         //BOTON pausa.
         TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausa.png")));
         TextureRegionDrawable trdPausaPressed = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausaPressed.png")));
-
         final ImageButton btnPausa = new ImageButton(trdPausa, trdPausaPressed);
         btnPausa.setPosition(ANCHO - btnPausa.getWidth(), ALTO - btnPausa.getHeight());
 

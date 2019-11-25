@@ -66,7 +66,7 @@ public class Personaje {
         this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
 
 
-        TextureRegion[][] texturas = texturaCompleta.split(174,396);
+        TextureRegion[][] texturas = texturaCompleta.split(220,389);
         animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
         animacionDerecha = new Animation(0.3f, texturas[0][0]);
 
