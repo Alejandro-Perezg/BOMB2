@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud = 999999999;
+    private int salud = 10000;
     private int daño;   //recibe
     private int poder;
     private float velocidad;
@@ -56,7 +56,7 @@ public class Personaje {
 
     static mirandoA mirandoA;
     private int framesStunned = 0;
-
+    private int framesRecovery = 0;
     public Personaje(Texture texture , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
@@ -152,6 +152,10 @@ public class Personaje {
                 }
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
+            case STUNNED:
+                batch.draw(texturaCompletaGOLPE, sprite.getX(), sprite.getY());
+                break;
+
         }
     }
 
@@ -192,8 +196,9 @@ public class Personaje {
 
 
     public void  setEstadosPersonaje(EstadosPersonaje estadosPersonaje){
-        this.estadosPersonaje = estadosPersonaje;
-
+        if (this.getEstadosPersonaje() != EstadosPersonaje.STUNNED) {
+            this.estadosPersonaje = estadosPersonaje;
+        }
     }
 
     public EstadosPersonaje getEstadosPersonaje(){
@@ -287,7 +292,13 @@ public class Personaje {
         this.framesStunned = frames;
     }
 
+    public int getFramesRecovery(){
+        return framesRecovery;
+    }
+
     public void actualizarPersonaje() {
+        System.out.println(getEstadosPersonaje());
+        System.out.println("Recovery Frames: " + framesRecovery);
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
 
@@ -295,7 +306,23 @@ public class Personaje {
 
         if (framesStunned > 0) {
             setEstadosPersonaje(EstadosPersonaje.STUNNED);
-        } else if(salud <= 0) estadosPersonaje = EstadosPersonaje.MUERTO;
+        }  else if(framesStunned == 0){
+            framesRecovery = 30;
+            framesStunned -= 1;
+            estadosPersonaje = EstadosPersonaje.NEUTRAL;
+        }
+
+        if (framesRecovery < 0) {
+            puedoRecibirDano = true;
+        } else{
+            framesRecovery -= 1;
+        }
+
+        if(salud <= 0){
+            estadosPersonaje = EstadosPersonaje.MUERTO;
+        }
+
+
         switch (getEstadosPersonaje()) {
             case STUNNED:
                 puedoRecibirDano = false;
@@ -313,6 +340,7 @@ public class Personaje {
                 break;
             case MUERTO:
                 bodyPersonaje.setTransform(-100, y, 0);
+                break;
         }
     }
 

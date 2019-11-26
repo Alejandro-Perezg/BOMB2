@@ -80,9 +80,11 @@ public class ImpactManager {
                     float right = left + personaje.getSprite().getWidth();
                     if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
                     left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
-                        personaje.recibirDano(5);
-                        personaje.setFramesStunned(15);
-                        personaje.setEstadosPersonaje(Personaje.EstadosPersonaje.STUNNED);
+                        if (personaje.getEstadosPersonaje() != Personaje.EstadosPersonaje.STUNNED && personaje.getFramesRecovery() < 0) {
+                            personaje.recibirDano(5);
+                            personaje.setFramesStunned(30);
+                            personaje.setEstadosPersonaje(Personaje.EstadosPersonaje.STUNNED);
+                        }
                     }
                 }
             }

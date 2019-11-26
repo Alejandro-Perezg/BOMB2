@@ -100,7 +100,7 @@ public class Enemigo {
         texturaStuned = new TextureRegion(texturaEnemigoStuned);
         TextureRegion[][] texturaEnemigo = texturaCompleta.split(207,355);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(215, 355);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
 
         TextureRegion[][] texturaSTUNED = texturaStuned.split(176,355);
 
@@ -217,7 +217,7 @@ public class Enemigo {
 
             framesStunned -= 1;
         } else if (retrasado) {
-           retrasar(rng * 5);
+            retrasar(rng * 1);
         } else if (framesAtacando > 0) {
             estadosEnemigo = EstadosEnemigo.ATACANDO;
             framesAtacando -= 1;
