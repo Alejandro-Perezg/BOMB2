@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud = 100;
+    private int salud = 999999999;
     private int daño;   //recibe
     private int poder;
     private float velocidad;
@@ -48,17 +48,14 @@ public class Personaje {
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
 
-
-
-
-
     public Body bodyPersonaje;
 
-
+    public boolean puedoRecibirDano;
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
     static mirandoA mirandoA;
+    private int framesStunned = 0;
 
     public Personaje(Texture texture , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
@@ -159,11 +156,7 @@ public class Personaje {
     }
 
 
-    public float atacar(int daño){
 
-        return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
-
-    }
 
     private void empujarEnemigo(){
 
@@ -208,10 +201,6 @@ public class Personaje {
         return estadosPersonaje;
     }
 
-
-    private void recibirDano(int dano){ //ESTO esta mal por que si llega a 0 con un ataque va a segiur vivo.
-        this.salud -= dano;
-    }
 
     public Sprite getSprite(){
         return sprite;
@@ -294,21 +283,25 @@ public class Personaje {
     }
 
 
+    public void setFramesStunned(int frames){
+        this.framesStunned = frames;
+    }
+
     public void actualizarPersonaje() {
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
 
         getSprite().setPosition(x - 5, y - 200f);
-    //    x = bodyPersonaje.getPosition().x;
-    //    y = bodyPersonaje.getPosition().y;
 
-
-/*
-        System.out.println(personaje.getX());
-        System.out.println(personaje.getEstadosPersonaje());
-        System.out.println(personaje.mirandoA);
-*/
+        if (framesStunned > 0) {
+            setEstadosPersonaje(EstadosPersonaje.STUNNED);
+        } else if(salud <= 0) estadosPersonaje = EstadosPersonaje.MUERTO;
         switch (getEstadosPersonaje()) {
+            case STUNNED:
+                puedoRecibirDano = false;
+                framesStunned -= 1;
+                break;
+
             case MOV_DERECHA:
                 bodyPersonaje.setTransform(x + 5, y, 0);
                 break;
@@ -318,6 +311,8 @@ public class Personaje {
                 break;
             case NEUTRAL:
                 break;
+            case MUERTO:
+                bodyPersonaje.setTransform(-100, y, 0);
         }
     }
 
@@ -345,6 +340,12 @@ public class Personaje {
         Texture textura = new Texture(pixmap);
         pixmap.dispose();
         return textura;
+    }
+
+    public void recibirDano(int dano){
+        if (puedoRecibirDano) {
+            salud -= dano;
+        }
     }
 
     public Texture crearBarraEnergiaAtras(){

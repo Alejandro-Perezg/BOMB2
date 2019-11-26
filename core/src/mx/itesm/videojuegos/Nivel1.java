@@ -300,7 +300,7 @@ public class Nivel1  extends Nivel {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 spritePalanca.setPosition((barraPalanca.getX() + centroPalanca) - 50, palancaY);
-                switch (personaje.estadosPersonaje) {
+                switch (personaje.getEstadosPersonaje()) {
                     case ATACANDO:
                         personaje.setEstadosPersonaje(ATACANDO);
                         break;
@@ -485,7 +485,6 @@ public class Nivel1  extends Nivel {
 
         eliminarEnemigosMuertos();
 
-        //TODO arreglar problema de caida de framrete
         impactManager.revisarAtaques();
 
         borrarPantalla();
@@ -586,32 +585,6 @@ public class Nivel1  extends Nivel {
 
     }
 
-    ////////se va a eliminar, implementar en enemigo
-
-    /*
-    private void generateBodyEnemigo() {
-        Body enemigoGenerado;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        enemigoGenerado = mundo.createBody(bodyDef);  //Objeto simulado.
-
-        enemyBodies.add(enemigoGenerado);
-        //System.out.println(enemyBodies.size()-1);
-
-    }
-*/
-////SE VA A ELIMINAR
-    /*
-    private void generateBodyPersonaje(){
-        //Body Def
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
-        bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
-    }
-    */
 
     public void eliminarEnemigosMuertos(){
 

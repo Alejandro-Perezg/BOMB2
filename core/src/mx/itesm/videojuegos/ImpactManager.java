@@ -79,9 +79,10 @@ public class ImpactManager {
                     float left = personaje.getX();
                     float right = left + personaje.getSprite().getWidth();
                     if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
-                            left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
-                        //enem.recibirDano(10);
-                        //System.out.println("pow");
+                    left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
+                        personaje.recibirDano(5);
+                        personaje.setFramesStunned(15);
+                        personaje.setEstadosPersonaje(Personaje.EstadosPersonaje.STUNNED);
                     }
                 }
             }

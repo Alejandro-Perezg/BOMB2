@@ -37,16 +37,6 @@ public abstract class Nivel extends Pantalla {
 
 
 
-    public void generarZonaDeDaño(){
-        float rangoDeAtaque = 0;
-        if(enemigo.estadosEnemigo == Enemigo.EstadosEnemigo.ATACANDO){
-           rangoDeAtaque = enemigo.atacarJugador(fuerzaEnemigo);
-
-        }else if(personaje.estadosPersonaje == Personaje.EstadosPersonaje.ATACANDO){
-            rangoDeAtaque = personaje.atacar(fuerzaPersonaje);
-
-        }
-    }
 
     private void reproducirMusica(){
 
