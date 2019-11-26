@@ -83,7 +83,7 @@ public class PantallaSeleccionNivel extends Pantalla {
         label.setPosition(10,ALTO-label.getHeight()-120);
         btnNiv1.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2);
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-80);
-        btnBack.setPosition(10,ALTO-btnBack.getHeight()-20);
+        btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
 
         btnNiv1.addListener(new ClickListener(){
                                   @Override
