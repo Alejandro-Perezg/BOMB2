@@ -167,6 +167,11 @@ public class Nivel1  extends Nivel {
 
     }
 
+    public void updateSalud(){
+        barraSaludArriba = personaje.crearbarraSalud();
+    }
+
+
     public void showScore() {
 
         puntuacion = new Texto();
@@ -483,8 +488,10 @@ public class Nivel1  extends Nivel {
             arrayItems.get(i).actualizarItem();
         }
 
-        eliminarEnemigosMuertos();
 
+        eliminarEnemigosMuertos();
+        eliminarItemsRecogidos();
+        updateSalud();
         impactManager.revisarAtaques();
 
         borrarPantalla();
@@ -596,11 +603,19 @@ public class Nivel1  extends Nivel {
 
             if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
                 arrayItems.add(new itemDropeado(10, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
-                System.out.println("aaaaaa");
+                //System.out.println("aaaaaa");
                 arrayEnemigos.remove(i);
 
             }
 
+        }
+    }
+    public void eliminarItemsRecogidos(){
+        for (int i = 0; i< arrayItems.size(); i++){
+            //System.out.println(arrayItems.get(i));
+            if (arrayItems.get(i).getxBody() == personaje.getX()){
+                arrayItems.remove(i);
+            }
         }
     }
 

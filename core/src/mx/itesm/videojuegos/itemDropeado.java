@@ -30,10 +30,12 @@ public class itemDropeado {
 
     public Body bodyItem;
 
-    float xBody;
-    float yBody;
+    private float xBody;
+    private float yBody;
 
-
+    public float getxBody(){
+        return xBody;
+    }
 
     public itemDropeado(int saludDeItem, Texture texture,World mundo, int x, int y) {
         this.saludDeItem = saludDeItem;

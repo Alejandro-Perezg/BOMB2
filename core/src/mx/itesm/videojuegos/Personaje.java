@@ -297,8 +297,13 @@ public class Personaje {
     }
 
     public void actualizarPersonaje() {
-        System.out.println(getEstadosPersonaje());
-        System.out.println("Recovery Frames: " + framesRecovery);
+        //System.out.println(getEstadosPersonaje());
+        //System.out.println("Recovery Frames: " + framesRecovery);
+
+        System.out.println("SALUD PERSONAJE" + salud);
+
+        salud = salud-20;
+
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
 
@@ -339,7 +344,7 @@ public class Personaje {
             case NEUTRAL:
                 break;
             case MUERTO:
-                bodyPersonaje.setTransform(-100, y, 0);
+                bodyPersonaje.setTransform(-1000, y, 0);
                 break;
         }
     }
@@ -364,7 +369,7 @@ public class Personaje {
 
         pixmap.setColor(0,1,0,1);
 
-        pixmap.fillRectangle(0 , 0, salud*3, pixmap.getHeight());
+        pixmap.fillRectangle(0 , 0, salud*3/10, pixmap.getHeight());
         Texture textura = new Texture(pixmap);
         pixmap.dispose();
         return textura;
