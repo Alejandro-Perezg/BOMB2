@@ -64,7 +64,7 @@ public class Enemigo {
     private float x;
     private float y;
 
-
+    public boolean frameDeAtaque = false;
 
     public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje) {
         this.personaje = personaje;
@@ -166,10 +166,9 @@ public class Enemigo {
                 batch.draw(region, sprite.getX(), sprite.getY());
                 break;
             case ATACANDO:
-
+                frameDeAtaque = false;
                 timerAnimacion += Gdx.graphics.getDeltaTime();
                 region= animacionGolpe.getKeyFrame(timerAnimacion);
-
                 if (mirandoA == mirandoA.IZQUIERDA) {
                     if (!region.isFlipX()) {
                         region.flip(true,false);
@@ -304,6 +303,10 @@ public class Enemigo {
     protected enum mirandoA {
         DERECHA,
         IZQUIERDA
+    }
+
+    public boolean getFraneDeAtaque(){
+        return frameDeAtaque;
     }
 
     public void generateBodyEnemigo(World mundo, int x) {

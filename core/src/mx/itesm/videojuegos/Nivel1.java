@@ -134,13 +134,13 @@ public class Nivel1  extends Nivel {
     }
 
     private void generarEnemigos() {
-
+        int spawn = 400;
 
         for (int i = 0; i < 5; i++) {
             System.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,100*i, 20, personaje);
-            enemigo.generateBodyEnemigo(mundo, 100*i);
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20, personaje);
+            enemigo.generateBodyEnemigo(mundo, spawn*i);
             arrayEnemigos.add(enemigo);
 
 
