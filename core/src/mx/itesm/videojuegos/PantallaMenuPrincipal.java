@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -67,24 +68,31 @@ class PantallaMenuPrincipal extends Pantalla{
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
+        escenaHUD.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
+
 
         //Boton jugar
+        TextureRegionDrawable trdTitle = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/title.png")));
         TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
         TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de.png")));
         TextureRegionDrawable trdAcercaDePr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de_pr.png")));
         TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
         TextureRegionDrawable trdOpcionesPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones_pr.png")));
-
         TextureRegionDrawable trdJugarPre = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar_pr.png")));
+        TextureRegionDrawable trdSalir = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/exit.png")));
 
         ImageButton btnJugar = new ImageButton(trdJugar,trdJugarPre);
         ImageButton btnAcerecaDe = new ImageButton(trdAcercaDe,trdAcercaDePr);
         ImageButton btnOpciones = new ImageButton(trdOpciones,trdOpcionesPr);
+        Image titulo = new Image(trdTitle);
+        ImageButton salir = new ImageButton(trdSalir);
 
 
-        btnJugar.setPosition(ANCHO/2 - (btnJugar.getWidth()/2), 550);
-        btnAcerecaDe.setPosition(ANCHO/2 - (btnAcerecaDe.getWidth()/2), 350);
-        btnOpciones.setPosition(ANCHO/2 - (btnOpciones.getWidth()/2), 150);
+        titulo.setPosition(ANCHO/2-(titulo.getWidth()/2), ALTO-titulo.getHeight()*2);
+        btnJugar.setPosition(ANCHO/2 - (btnJugar.getWidth()/2), ALTO/2);
+        btnAcerecaDe.setPosition(ANCHO/2 - (btnAcerecaDe.getWidth()/2), ALTO/2-btnAcerecaDe.getHeight()-25);
+        btnOpciones.setPosition(ANCHO/2 - (btnOpciones.getWidth()/2), ALTO/2-btnOpciones.getHeight()*2-50);
+        salir.setPosition(0,salir.getHeight()*3);
 
         //Evento de boton.
         btnJugar.addListener(new ClickListener(){
@@ -92,7 +100,7 @@ class PantallaMenuPrincipal extends Pantalla{
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONES
-
+                                    musica.pause();
                                     escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
@@ -112,8 +120,12 @@ class PantallaMenuPrincipal extends Pantalla{
              //INSTRUCCIONe
              musica.pause();
 
-             juego.setScreen(new PantallaAcercaDe(juego, musica));
-             }
+             escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                 @Override
+                 public void run() {
+                     ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaAcercaDe(juego,musica));
+                 }
+             })));             }
          }
         );
         btnOpciones.addListener(new ClickListener(){
@@ -129,11 +141,28 @@ class PantallaMenuPrincipal extends Pantalla{
              }
          }
         );
+        salir.addListener(new ClickListener(){
+                                     @Override
+                                     public void clicked(InputEvent event, float x, float y) {
+             super.clicked(event, x, y);
+             //INSTRUCCIONe
+             musica.pause();
 
-        escenaHUD.addAction(Actions.fadeIn(1));
+             escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                 @Override
+                 public void run() {
+                     Gdx.app.exit();
+                 }
+             })));             }
+                                 }
+        );
+
+
+        escenaHUD.addActor(titulo);
         escenaHUD.addActor(btnAcerecaDe);
         escenaHUD.addActor(btnJugar);
         escenaHUD.addActor(btnOpciones);
+        escenaHUD.addActor(salir);
         Gdx.input.setInputProcessor(escenaHUD);
     }
 

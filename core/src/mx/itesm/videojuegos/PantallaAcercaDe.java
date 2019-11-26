@@ -1,6 +1,7 @@
 package mx.itesm.videojuegos;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -78,7 +80,13 @@ public class PantallaAcercaDe extends Pantalla {
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    juego.setScreen(new PantallaMenuPrincipal(juego, musica));
+                                    escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaMenuPrincipal(juego,musica));
+                                        }
+                                    })));
+
                                 }
                             }
         );
@@ -97,6 +105,7 @@ public class PantallaAcercaDe extends Pantalla {
         batch.draw(texturaFondo, 0, 0);
         batch.draw(informacion, ANCHO/2-(informacion.getWidth()/2) , 2*ALTO/3 - 300);
         batch.end();
+        escenaHUD.act(Gdx.graphics.getDeltaTime());
         escenaHUD.draw();
     }
 

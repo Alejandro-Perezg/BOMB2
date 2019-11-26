@@ -44,14 +44,31 @@ public class PantallaSeleccionNivel extends Pantalla {
     public void show() {
         AssetManager manager = new AssetManager();
         cargarTexturas();
+        ajustarMusica();
         cargarAudios(manager);
         crearHUD();
     }
 
+        private void cargarAudios(AssetManager manager) {
+            if (musica == null) {
+                manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
+                manager.finishLoading();
+                musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
+                musica.setLooping(true);
+            }
+            if (juego.playMusic == true){
+                musica.play();
+            } if (juego.playMusic ==false){
+                musica.stop();
+            }
+
+        }
+
+
 
     private void crearHUD() {
         escenaMenuNivel = new Stage(vista);
-        escenaMenuNivel.addAction(Actions.fadeIn(0.5f));
+        escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
         TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
@@ -98,23 +115,16 @@ public class PantallaSeleccionNivel extends Pantalla {
         escenaMenuNivel.addActor(label);
         escenaMenuNivel.addActor(btnBack);
         escenaMenuNivel.addActor(btnNiv2);
-        escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         Gdx.input.setInputProcessor(escenaMenuNivel);
     }
 
 
 
-    private void cargarAudios(AssetManager manager) {
-        if (musica == null) {
-            manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
-            manager.finishLoading();
-            musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
-            musica.setLooping(true);
-        }
-        if (juego.playMusic == true){
+    private void ajustarMusica() {
+        System.out.println(this.juego.playMusic);
+        if (juego.playMusic == true) {
+
             musica.play();
-        } if (juego.playMusic ==false){
-            musica.stop();
         }
     }
 
