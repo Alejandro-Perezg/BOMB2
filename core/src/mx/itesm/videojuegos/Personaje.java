@@ -299,8 +299,8 @@ public class Personaje {
         float y = bodyPersonaje.getPosition().y;
 
         getSprite().setPosition(x - 5, y - 200f);
-        x = bodyPersonaje.getPosition().x;
-        y = bodyPersonaje.getPosition().y;
+    //    x = bodyPersonaje.getPosition().x;
+    //    y = bodyPersonaje.getPosition().y;
 
 
 /*

@@ -290,6 +290,7 @@ public class Enemigo {
     public float getX() {
         return this.sprite.getX();
     }
+    public float getY(){ return this.sprite.getY(); }
 
     protected enum EstadosEnemigo {
         NEUTRAL,
@@ -317,7 +318,7 @@ public class Enemigo {
 
 
 
-    public void actualizarEnemigo() {
+    public void actualizarEnemigo(World mundo) {
 
         //x = bodyPersonaje.getPosition().x;
         //y = bodyPersonaje.getPosition().y;
@@ -336,6 +337,8 @@ public class Enemigo {
                 bodyPersonaje.setTransform(x - 5, y, 0);
                 break;
             case NEUTRAL:
+                break;
+            case MUERTO:
                 break;
         }
     }

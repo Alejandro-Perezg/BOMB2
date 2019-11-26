@@ -20,8 +20,8 @@ public class itemDropeado {
 
     private int saludDeItem;
     private Sprite sprite;
-    private TextureRegion texturaCompleta;
-    private TextureRegion[][] texturas;
+
+    private Texture hearthTexture;
 
     private Animation animacion;    // Caminando
     private float timerAnimacion;   // tiempo para calcular el frame
@@ -30,29 +30,48 @@ public class itemDropeado {
 
     public Body bodyItem;
 
+    float xBody;
+    float yBody;
 
-    public itemDropeado(int saludDeItem, World mundo){
 
-        generateBodyItem(mundo);
+
+    public itemDropeado(int saludDeItem, Texture texture,World mundo, int x, int y) {
+        this.saludDeItem = saludDeItem;
+        this.hearthTexture = texture;
+        generateBodyItem(mundo,x, y );
 
     }
 
-
-
-    public void generateBodyItem(World mundo){
+    public void generateBodyItem(World mundo, int x, int y) {
         //Body Def
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(200, 200); //METROS
+        bodyDef.position.set(x, y); //METROS
 
         bodyItem = mundo.createBody(bodyDef);  //Objeto simulado.
 
     }
 
+    public void render(SpriteBatch batch){
+        batch.draw(hearthTexture, (int)xBody,20);
+    }
 
-    public void actualizarItem(){
+    public void actualizarItem() {
+        xBody = bodyItem.getPosition().x;
+        yBody = bodyItem.getPosition().y;
+
+
+
+        //bodyItem.setTransform(xBody, yBody, 0);
 
     }
 
+    private Sprite getSprite(){
+        return sprite;
+    }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

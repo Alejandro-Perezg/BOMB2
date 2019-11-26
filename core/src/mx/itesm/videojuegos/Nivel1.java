@@ -1,12 +1,9 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,12 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
 
 
 import com.badlogic.gdx.math.Vector2;
@@ -41,7 +33,6 @@ import java.util.ArrayList;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_DERECHA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
-import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MUERTO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 
@@ -73,6 +64,8 @@ public class Nivel1  extends Nivel {
 
     private Texture barraEnergiaArriba;
     private Texture barraEnergiaAbajo;
+
+    public Texture textureHearth;
 
 
     //palanca
@@ -115,6 +108,8 @@ public class Nivel1  extends Nivel {
 
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
+    private ArrayList<itemDropeado> arrayItems = new ArrayList<>();
+
 
     private ImpactManager impactManager;
 
@@ -228,6 +223,13 @@ public class Nivel1  extends Nivel {
             arrayEnemigos.get(i).render(batch);
         }
 
+    }
+
+    public void renderItems(){
+        for (int i = 0; i <arrayItems.size(); i++){
+            //System.out.println(arrayEnemigos.get(i-1));
+            arrayItems.get(i).render(batch);
+        }
     }
 
     private void reproducirMusica() {
@@ -457,14 +459,14 @@ public class Nivel1  extends Nivel {
         texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
 
         texturaPalanca = new Texture("Nivel/palanca.png");
+
+        textureHearth = new Texture("Nivel/heart_80x80.png");
     }
 
 
     @Override
     public void render(float delta) {
         DecimalFormat df = new DecimalFormat("#.#############");
-
-
 
         //ACTUALIZAR NAVE
         personaje.actualizarPersonaje();
@@ -473,8 +475,12 @@ public class Nivel1  extends Nivel {
             //arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.ATACANDO);
 //            System.out.println(i);
               arrayEnemigos.get(i).comportamiento(df.format(delta));
-              arrayEnemigos.get(i).actualizarEnemigo();
+              arrayEnemigos.get(i).actualizarEnemigo(mundo);
+        }
 
+        for (int i = 0; i < arrayItems.size(); i++){
+            System.out.println(arrayItems.get(i).toString());
+            arrayItems.get(i).actualizarItem();
         }
 
         eliminarEnemigosMuertos();
@@ -495,6 +501,9 @@ public class Nivel1  extends Nivel {
         renderScore(batch);
         //rendePoderListo(batch);
         renderEnemigo(batch); //Cambiar por array
+
+
+        renderItems();
         batch.end();
 
 
@@ -577,12 +586,10 @@ public class Nivel1  extends Nivel {
 
     }
 
-
     ////////se va a eliminar, implementar en enemigo
 
     /*
     private void generateBodyEnemigo() {
-
         Body enemigoGenerado;
 
         BodyDef bodyDef = new BodyDef();
@@ -595,7 +602,6 @@ public class Nivel1  extends Nivel {
 
     }
 */
-
 ////SE VA A ELIMINAR
     /*
     private void generateBodyPersonaje(){
@@ -604,13 +610,10 @@ public class Nivel1  extends Nivel {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(200, 200); //METROS
         bodyPersonaje = mundo.createBody(bodyDef);  //Objeto simulado.
-
     }
     */
 
     public void eliminarEnemigosMuertos(){
-
-
 
         for (int i = 0; i <  arrayEnemigos.size(); i++) {
             //System.out.println(arrayEnemigos.get(i-1));
@@ -619,7 +622,10 @@ public class Nivel1  extends Nivel {
             //System.out.println(i);
 
             if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
+                arrayItems.add(new itemDropeado(10, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
+                System.out.println("aaaaaa");
                 arrayEnemigos.remove(i);
+
             }
 
         }
