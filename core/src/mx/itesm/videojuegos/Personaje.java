@@ -54,13 +54,16 @@ public class Personaje {
 
     public Body bodyPersonaje;
 
-    public boolean puedoRecibirDano;
+    public boolean puedoRecibirDano = true;
+    public boolean estaRecuperado = true;
 
     EstadosPersonaje estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
     static mirandoA mirandoA;
     private int framesStunned = 0;
     private int framesRecovery = 0;
+
+
     public Personaje(Texture texture , Texture textureGolpe,Texture textureStuned,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
@@ -327,15 +330,18 @@ public class Personaje {
         if (framesStunned > 0) {
             setEstadosPersonaje(EstadosPersonaje.STUNNED);
         }  else if(framesStunned == 0){
-            framesRecovery = 10;
+            framesRecovery = 30;
             framesStunned -= 1;
             estadosPersonaje = EstadosPersonaje.NEUTRAL;
         }
 
         if (framesRecovery < 0) {
             puedoRecibirDano = true;
+            estaRecuperado = true;
         } else{
+          ///  estaRecuperado = false;
             framesRecovery -= 1;
+            System.out.println("Frames Recovery" + framesRecovery);
         }
 
         if(salud <= 0){
@@ -346,6 +352,7 @@ public class Personaje {
         switch (getEstadosPersonaje()) {
             case STUNNED:
                 puedoRecibirDano = false;
+                estaRecuperado = false;
                 framesStunned -= 1;
                 break;
 
@@ -401,6 +408,7 @@ public class Personaje {
 
     public void recibirDano(int dano){
         if (puedoRecibirDano) {
+            System.out.println("AUCH!");
             salud -= dano;
         }
     }

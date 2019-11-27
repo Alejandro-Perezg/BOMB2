@@ -181,7 +181,7 @@ public class Enemigo {
                     if (!region.isFlipX()) {
                         region.flip(true,false);
                     }
-                } else {
+                } else  if (mirandoA == mirandoA.DERECHA) {
                     if (region.isFlipX()) {
                         region.flip(true,false);
                     }

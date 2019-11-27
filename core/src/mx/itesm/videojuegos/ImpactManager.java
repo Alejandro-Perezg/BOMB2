@@ -81,7 +81,7 @@ public class ImpactManager {
                     float right = left + personaje.getSprite().getWidth();
                     if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
                     left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
-                        if (personaje.getEstadosPersonaje() != Personaje.EstadosPersonaje.STUNNED && personaje.getFramesRecovery() < 0) {
+                        if (personaje.getEstadosPersonaje() != Personaje.EstadosPersonaje.STUNNED && personaje.estaRecuperado) {
                             personaje.recibirDano(100);
                             personaje.setFramesStunned(20);
                             personaje.setEstadosPersonaje(Personaje.EstadosPersonaje.STUNNED);
@@ -96,11 +96,11 @@ public class ImpactManager {
     private void crearAreaDeAtaqueEnemigo(Enemigo enem){
         float x = enem.getX();
         if (enem.getMirandoA() == Enemigo.mirandoA.DERECHA) {
-            areasDeAtaqueEnemigoIzquierda.add(x + 175/2);//enem.getSprite().getWidth()/2);
-            areasDeAtaqueEnemigoDerecha.add(x + rangoAtaqueEnemigo + 175);//enem.getSprite().getWidth());
+            areasDeAtaqueEnemigoIzquierda.add(x + enem.getSprite().getWidth()/2);
+            areasDeAtaqueEnemigoDerecha.add(x + rangoAtaqueEnemigo + enem.getSprite().getWidth());
         } else{
             areasDeAtaqueEnemigoIzquierda.add(x  - rangoAtaqueEnemigo);
-            areasDeAtaqueEnemigoDerecha.add( x + 175/5);//enem.getSprite().getWidth()/2);
+            areasDeAtaqueEnemigoDerecha.add( x + enem.getSprite().getWidth()/2);
         }
 
     }
