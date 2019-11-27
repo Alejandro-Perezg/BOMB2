@@ -72,6 +72,7 @@ public class Enemigo {
 
     public boolean frameDeAtaque = false;
 
+
     public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje, Sound sonidoDefault, Sound sonidoDano) {
         this.personaje = personaje;
         cargarTexturas(textura,textureAtacando,texturaEnemigoStuned, x);
@@ -141,7 +142,7 @@ public class Enemigo {
 
         switch (estadosEnemigo) {
             case MOV_DERECHA:
-                this.mirandoA = Enemigo.mirandoA.DERECHA;
+                this.mirandoA = this.mirandoA.DERECHA;
                 timerAnimacion += Gdx.graphics.getDeltaTime();
                 TextureRegion region = animacionMoverse.getKeyFrame(timerAnimacion);
 
@@ -158,7 +159,7 @@ public class Enemigo {
                 break;
 
             case MOV_IZQUIERDA:
-                this.mirandoA = Enemigo.mirandoA.IZQUIERDA;
+
                 //System.out.println("Dibujando, moviendo" );
 
                 timerAnimacion += Gdx.graphics.getDeltaTime();
@@ -237,7 +238,7 @@ public class Enemigo {
 
             framesStunned -= 1;
         } else if (retrasado) {
-            retrasar(rng * 1);
+            retrasar(rng);
         } else if (framesAtacando > 0) {
             estadosEnemigo = EstadosEnemigo.ATACANDO;
             framesAtacando -= 1;
@@ -247,8 +248,11 @@ public class Enemigo {
             float rightX = leftX + personaje.getSprite().getWidth();
 
             if ((sprite.getX() > rightX)) {
+                mirandoA = MirandoA.IZQUIERDA;
                 this.estadosEnemigo = EstadosEnemigo.MOV_IZQUIERDA;
+
             } else if (sprite.getX() + sprite.getWidth() < leftX) {
+                mirandoA = MirandoA.IZQUIERDA;
                 this.estadosEnemigo = EstadosEnemigo.MOV_DERECHA;
             } else {
                 nextEstadoEnemigo = EstadosEnemigo.ATACANDO;
@@ -281,12 +285,12 @@ public class Enemigo {
 
 
 
-    public void setMirandoA(mirandoA mira) {
+    public void setMirandoA(MirandoA mira) {
         this.mirandoA = mira;
     }
 
 
-    public mirandoA getMirandoA() {
+    public MirandoA getMirandoA() {
         return mirandoA;
     }
 
@@ -317,7 +321,7 @@ public class Enemigo {
         PAUSADO
     }
 
-    protected enum mirandoA {
+    protected enum MirandoA {
         DERECHA,
         IZQUIERDA
     }

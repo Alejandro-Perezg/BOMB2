@@ -25,7 +25,7 @@ public class ImpactManager {
     public ImpactManager(Personaje personaje, ArrayList<Enemigo> arrayEnemigos){
         this.arrayEnemigos = arrayEnemigos;
         this.personaje = personaje;
-        this.rangoAtaquePersonaje = this.personaje.getSprite().getWidth() /2;
+        this.rangoAtaquePersonaje = this.personaje.getSprite().getWidth() /4;
     }
 
     private void revisarEnemigosAtacando(){
@@ -95,7 +95,7 @@ public class ImpactManager {
 
     private void crearAreaDeAtaqueEnemigo(Enemigo enem){
         float x = enem.getX();
-        if (enem.getMirandoA() == Enemigo.mirandoA.DERECHA) {
+        if (enem.getMirandoA() == Enemigo.MirandoA.DERECHA) {
             areasDeAtaqueEnemigoIzquierda.add(x + enem.getSprite().getWidth()/2);
             areasDeAtaqueEnemigoDerecha.add(x + rangoAtaqueEnemigo + enem.getSprite().getWidth());
         } else{

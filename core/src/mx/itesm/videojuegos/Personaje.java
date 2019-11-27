@@ -352,7 +352,7 @@ public class Personaje {
         } else{
           ///  estaRecuperado = false;
             framesRecovery -= 1;
-            System.out.println("Frames Recovery" + framesRecovery);
+           // System.out.println("Frames Recovery" + framesRecovery);
         }
 
         if(salud <= 0){
@@ -419,7 +419,6 @@ public class Personaje {
 
     public void recibirDano(int dano){
         if (puedoRecibirDano) {
-            System.out.println("AUCH!");
             salud -= dano;
         }
     }

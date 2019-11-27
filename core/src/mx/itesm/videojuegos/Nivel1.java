@@ -173,7 +173,7 @@ public class Nivel1  extends Nivel {
             case PHASE1:
                 if(arrayEnemigos.size()<3) {
                     System.out.println("PHASE1");
-                    generarEnemigos(3);
+                    generarEnemigos(1);
                     setphase(getPhase().PHASE2);
                 }
                 break;
@@ -538,6 +538,7 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i <arrayEnemigos.size(); i++) {
               arrayEnemigos.get(i).comportamiento(df.format(delta));
               arrayEnemigos.get(i).actualizarEnemigo(mundo);
+           // System.out.println("Enemigo: " + i + "Mirando a: " + arrayEnemigos.get(i).getMirandoA());
         }
 
         for (int i = 0; i < arrayItems.size(); i++){
