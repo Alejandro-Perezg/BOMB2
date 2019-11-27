@@ -484,6 +484,7 @@ public class Nivel1  extends Nivel {
     }
 
 
+
     @Override
     public void render(float delta) {
         DecimalFormat df = new DecimalFormat("#.#############");
