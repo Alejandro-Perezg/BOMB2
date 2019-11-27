@@ -171,28 +171,32 @@ public class Nivel1  extends Nivel {
     public void phaseManager(){
         switch (phaseJuego) {
             case PHASE1:
-                if(arrayEnemigos.size()<3) {
+                if(arrayEnemigos.size()<0) {
                     System.out.println("PHASE1");
-                    generarEnemigos(3);
+                    generarEnemigos(1);
                     setphase(getPhase().PHASE2);
                 }
                 break;
+
             case PHASE2:
                 if(arrayEnemigos.size()<3) {
 
                     System.out.println("PHASE2");
                     generarEnemigos(3);
                     setphase(getPhase().PHASE3);
+
                 }
                 break;
+
             case PHASE3:
                 if(arrayEnemigos.size()<3) {
 
                     System.out.println("PHASE3");
                     generarEnemigos(3);
                     setphase(getPhase().PHASE4);
+                }
+                break;
 
-                }break;
             case PHASE4:
                 if(arrayEnemigos.size()<3) {
 
@@ -298,7 +302,7 @@ public class Nivel1  extends Nivel {
         reproducirMusica();
         cargarSFX();
         generarPersonaje();
-        generarEnemigos(5);
+        generarEnemigos(4);
         impactManager = new ImpactManager(personaje, arrayEnemigos);
         showSalud();
         showScore();
@@ -659,7 +663,7 @@ public class Nivel1  extends Nivel {
     public void eliminarItemsRecogidos(){
         for (int i = 0; i< arrayItems.size(); i++){
             //System.out.println(arrayItems.get(i));
-            if (arrayItems.get(i).getxBody() == personaje.getX()){
+            if (arrayItems.get(i).getxBody() < personaje.getX()-20 && personaje.getX() < arrayItems.get(i).getxBody()+100){
                 personaje.curarPersonaje(arrayItems.get(i).getSaludDeItem());
                 arrayItems.remove(i);
             }
