@@ -82,6 +82,7 @@ public class Enemigo {
         //setMirandoA(mirandoA.DERECHA);
         setMirandoA(mirandoA.DERECHA);
 
+
     }
 
     public void cargarFisica() {
