@@ -317,9 +317,7 @@ public class Personaje {
     public void actualizarPersonaje() {
         //System.out.println(getEstadosPersonaje());
         //System.out.println("Recovery Frames: " + framesRecovery);
-        System.out.println("Salud Personaje: " + salud);
-
-
+        //System.out.println("Salud Personaje: " + salud);
 
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;

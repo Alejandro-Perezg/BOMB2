@@ -91,9 +91,7 @@ public class Nivel1  extends Nivel {
     private static final float RADIO = 15f;
     private World mundo; // Mundo paralelo donde se aplica la física.
 
-
     private Box2DDebugRenderer debugRenderer;
-
 
     /////TEXTOSSSS/////////
 
@@ -102,12 +100,19 @@ public class Nivel1  extends Nivel {
     private Texto poderListo;
 
 
-    private boolean phase1 = false;
-    private boolean phase2 = false;
-    private boolean phase3 = false;
-    private boolean phase4 = false;
+    public enum phase{
+        PHASE1,
+        PHASE2,
+        PHASE3,
+        PHASE4,
+        fin
+    }
 
+    phase phaseJuego = phase.PHASE1;
 
+    public void setphase(phase phase){
+        this.phaseJuego = phase;
+    }
 
 
     /////////ARRAY DE ENEMIGOS
@@ -136,10 +141,10 @@ public class Nivel1  extends Nivel {
 
     }
 
-    private void generarEnemigos() {
+    private void generarEnemigos(int cantidad) {
         int spawn = 400;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
             enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20, personaje, sonidoEnemigoDefault, sonidoEnemigoDano);
@@ -152,17 +157,56 @@ public class Nivel1  extends Nivel {
             arrayEnemigos.add(enemigo);
 
 
-            phase1 = true;
         }
-
-
-
     }
-    /////////varia
+
+    private phase getPhase(){
+        return phaseJuego;
+    }
+
+    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////
+                                                                    ///DIFERENCIA DE NIVELES
+                                                                    ///CAMBIAR COMPARACION Y  ENEMIGOS GENERADOS...
 
     public void phaseManager(){
+        switch (phaseJuego) {
+            case PHASE1:
+                if(arrayEnemigos.size()<3) {
+                    System.out.println("PHASE1");
+                    generarEnemigos(3);
+                    setphase(getPhase().PHASE2);
+                }
+                break;
+            case PHASE2:
+                if(arrayEnemigos.size()<3) {
 
+                    System.out.println("PHASE2");
+                    generarEnemigos(3);
+                    setphase(getPhase().PHASE3);
+                }
+                break;
+            case PHASE3:
+                if(arrayEnemigos.size()<3) {
+
+                    System.out.println("PHASE3");
+                    generarEnemigos(3);
+                    setphase(getPhase().PHASE4);
+
+                }break;
+            case PHASE4:
+                if(arrayEnemigos.size()<3) {
+
+                    System.out.println("PHASE4");
+                    generarEnemigos(3);
+                    setphase(getPhase().fin);
+                }
+                break;
+
+        }
     }
+
+    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////    ////////
+
 
 
     public void showSalud() {
@@ -200,7 +244,7 @@ public class Nivel1  extends Nivel {
     }
 
     public void renderScore(SpriteBatch batch) {
-        puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 500, 700);
+        puntuacion.mostrarMensaje(batch, String.valueOf(score), 400, 700);
     }
 
     public void rendePoderListo(SpriteBatch batch) {
@@ -254,13 +298,12 @@ public class Nivel1  extends Nivel {
         reproducirMusica();
         cargarSFX();
         generarPersonaje();
-        generarEnemigos();
+        generarEnemigos(5);
         impactManager = new ImpactManager(personaje, arrayEnemigos);
         showSalud();
         showScore();
         //showPoderListo();
         crearHUD();
-
 
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
@@ -386,9 +429,6 @@ public class Nivel1  extends Nivel {
 
                 }
 
-
-
-
                 score = 10;
                 personaje.cargarPoder(20);
 
@@ -507,7 +547,7 @@ public class Nivel1  extends Nivel {
         updateBarraSalud();
         eliminarEnemigosMuertos();
         eliminarItemsRecogidos();
-
+        phaseManager();
         impactManager.revisarAtaques();
 
         borrarPantalla();
@@ -607,6 +647,7 @@ public class Nivel1  extends Nivel {
             if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
                 arrayItems.add(new itemDropeado(100, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
                 //System.out.println("aaaaaa");
+                score = score + 10;
                 arrayEnemigos.remove(i);
 
             }
