@@ -2,6 +2,7 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +28,8 @@ public abstract class Pantalla implements Screen
     // Todas las pantallas dibujan algo :)
     protected SpriteBatch batch;
 
+    protected AssetManager manager;
+
     public Pantalla() {
         // Crea la cámara con las dimensiones del mundo
         camara = new OrthographicCamera(ANCHO, ALTO);
@@ -37,6 +40,7 @@ public abstract class Pantalla implements Screen
         vista = new StretchViewport(ANCHO, ALTO, camara);
         // El objeto que administra los trazos gráficos
         batch = new SpriteBatch();
+        manager = new AssetManager();
     }
 
     // Borra la pantalla con fond negro

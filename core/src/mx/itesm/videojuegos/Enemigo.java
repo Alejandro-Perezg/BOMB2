@@ -195,6 +195,7 @@ public class Enemigo {
                 break;
 
             case NEUTRAL:
+            case PAUSADO:
                 //System.out.println("DIBUJANDO, NEUTERAL");
                 region = animacionMoverse.getKeyFrame(timerAnimacion);
                 batch.draw(region, sprite.getX(), sprite.getY());
@@ -206,10 +207,19 @@ public class Enemigo {
     }
 
     public void comportamiento(String random) {
-       // System.out.println("Salud enem: " + salud);
+       /* Orden Prioridades:
+          PAUSADO
+          MUERTO
+          STUNNED
+          retrasado
+          ATACANDO
+          MOVIENDO
+        */
         char rngChar = (random.toCharArray())[7];
         int rng = Integer.parseInt(String.valueOf(rngChar));
-        if (salud <= 0) {
+        if (estadosEnemigo == EstadosEnemigo.PAUSADO) {
+            estadosEnemigo = EstadosEnemigo.PAUSADO;
+        } else if (salud <= 0) {
             estadosEnemigo = EstadosEnemigo.MUERTO;
         } else if (estadosEnemigo == EstadosEnemigo.STUNNED) {
             if (framesStunned <= -1) {
@@ -259,10 +269,6 @@ public class Enemigo {
         // System.out.println(framesAturdidos);
     }
 
-    public float atacarJugador(int daño) {
-
-        return rangoDeAtaque; //Se llama en nivel y con este valor se calcula en personaje si esta denro del area de ataque.
-    }
 
 
     public void recibirDano (int dano){
@@ -306,7 +312,8 @@ public class Enemigo {
         STUNNED,
         MUERTO,
         MOV_IZQUIERDA,
-        MOV_DERECHA
+        MOV_DERECHA,
+        PAUSADO
     }
 
     protected enum mirandoA {

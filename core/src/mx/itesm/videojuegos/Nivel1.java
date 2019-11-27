@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.ATACANDO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_DERECHA;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MOV_IZQUIERDA;
+import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MUERTO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 
@@ -115,7 +116,7 @@ public class Nivel1  extends Nivel {
 
     //Managers
     private ImpactManager impactManager;
-    private AssetManager manager = new AssetManager();
+
 
 
 
@@ -487,13 +488,12 @@ public class Nivel1  extends Nivel {
     @Override
     public void render(float delta) {
         DecimalFormat df = new DecimalFormat("#.#############");
-
-        //ACTUALIZAR NAVE
         personaje.actualizarPersonaje();
 
+        //Cambia el estado del juego. esto no se puede queda asi...
+        revisarEstadoNivel();
+
         for (int i = 0; i <arrayEnemigos.size(); i++) {
-            //arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.ATACANDO);
-//            System.out.println(i);
               arrayEnemigos.get(i).comportamiento(df.format(delta));
               arrayEnemigos.get(i).actualizarEnemigo(mundo);
         }
@@ -529,6 +529,10 @@ public class Nivel1  extends Nivel {
 
 
         if (estado == EstadosNivel.PAUSA) {
+            for (int i = 0; i <arrayEnemigos.size(); i++) {
+
+                arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.PAUSADO);
+            }
             escenaPausa.draw();
 
             if (!escenaPausa.isActive()) {
@@ -537,6 +541,10 @@ public class Nivel1  extends Nivel {
                 crearHUD();
                 escenaPausa.dispose();
                 Gdx.input.setInputProcessor(escenaHUD);
+                for (int i = 0; i <arrayEnemigos.size(); i++) {
+
+                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.NEUTRAL);
+                }
             }
         } else {
             escenaHUD.draw();
@@ -549,6 +557,18 @@ public class Nivel1  extends Nivel {
 
         mundo.step(1 / 60f, 6, 2);
     }
+
+    private void revisarEstadoNivel() {
+        if (this.arrayEnemigos.size() == 0){
+        this.estado = EstadosNivel.GANA;
+        juego.setScreen(new PantallaT(juego));
+        }
+        if(personaje.getEstadosPersonaje() == MUERTO) {
+            this.estado = EstadosNivel.PIERDE;
+            juego.setScreen(new PantallaT(juego));
+        }
+    }
+
 
     private void rendePersonaje(SpriteBatch batch) {
         personaje.render(batch);
@@ -625,6 +645,8 @@ public class Nivel1  extends Nivel {
 
     enum EstadosNivel{
         NORMAL,
-        PAUSA
+        PAUSA,
+        PIERDE,
+        GANA
     }
 }
