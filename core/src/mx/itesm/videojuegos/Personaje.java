@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Personaje {
 
     private boolean sexo;
-    private int salud = 10000;
+    private int salud = 1000;
     private int saludInicial = salud;
     private int daño;   //recibe
     private int poder;
@@ -88,7 +88,6 @@ public class Personaje {
         this.estadosPersonaje = EstadosPersonaje.NEUTRAL;
 
         setMirandoA(mirandoA.DERECHA);
-        System.out.println(toString());
     }
 
 
@@ -318,8 +317,8 @@ public class Personaje {
     public void actualizarPersonaje() {
         //System.out.println(getEstadosPersonaje());
         //System.out.println("Recovery Frames: " + framesRecovery);
+        System.out.println("Salud Personaje: " + salud);
 
-        System.out.println("SALUD PERSONAJE" + salud);
 
 
         float x = bodyPersonaje.getPosition().x;
@@ -330,7 +329,7 @@ public class Personaje {
         if (framesStunned > 0) {
             setEstadosPersonaje(EstadosPersonaje.STUNNED);
         }  else if(framesStunned == 0){
-            framesRecovery = 30;
+            framesRecovery = 10;
             framesStunned -= 1;
             estadosPersonaje = EstadosPersonaje.NEUTRAL;
         }
@@ -353,11 +352,20 @@ public class Personaje {
                 break;
 
             case MOV_DERECHA:
-                bodyPersonaje.setTransform(x + 5, y, 0);
+                if (sprite.getX() + sprite.getWidth() + 5 > Pantalla.ANCHO) {
+                    bodyPersonaje.setTransform(x, y, 0);
+                } else{
+                    bodyPersonaje.setTransform(x + 5, y, 0);
+                }
+
                 break;
 
             case MOV_IZQUIERDA:
-                bodyPersonaje.setTransform(x - 5, y, 0);
+                if (sprite.getX() < -5) {
+                    bodyPersonaje.setTransform(x, y, 0);
+                } else{
+                    bodyPersonaje.setTransform(x - 5, y, 0);
+                }
                 break;
             case NEUTRAL:
                 break;
@@ -387,7 +395,6 @@ public class Personaje {
         Pixmap pixmap = new Pixmap(300, 50, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(0,1,0,1);
-        System.out.println(aImprimir);
         pixmap.fillRectangle(0 , 0, (int) aImprimir, pixmap.getHeight());
         Texture textura = new Texture(pixmap);
         pixmap.dispose();

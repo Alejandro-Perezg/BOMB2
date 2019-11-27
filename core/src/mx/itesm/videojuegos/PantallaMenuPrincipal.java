@@ -29,6 +29,9 @@ class PantallaMenuPrincipal extends Pantalla{
     //AUDIO
     public Music musica;
 
+    //Manager
+    private AssetManager manager;
+
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
 
@@ -43,7 +46,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
     @Override
     public void show() {
-        AssetManager manager = new AssetManager();
+        manager = juego.getManager();
         cargarTexturas();
         cargarAudios(manager);
         crearHUD();

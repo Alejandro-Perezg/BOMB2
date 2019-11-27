@@ -1,5 +1,6 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +44,10 @@ public class Enemigo {
     private float timerAnimacion = 0;
     private Animation animacionDerecha;
 
+    //SONIDOS
+    private Sound sonidoDano;
+    private Sound sonidoDefault;
+
     private Animation<TextureRegion> animacionGolpe;
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion texturaStuned;
@@ -50,6 +55,7 @@ public class Enemigo {
     private TextureRegion[][] texturasGOLPES;
 
     private Personaje personaje;
+
 
     //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
@@ -66,10 +72,12 @@ public class Enemigo {
 
     public boolean frameDeAtaque = false;
 
-    public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje) {
+    public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje, Sound sonidoDefault, Sound sonidoDano) {
         this.personaje = personaje;
         cargarTexturas(textura,textureAtacando,texturaEnemigoStuned, x);
         cargarFisica();
+        this.sonidoDefault = sonidoDefault;
+        this.sonidoDano = sonidoDano;
 
         //setMirandoA(mirandoA.DERECHA);
         setMirandoA(mirandoA.DERECHA);
@@ -198,13 +206,14 @@ public class Enemigo {
     }
 
     public void comportamiento(String random) {
-        System.out.println("Salud enem: " + salud);
+       // System.out.println("Salud enem: " + salud);
         char rngChar = (random.toCharArray())[7];
         int rng = Integer.parseInt(String.valueOf(rngChar));
         if (salud <= 0) {
             estadosEnemigo = EstadosEnemigo.MUERTO;
         } else if (estadosEnemigo == EstadosEnemigo.STUNNED) {
             if (framesStunned <= -1) {
+                sonidoDano.play(0.5f);
                 puedoRecibirDano = false;
                 framesStunned = 60;
                 retrasado = false;
