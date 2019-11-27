@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 
@@ -53,8 +55,24 @@ public class itemDropeado {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y); //METROS
+/*
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(sprite.getWidth()/2 / 80, hearthTexture.getHeight());
 
+/*
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.isSensor = true;
+        fixtureDef.shape = shape;
+        bodyItem.createFixture(fixtureDef);
+*/
         bodyItem = mundo.createBody(bodyDef);  //Objeto simulado.
+
+    }
+
+
+    public Body getBodyItem(){
+
+        return bodyItem;
 
     }
 
