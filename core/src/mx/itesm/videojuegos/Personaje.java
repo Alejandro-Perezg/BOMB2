@@ -52,6 +52,8 @@ public class Personaje {
     private TextureRegion texturaStuned;
     private Animation stuned;
 
+
+
     public Body bodyPersonaje;
 
     public boolean puedoRecibirDano = true;
@@ -168,6 +170,15 @@ public class Personaje {
 
                 region = (TextureRegion) stuned.getKeyFrame(timerAnimacion);
 
+                if (mirandoA == mirandoA.IZQUIERDA) {
+                    if (!region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                } else {
+                    if (region.isFlipX()) {
+                        region.flip(true,false);
+                    }
+                }
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
 
