@@ -448,7 +448,7 @@ public class Nivel1  extends Nivel {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture("fondos/fond1.jpg");
+        texturaFondo = new Texture("fondos/cabezaArena.png");
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
