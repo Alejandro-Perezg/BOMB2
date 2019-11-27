@@ -55,6 +55,7 @@ public class Nivel1  extends Nivel {
     private Texture texturaFondo;
     private Texture texturaPersonaje;
     private Texture TexturaPersonajeGolpe;
+    private  Texture texturaPersonajeStuned;
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
     private Texture texturaEnemigoStuned;
@@ -126,7 +127,7 @@ public class Nivel1  extends Nivel {
        /* fuerzaEnemigo = enemigo.fuerza;
         Personaje personaje= new Personaje(texturaPersonaje,ANCHO/2,fuerzaEnemigo);
 */
-        personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe, 10, 10, 30);
+        personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe, texturaPersonajeStuned ,10, 10, 30);
         personaje.generateBodyPersonaje(mundo);
 
     }
@@ -451,6 +452,7 @@ public class Nivel1  extends Nivel {
 
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
+        texturaPersonajeStuned = new Texture("sprites_personaje/kiraStuned.png");
 
         texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
 

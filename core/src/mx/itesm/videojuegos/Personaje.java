@@ -49,6 +49,9 @@ public class Personaje {
     private  TextureRegion texturaCompletaGOLPE;
     private TextureRegion[][] texturasGOLPES;
 
+    private TextureRegion texturaStuned;
+    private Animation stuned;
+
     public Body bodyPersonaje;
 
     public boolean puedoRecibirDano;
@@ -58,11 +61,11 @@ public class Personaje {
     static mirandoA mirandoA;
     private int framesStunned = 0;
     private int framesRecovery = 0;
-    public Personaje(Texture texture , Texture textureGolpe,float x, float y,int fuerzaEnemigo) {
+    public Personaje(Texture texture , Texture textureGolpe,Texture textureStuned,float x, float y,int fuerzaEnemigo) {
         daño = fuerzaEnemigo;
         this.texturaCompleta= new TextureRegion(texture);
         this.texturaCompletaGOLPE = new TextureRegion(textureGolpe);
-
+        this.texturaStuned = new TextureRegion(textureStuned);
 
         TextureRegion[][] texturas = texturaCompleta.split(220,389);
         animacion = new Animation(0.2f, texturas[0][0], texturas[0][1], texturas[0][2],texturas[0][3]);
@@ -71,9 +74,14 @@ public class Personaje {
         TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(220, 389);
         GOLPE = new Animation(0.1f, texturasGOLPES[0][0], texturasGOLPES[0][1], texturasGOLPES[0][2],texturasGOLPES[0][3]);
 
+        TextureRegion[][] texturaStunedRegion  = texturaStuned.split(210,390);
+        stuned = new Animation(0.1f,texturaStunedRegion[0][0],texturaStunedRegion[0][1],texturaStunedRegion[0][2],texturaStunedRegion[0][3]);
+
         timerAnimacion = 0;
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         GOLPE.setPlayMode(Animation.PlayMode.LOOP);
+        stuned.setPlayMode(Animation.PlayMode.LOOP);
+
         sprite = new Sprite(texturas[0][0]);
         sprite.setPosition(x,y);
 
@@ -154,7 +162,11 @@ public class Personaje {
                 batch.draw(region,sprite.getX(),sprite.getY());
                 break;
             case STUNNED:
-                batch.draw(texturaCompletaGOLPE, sprite.getX(), sprite.getY());
+                timerAnimacion += Gdx.graphics.getDeltaTime();
+
+                region = (TextureRegion) stuned.getKeyFrame(timerAnimacion);
+
+                batch.draw(region,sprite.getX(),sprite.getY());
                 break;
 
         }
