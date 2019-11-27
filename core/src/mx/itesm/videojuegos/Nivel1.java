@@ -129,8 +129,6 @@ public class Nivel1  extends Nivel {
         personaje = new Personaje(texturaPersonaje, TexturaPersonajeGolpe, 10, 10, 30);
         personaje.generateBodyPersonaje(mundo);
 
-
-
     }
 
     private void generarEnemigos() {
@@ -166,10 +164,10 @@ public class Nivel1  extends Nivel {
         salud = new Texto();
 
     }
-
-    public void updateSalud(){
+    public void updateBarraSalud(){
         barraSaludArriba = personaje.crearbarraSalud();
     }
+
 
 
     public void showScore() {
@@ -186,17 +184,13 @@ public class Nivel1  extends Nivel {
 
     public void renderSalud(SpriteBatch batch) {
         int saludInt = personaje.getSalud();
-
         //salud.mostrarMensaje(batch, "SALUD... " + String.valueOf(saludInt), 100, 700);
         batch.draw(barraSaludAbajo,50,650);
         batch.draw(barraSaludArriba,50,650);
-
     }
 
     public void renderScore(SpriteBatch batch) {
         puntuacion.mostrarMensaje(batch, "PUNTUACION..." + String.valueOf(score), 500, 700);
-
-
     }
 
     public void rendePoderListo(SpriteBatch batch) {
@@ -488,10 +482,10 @@ public class Nivel1  extends Nivel {
             arrayItems.get(i).actualizarItem();
         }
 
-
+        updateBarraSalud();
         eliminarEnemigosMuertos();
         eliminarItemsRecogidos();
-        updateSalud();
+
         impactManager.revisarAtaques();
 
         borrarPantalla();
@@ -534,34 +528,7 @@ public class Nivel1  extends Nivel {
 
         mundo.step(1 / 60f, 6, 2);
     }
-/*
-    private void actualizarPersonaje() {
-        float x = personaje.bodyPersonaje.getPosition().x;
-        float y = personaje.bodyPersonaje.getPosition().y;
 
-        personaje.getSprite().setPosition(x - 5, y - 200f);
-        x = personaje.bodyPersonaje.getPosition().x;
-        y = personaje.bodyPersonaje.getPosition().y;
-
-
-/*
-        System.out.println(personaje.getX());
-        System.out.println(personaje.getEstadosPersonaje());
-        System.out.println(personaje.mirandoA);
-
-        switch (personaje.getEstadosPersonaje()) {
-            case MOV_DERECHA:
-                personaje.bodyPersonaje.setTransform(x + 5, y, 0);
-                break;
-
-            case MOV_IZQUIERDA:
-                personaje.bodyPersonaje.setTransform(x - 5, y, 0);
-                break;
-            case NEUTRAL:
-                break;
-        }
-    }
-*/
     private void rendePersonaje(SpriteBatch batch) {
         personaje.render(batch);
     }
@@ -589,20 +556,14 @@ public class Nivel1  extends Nivel {
 
         pisoShape.dispose();
 
-
     }
-
 
     public void eliminarEnemigosMuertos(){
 
         for (int i = 0; i <  arrayEnemigos.size(); i++) {
-            //System.out.println(arrayEnemigos.get(i-1));
-            //System.out.println(i-1);
-            //System.out.println(arrayEnemigos.size());
-            //System.out.println(i);
 
             if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
-                arrayItems.add(new itemDropeado(10, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
+                arrayItems.add(new itemDropeado(100, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
                 //System.out.println("aaaaaa");
                 arrayEnemigos.remove(i);
 
@@ -610,10 +571,12 @@ public class Nivel1  extends Nivel {
 
         }
     }
+
     public void eliminarItemsRecogidos(){
         for (int i = 0; i< arrayItems.size(); i++){
             //System.out.println(arrayItems.get(i));
             if (arrayItems.get(i).getxBody() == personaje.getX()){
+                personaje.curarPersonaje(arrayItems.get(i).getSaludDeItem());
                 arrayItems.remove(i);
             }
         }

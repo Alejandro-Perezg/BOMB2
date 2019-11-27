@@ -21,6 +21,7 @@ public class Personaje {
 
     private boolean sexo;
     private int salud = 10000;
+    private int saludInicial = salud;
     private int daño;   //recibe
     private int poder;
     private float velocidad;
@@ -277,7 +278,13 @@ public class Personaje {
         IZQUIERDA
     }
 
-
+    public void curarPersonaje(int saludRecibida){
+        if (salud + saludRecibida >= saludInicial)  {
+            salud = saludInicial;
+        }else {
+            salud = salud + saludRecibida;
+        }
+    }
     public void generateBodyPersonaje(World mundo){
         //Body Def
         BodyDef bodyDef = new BodyDef();
@@ -302,7 +309,6 @@ public class Personaje {
 
         System.out.println("SALUD PERSONAJE" + salud);
 
-        salud = salud-20;
 
         float x = bodyPersonaje.getPosition().x;
         float y = bodyPersonaje.getPosition().y;
@@ -364,12 +370,13 @@ public class Personaje {
 
     public Texture crearbarraSalud() {
 
+        float aImprimir = (float)salud/saludInicial*300;
 
         Pixmap pixmap = new Pixmap(300, 50, Pixmap.Format.RGBA8888);
 
         pixmap.setColor(0,1,0,1);
-
-        pixmap.fillRectangle(0 , 0, salud*3/10, pixmap.getHeight());
+        System.out.println(aImprimir);
+        pixmap.fillRectangle(0 , 0, (int) aImprimir, pixmap.getHeight());
         Texture textura = new Texture(pixmap);
         pixmap.dispose();
         return textura;
