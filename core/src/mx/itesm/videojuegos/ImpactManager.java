@@ -21,6 +21,7 @@ public class ImpactManager {
     private ArrayList<Float> areasDeAtaqueEnemigoDerecha = new ArrayList<>();
 
 
+
     public ImpactManager(Personaje personaje, ArrayList<Enemigo> arrayEnemigos){
         this.arrayEnemigos = arrayEnemigos;
         this.personaje = personaje;
@@ -81,8 +82,8 @@ public class ImpactManager {
                     if (right < areasDeAtaqueEnemigoDerecha.get(i) && right > areasDeAtaqueEnemigoIzquierda.get(i) ||
                     left > areasDeAtaqueEnemigoIzquierda.get(i) && left < areasDeAtaqueEnemigoDerecha.get(i)) {
                         if (personaje.getEstadosPersonaje() != Personaje.EstadosPersonaje.STUNNED && personaje.getFramesRecovery() < 0) {
-                            personaje.recibirDano(5);
-                            personaje.setFramesStunned(30);
+                            personaje.recibirDano(100);
+                            personaje.setFramesStunned(20);
                             personaje.setEstadosPersonaje(Personaje.EstadosPersonaje.STUNNED);
                         }
                     }

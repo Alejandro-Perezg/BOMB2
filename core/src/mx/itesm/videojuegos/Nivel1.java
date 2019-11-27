@@ -1,6 +1,7 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -77,7 +78,8 @@ public class Nivel1  extends Nivel {
 
     //MUSICA
     private Music musica;
-    private Sound efecto;
+    private Sound sonidoEnemigoDano;
+    private Sound sonidoEnemigoDefault;
     //Variables de Screen;
     // Escena de menu (botones)
     private Stage escenaHUD;
@@ -111,8 +113,9 @@ public class Nivel1  extends Nivel {
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
     private ArrayList<itemDropeado> arrayItems = new ArrayList<>();
 
-
+    //Managers
     private ImpactManager impactManager;
+    private AssetManager manager = new AssetManager();
 
 
 
@@ -136,10 +139,15 @@ public class Nivel1  extends Nivel {
         int spawn = 400;
 
         for (int i = 0; i < 5; i++) {
-            System.out.println(i);
+            //ystem.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20, personaje);
-            enemigo.generateBodyEnemigo(mundo, spawn*i);
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20, personaje, sonidoEnemigoDefault, sonidoEnemigoDano);
+            if (i % 2 == 0) {
+                enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
+            } else{
+                enemigo.generateBodyEnemigo(mundo, (-200 * i));
+            }
+
             arrayEnemigos.add(enemigo);
 
 
@@ -149,8 +157,8 @@ public class Nivel1  extends Nivel {
 
 
     }
-
     /////////varia
+
     public void phaseManager(){
 
     }
@@ -243,6 +251,7 @@ public class Nivel1  extends Nivel {
         crearMundo();
         crearObjetos();
         reproducirMusica();
+        cargarSFX();
         generarPersonaje();
         generarEnemigos();
         impactManager = new ImpactManager(personaje, arrayEnemigos);
@@ -251,12 +260,22 @@ public class Nivel1  extends Nivel {
         //showPoderListo();
         crearHUD();
 
+
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
 
       //  impactManager = new ImpactManager(personaje, arrayEnemigos);
 
 
+    }
+
+    private void cargarSFX() {
+        manager.load("Audio/enemigoDaño.mp3", Sound.class);
+        manager.load("Audio/enemigoSonido1.mp3", Sound.class);
+        manager.load("Audio/enemigoSonido2.mp3", Sound.class);
+        manager.finishLoading();
+        sonidoEnemigoDano = manager.get("Audio/enemigoDaño.mp3");
+        sonidoEnemigoDefault = manager.get("Audio/enemigoSonido1.mp3");
     }
 
     private void crearHUD() {
@@ -480,7 +499,7 @@ public class Nivel1  extends Nivel {
         }
 
         for (int i = 0; i < arrayItems.size(); i++){
-            System.out.println(arrayItems.get(i).toString());
+            //System.out.println(arrayItems.get(i).toString());
             arrayItems.get(i).actualizarItem();
         }
 

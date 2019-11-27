@@ -11,7 +11,7 @@ public class Juego extends Game {
     public static boolean playMusic = true;
 
 
-    private final AssetManager manager = new AssetManager();
+    private static final AssetManager manager = new AssetManager();;
     @Override
     public void create() {
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
