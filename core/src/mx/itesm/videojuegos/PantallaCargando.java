@@ -133,6 +133,12 @@ public class PantallaCargando extends Pantalla{
     private void cargarTexturas(){
         /////fondos
         manager.load("fondos/cabezaArena.png", Texture.class);
+        manager.load("fondos/estatua.png", Texture.class);
+        manager.load("fondos/fond1.jpg", Texture.class);
+        manager.load("fondos/fondo.jpg", Texture.class);
+        manager.load("fondos/fondo2.jpg", Texture.class);
+        manager.load("fondos/fondo5.jpg", Texture.class);
+        manager.load("fondos/fondoNivel1.jpg", Texture.class);
 
         //personaje, kira
         manager.load("sprites_personaje/caminaKiraDer.png", Texture.class);
