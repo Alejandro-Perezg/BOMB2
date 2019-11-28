@@ -94,6 +94,7 @@ public class PantallaCargando extends Pantalla{
                 break;
             case PANTALLASELECCIONNIVEL:
                 cargaRecursosPantallaSeleccionNivel();
+
             case NIVEL1:
                 cargarTexturasNivel1();
                 break;
@@ -107,6 +108,12 @@ public class PantallaCargando extends Pantalla{
         }
     }
 
+    private void cargarRecursosPantallaAcercaDe() {
+    }
+
+    private void cargaRecursosPantallaSeleccionNivel() {
+    }
+
     private void cargarTexturasNivel3() {
     }
 
@@ -117,14 +124,26 @@ public class PantallaCargando extends Pantalla{
     }
 
     private void cargarTexturasNivel1() {
-    }
+        //Texturas
+        manager.load("fondos/cabezaArena.png", Texture.class);
+        manager.load("sprites_personaje/caminaKiraDer.png", Texture.class);
+        manager.load("sprites_personaje/golpeKiraDer.png", Texture.class);
+        manager.load("sprites_personaje/kiraStuned.png", Texture.class);
+        manager.load("sprites_personaje/caminaRaohDer.png", Texture.class);
+        manager.load("sprites_personaje/golpeRaohDer.png", Texture.class);
+        manager.load("sprites_personaje/rahStuned.png", Texture.class);
+        manager.load("sprites_enemigo1/enemigo.png", Texture.class);
+        manager.load("sprites_enemigo1/enemigoGolpear.png", Texture.class);
+        manager.load("sprites_enemigo1/enemigoStoned.png", Texture.class);
+        manager.load("Nivel/palanca.png", Texture.class);
+        manager.load("Nivel/heart_80x80.png", Texture.class);
+        //Sonidos
+        manager.load("Audio/enemigoDaño.mp3", Sound.class);
+        manager.load("Audio/enemigoSonido1.mp3", Sound.class);
+        manager.load("Audio/enemigoSonido2.mp3", Sound.class);
+        manager.finishLoading();
 
-    private void cargaRecursosPantallaSeleccionNivel() {
     }
-
-    private void cargarRecursosPantallaAcercaDe() {
-    }
-
 
     private void cargarRecursosMenu() {
         manager.load("menus/menuPantalla/title.png",Texture.class);
@@ -135,6 +154,7 @@ public class PantallaCargando extends Pantalla{
         manager.load("menus/menuPantalla/btn_opciones_pr.png",Texture.class);
         manager.load("menus/menuPantalla/btn_jugar_pr.png",Texture.class);
         manager.load("menus/menuPantalla/exit.png",Texture.class);
+        manager.finishLoading();
     }
 
     private void cargarRecursosPantallaInicio() {
