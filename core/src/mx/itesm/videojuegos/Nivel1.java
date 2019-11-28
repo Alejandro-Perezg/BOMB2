@@ -210,7 +210,7 @@ public class Nivel1  extends Nivel {
             case 1:
                 System.out.println("NIVEL 1");
                 phIn1 = 4;
-                ph1 = 1;     ph2 = 1;     ph3 = 1;     ph4 = 1;
+                ph1 = 1;     ph2 = 2;     ph3 = 2;     ph4 = 2;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
@@ -218,7 +218,7 @@ public class Nivel1  extends Nivel {
             case 2:
                 System.out.println("NIVEL 2");
                 phIn1 = 5;
-                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                ph1 = 2;     ph2 = 4;     ph3 = 4;     ph4 = 5;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
