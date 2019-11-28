@@ -93,8 +93,8 @@ public class PantallaSeleccionNivel extends Pantalla {
         TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
         TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
         TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/select.png")));
-        TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture ("menus/Nivel1/flechaDer.png")));
-        TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel1/flechaIz.png")));
+        TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaDer.png")));
+        TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaIz.png")));
 
 
 
@@ -114,7 +114,7 @@ public class PantallaSeleccionNivel extends Pantalla {
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-80);
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
         btnFD.setPosition(ANCHO - btnFD.getWidth(), 200);
-        btnFI.setPosition(ANCHO- btnFD.getWidth() - 100,200 );
+        btnFI.setPosition(ANCHO- btnFD.getWidth() - 300,100 );
 
 
 
