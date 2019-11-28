@@ -35,6 +35,7 @@ public class PantallaAcercaDe extends Pantalla {
 
     //AUDIO
     private Music musica;
+    private Texture texturaMusica;
 
 
     public PantallaAcercaDe (Juego juego) {
@@ -76,6 +77,7 @@ public class PantallaAcercaDe extends Pantalla {
         texturaBack = manager.get("menus/Nivel/prev.png");
         texturaAnimacion  = manager.get("menus/acercaDe/arte.png");
         texturaDesarrollo = manager.get("menus/acercaDe/desarrollo.png");
+        texturaMusica = manager.get("menus/acercaDe/musicacover.png");
 
 
     }
@@ -83,10 +85,10 @@ public class PantallaAcercaDe extends Pantalla {
     private void crearHUD() {
         escenaHUD = new Stage(vista);
         escenaHUD.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
-        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
-        TextureRegionDrawable trdDes = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/desarrollo.png")));
-        TextureRegionDrawable trdAni = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/arte.png")));
-        TextureRegionDrawable trdMusica = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/musicacover.png")));
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(texturaBack));
+        TextureRegionDrawable trdDes = new TextureRegionDrawable(new TextureRegion(texturaDesarrollo));
+        TextureRegionDrawable trdAni = new TextureRegionDrawable(new TextureRegion(texturaAnimacion));
+        TextureRegionDrawable trdMusica = new TextureRegionDrawable(new TextureRegion(texturaMusica));
 
         ImageButton btnBack = new ImageButton(trdBack);
         Image desInfo = new Image(trdDes);
@@ -95,8 +97,8 @@ public class PantallaAcercaDe extends Pantalla {
 
         btnBack.setPosition(0, ALTO - btnBack.getHeight());
         desInfo.setPosition(ANCHO/2 - 10 , ALTO - desInfo.getHeight() - 10);
-        desAni.setPosition(ANCHO-desAni.getWidth(),10);
-        desMus.setPosition(0,0);
+        desAni.setPosition(ANCHO-desAni.getWidth()-20,10);
+        desMus.setPosition(20,10);
 
         //Evento de boton.
         btnBack.addListener(new ClickListener(){

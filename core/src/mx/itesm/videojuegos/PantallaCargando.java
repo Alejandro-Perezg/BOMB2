@@ -104,6 +104,7 @@ public class PantallaCargando extends Pantalla{
         manager.load("menus/acercaDe/desarrollo.png",Texture.class);
         manager.load("menus/acercaDe/arte.png",Texture.class);
         manager.load("fondos/estatua.png", Texture.class);
+        manager.load("menus/acercaDe/musicacover.png", Texture.class);
         manager.finishLoading();
     }
 
