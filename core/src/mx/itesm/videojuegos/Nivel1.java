@@ -1,6 +1,7 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -39,6 +40,9 @@ import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 public class Nivel1  extends Nivel {
     private Juego juego;
+
+    private AssetManager manager;
+
     //Variables de nivel
     private int idNivel = 1;
     private int score = 0;
@@ -146,6 +150,8 @@ public class Nivel1  extends Nivel {
         this.musica = musica;
         this.personajeS = personajeSeleccionado;
         this.idNivel = idNivel;
+        manager = juego.getManager();
+
     }
 
 
@@ -572,8 +578,9 @@ public class Nivel1  extends Nivel {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture("fondos/cabezaArena.png");
-        //PERSONAJES
+        //texturaFondo = new Texture("fondos/cabezaArena.png");
+
+        /*
     if(personajeS == "kira") {
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
@@ -583,13 +590,36 @@ public class Nivel1  extends Nivel {
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeRaohDer.png");
         texturaPersonajeStuned = new Texture("sprites_personaje/rahStuned.png");
     }
-        //ENEMIGOS
+
+         //ENEMIGOS
+*//*
         texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
         textureEnemigoAtacando = new Texture("sprites_enemigo1/enemigoGolpear.png");
         texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
         //PALANCA
+/*
         texturaPalanca = new Texture("Nivel/palanca.png");
         textureHearth = new Texture("Nivel/heart_80x80.png");
+
+*/
+        texturaFondo = manager.get("fondos/cabezaArena.png");
+
+        if(personajeS == "kira") {
+            texturaPersonaje = manager.get("sprites_personaje/caminaKiraDer.png");
+            TexturaPersonajeGolpe = manager.get("sprites_personaje/golpeKiraDer.png");
+            texturaPersonajeStuned = manager.get("sprites_personaje/kiraStuned.png");
+        }else {
+            texturaPersonaje = manager.get("sprites_personaje/caminaRaohDer.png");
+            TexturaPersonajeGolpe = manager.get("sprites_personaje/golpeRaohDer.png");
+            texturaPersonajeStuned = manager.get("sprites_personaje/rahStuned.png");
+        }
+
+        texturaEnemigo = manager.get("sprites_enemigo1/enemigo.png");
+        textureEnemigoAtacando = manager.get("sprites_enemigo1/enemigoGolpear.png");
+        texturaEnemigoStuned = manager.get("sprites_enemigo1/enemigoStoned.png");
+
+        texturaPalanca = manager.get("Nivel/palanca.png");
+        textureHearth = manager.get("Nivel/heart_80x80.png");
     }
 
 
