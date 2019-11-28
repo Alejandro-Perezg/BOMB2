@@ -65,7 +65,7 @@ public class PantallaAcercaDe extends Pantalla {
             musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
             musica.setLooping(true);
         }
-        //repush
+        //
         if (save.prefMusic.getBoolean("mute")){
             musica.play();
         } else{
