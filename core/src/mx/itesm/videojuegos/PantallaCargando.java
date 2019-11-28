@@ -36,15 +36,35 @@ public class PantallaCargando extends Pantalla{
     private int avance; //0 - 100% de la carga de recursos. 
 
     private AssetManager manager; //unico en el juego.
-
+    private String seleccionPersonaje;
+    private Integer IDnivel;
 
     private Texture texturaCargando;
+
+    private Music music;
 
 
     public PantallaCargando(Juego juego, TipoPantalla siguiente){
         manager = juego.getManager();
         this.juego = juego; 
         this.siguientePantalla = siguiente; 
+    }
+
+    public PantallaCargando(Juego juego, TipoPantalla siguiente, Music musica){
+        manager = juego.getManager();
+        this.juego = juego;
+        this.siguientePantalla = siguiente;
+        this.music = musica;
+    }
+
+    public PantallaCargando(Juego juego, TipoPantalla siguiente, Music musica, String personajeSeleccionado , Integer IdNivel){
+        manager = juego.getManager();
+        this.juego = juego;
+        this.siguientePantalla = siguiente;
+        this.music = musica;
+        this.seleccionPersonaje = personajeSeleccionado;
+        this.IDnivel = IdNivel;
+
     }
     
     @Override
@@ -106,6 +126,14 @@ public class PantallaCargando extends Pantalla{
     }
 
     private void cargarRecursosMenu() {
+        manager.load("menus/menuPantalla/title.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_jugar.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_acerca_de.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_acerca_de_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_opciones.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_opciones_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_jugar_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/exit.png",Texture.class);
     }
 
     private void cargarRecursosPantallaInicio() {
@@ -146,7 +174,7 @@ public class PantallaCargando extends Pantalla{
                     juego.setScreen(new PantallaAcercaDe(juego));
                     break;
                 case NIVEL1:
-                    juego.setScreen(new Nivel1(juego));
+                    juego.setScreen(new Nivel1(juego , music,seleccionPersonaje,IDnivel ));
                     break;
                 /*case NIVEL1:
                     juego.setScreen(new Nivel1(juego));

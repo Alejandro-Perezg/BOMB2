@@ -27,11 +27,12 @@ class PantallaInicio extends Pantalla {
 
     public PantallaInicio(Juego juego){
         this.juego = juego;
-        manager.load();
+
     }
     @Override
     public void show() {
-        cargarTitulo();
+        manager = juego.getManager();
+        cargarTitulo(manager);
         cargarFondo();
 
     }
@@ -40,7 +41,10 @@ class PantallaInicio extends Pantalla {
 
     }
 
-    private void cargarTitulo() {
+    private void cargarTitulo(AssetManager manager) {
+        manager.load("Splash/splashtitle.png", Texture.class);
+        manager.finishLoading();
+        labelTexture = manager.get("Splash/splashtitle.png");
         intro = new Stage(vista);
         TextureRegionDrawable labelIntro = new TextureRegionDrawable(new TextureRegion(labelTexture));
         ImageButton tituloInicial = new ImageButton(labelIntro);

@@ -32,6 +32,17 @@ class PantallaMenuPrincipal extends Pantalla{
     //Manager
     private AssetManager manager;
 
+    //TEXTURAS
+    private Texture texturaTitulo;
+    private Texture texturaJugar;
+    private Texture texturaJugarPr;
+    private Texture texturaAcercaDe;
+    private Texture texturaAcercaDePr;
+    private Texture texturaOpciones;
+    private Texture texturaOpcionesPr;
+    private Texture texturaSalir;
+
+
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
 
@@ -41,8 +52,6 @@ class PantallaMenuPrincipal extends Pantalla{
         this.juego = juego;
         this.musica = music;
     }
-
-
 
     @Override
     public void show() {
@@ -65,24 +74,21 @@ class PantallaMenuPrincipal extends Pantalla{
         } if (juego.playMusic ==false){
             musica.stop();
         }
-
     }
-
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
         escenaHUD.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
 
-
         //Boton jugar
-        TextureRegionDrawable trdTitle = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/title.png")));
-        TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar.png")));
-        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de.png")));
-        TextureRegionDrawable trdAcercaDePr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_acerca_de_pr.png")));
-        TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones.png")));
-        TextureRegionDrawable trdOpcionesPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_opciones_pr.png")));
-        TextureRegionDrawable trdJugarPre = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/btn_jugar_pr.png")));
-        TextureRegionDrawable trdSalir = new TextureRegionDrawable(new TextureRegion(new Texture("menus/menuPantalla/exit.png")));
+        TextureRegionDrawable trdTitle = new TextureRegionDrawable(new TextureRegion(texturaTitulo));
+        TextureRegionDrawable trdJugar = new TextureRegionDrawable(new TextureRegion(texturaJugar));
+        TextureRegionDrawable trdAcercaDe = new TextureRegionDrawable(new TextureRegion(texturaAcercaDe));
+        TextureRegionDrawable trdAcercaDePr = new TextureRegionDrawable(new TextureRegion(texturaAcercaDePr));
+        TextureRegionDrawable trdOpciones = new TextureRegionDrawable(new TextureRegion(texturaOpciones));
+        TextureRegionDrawable trdOpcionesPr = new TextureRegionDrawable(new TextureRegion(texturaOpcionesPr));
+        TextureRegionDrawable trdJugarPre = new TextureRegionDrawable(new TextureRegion(texturaJugarPr));
+        TextureRegionDrawable trdSalir = new TextureRegionDrawable(new TextureRegion(texturaSalir));
 
         ImageButton btnJugar = new ImageButton(trdJugar,trdJugarPre);
         ImageButton btnAcerecaDe = new ImageButton(trdAcercaDe,trdAcercaDePr);
@@ -112,12 +118,9 @@ class PantallaMenuPrincipal extends Pantalla{
                                     escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
-                                            ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaSeleccionNivel(juego,musica));
+                                            ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaCargando(juego, TipoPantalla.PANTALLASELECCIONNIVEL, musica));
                                         }
                                     })));
-                                    //juego.setScreen(new PantallaSeleccionNivel(juego,musica));
-
-
                                 }
                             }
         );
@@ -131,7 +134,7 @@ class PantallaMenuPrincipal extends Pantalla{
              escenaHUD.addAction(Actions.sequence(Actions.moveBy(texturaFondo.getWidth(),0,1),Actions.run(new Runnable() {
                  @Override
                  public void run() {
-                     ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaAcercaDe(juego,musica));
+                     ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaCargando(juego, TipoPantalla.PANTALLAACERCADE, musica));
                  }
              })));             }
          }
@@ -179,6 +182,26 @@ class PantallaMenuPrincipal extends Pantalla{
     private void cargarTexturas() {
         texturaFondo = new Texture( "fondos/estatua.png");
 
+        manager.load("menus/menuPantalla/title.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_jugar.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_acerca_de.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_acerca_de_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_opciones.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_opciones_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/btn_jugar_pr.png",Texture.class);
+        manager.load("menus/menuPantalla/exit.png",Texture.class);
+
+
+        manager.finishLoading();
+
+        texturaJugar = manager.get("menus/menuPantalla/btn_jugar.png");
+        texturaJugarPr = manager.get("menus/menuPantalla/btn_jugar_pr.png");
+        texturaAcercaDe = manager.get("menus/menuPantalla/btn_acerca_de.png");
+        texturaAcercaDePr = manager.get("menus/menuPantalla/btn_acerca_de_pr.png");
+        texturaOpciones = manager.get("menus/menuPantalla/btn_opciones.png");
+        texturaOpcionesPr = manager.get("menus/menuPantalla/btn_opciones_pr.png");
+        texturaSalir = manager.get("menus/menuPantalla/exit.png");
+        texturaTitulo = manager.get("menus/menuPantalla/title.png");
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Juego extends Game {
     @Override
     public void create() {
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        setScreen(new PantallaCargando(this,TipoPantalla.PANTALLAINICIO)); //referencia del administracion  para pasar de pantalla a otr
+        setScreen(new PantallaCargando(this, TipoPantalla.PANTALLAINICIO)); //referencia del administracion  para pasar de pantalla a otr
 
     }
 

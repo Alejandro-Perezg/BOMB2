@@ -3,6 +3,7 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,12 +15,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import javax.xml.soap.Text;
+
 public class PantallaAcercaDe extends Pantalla {
 
     private final Juego juego;
 
     //fondosss
     private Texture texturaFondo;
+    private Texture texturaBack;
+    private Texture texturaAnimacion;
+    private Texture texturaDesarrollo;
+
 
 
 
@@ -41,21 +48,40 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void show() {
+        manager = juego.getManager();
         cargarTexturas();
-        ajustarMusica();
+        ajustarMusica(manager);
         crearHUD();
 
     }
 
-    private void ajustarMusica() {
-        if (juego.playMusic == true) {
+    private void ajustarMusica(AssetManager manager) {
+        if (musica == null) {
+            manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
+            manager.finishLoading();
+            musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
+            musica.setLooping(true);
+        }
+        if (juego.playMusic == true){
             musica.play();
+        } if (juego.playMusic == false){
+            musica.stop();
         }
     }
 
 
     private void cargarTexturas() {
         texturaFondo = new Texture( "fondos/estatua.png");
+        manager.load("menus/Nivel/prev.png",Texture.class);
+        manager.load("menus/acercaDe/desarrollo.png",Texture.class);
+        manager.load("menus/acercaDe/arte.png",Texture.class);
+
+        manager.finishLoading();
+
+        texturaBack = manager.get("menus/Nivel/prev.png");
+        texturaAnimacion  = manager.get("menus/acercaDe/arte.png");
+        texturaDesarrollo = manager.get("menus/acercaDe/desarrollo.png");
+
 
     }
 
@@ -63,11 +89,10 @@ public class PantallaAcercaDe extends Pantalla {
         escenaHUD = new Stage(vista);
         escenaHUD.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
-        TextureRegionDrawable trdBackPressed = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
         TextureRegionDrawable trdDes = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/desarrollo.png")));
         TextureRegionDrawable trdAni = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/arte.png")));
 
-        ImageButton btnBack = new ImageButton(trdBack,trdBackPressed);
+        ImageButton btnBack = new ImageButton(trdBack);
         Image desInfo = new Image(trdDes);
         Image desAni = new Image(trdAni);
 
