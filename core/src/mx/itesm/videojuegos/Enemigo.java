@@ -59,8 +59,8 @@ public class Enemigo {
 
     //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
-    EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
-    static Enemigo.mirandoA mirandoA;
+    private EstadosEnemigo nextEstadoEnemigo = EstadosEnemigo.NEUTRAL;
+    private MirandoA mirandoA = MirandoA.DERECHA;
 
     private boolean puedoRecibirDano = true;
 
