@@ -195,6 +195,7 @@ public class Nivel1  extends Nivel {
 
         arrayEnemigos.add(enemigo);
     }
+
     private void showEnemigos(){
         switch (idNivel){
             case 1:

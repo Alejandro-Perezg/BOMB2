@@ -23,7 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Enemigo {
     //Stats
-    private int salud = 30;
+    private int salud;
     public float velocidad;
     private float rangoDeAtaque = 20;
     private float probabilidadAtaqueCritico;
@@ -96,6 +96,12 @@ public class Enemigo {
         this.sonido1 = sonido1;
         this.sonido2 = sonido2;
 
+        if(idTipoEnemigo == 0){
+            this.salud = 100;
+        }
+        if (idTipoEnemigo == 1){
+            this.salud = 30;
+        }
 
         //setMirandoA(mirandoA.DERECHA);
         setMirandoA(mirandoA.DERECHA);
