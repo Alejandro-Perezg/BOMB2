@@ -214,7 +214,7 @@ public class Nivel1  extends Nivel {
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
-                generarMamalon();
+                generarAlto();
                 break;
             case 3:
                 System.out.println("NIVEL 3");
