@@ -64,28 +64,57 @@ public class PantallaCargando extends Pantalla{
                 cargarRecursosPantallaInicio();
                 break;
             case MENU:
-                //cargarRecursosMenu();
+                cargarRecursosMenu();
                 break;
-            case  PANTALLAACERCADE:
-                //cargarRecursosPantallaAcercaDe();
+            case PANTALLAACERCADE:
+                cargarRecursosPantallaAcercaDe();
                 break;
-            case  PANTALLASELECCIONPERSONAJE:
-                //cargarRecursosPantallaSeleccionPersonaje();
-                break; 
+            case PANTALLAPAUSA:
+                cargarPantallaPausa();
+                break;
+            case PANTALLASELECCIONNIVEL:
+                cargaRecursosPantallaSeleccionNivel();
             case NIVEL1:
-                cargarTexturas();
-                //cargarRecursosNievl1();
-                break; 
+                cargarTexturasNivel1();
+                break;
+            case NIVEL2:
+                cargarTexturasNivel2();
+                break;
+            case NIVEL3:
+                cargarTexturasNivel3();
+                break;
                   
         }
     }
 
+    private void cargarTexturasNivel3() {
+    }
+
+    private void cargarTexturasNivel2() {
+    }
+
+    private void cargarPantallaPausa() {
+    }
+
+    private void cargarTexturasNivel1() {
+    }
+
+    private void cargaRecursosPantallaSeleccionNivel() {
+    }
+
+    private void cargarRecursosPantallaAcercaDe() {
+    }
+
+    private void cargarRecursosMenu() {
+    }
+
     private void cargarRecursosPantallaInicio() {
-        manager.load("menus/menuInicio/TextoTocaContinuar.png", Texture.class);
+        manager.load("Splash/splashtitle.png", Texture.class);
     }
 
     @Override
     public void render(float delta) {
+        actializarCargaRecursos();
         borrarPantalla(0.5f, 0.4f,0.8f);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
@@ -116,14 +145,11 @@ public class PantallaCargando extends Pantalla{
                 case  PANTALLAACERCADE:
                     juego.setScreen(new PantallaAcercaDe(juego));
                     break;
-                case  PANTALLASELECCIONPERSONAJE:
-                    juego.setScreen(new PantallaSeleccionPersonaje(juego));
-                    break;
                 case NIVEL1:
-                    cargarTexturas();
+                    juego.setScreen(new Nivel1(juego));
                     break;
                 /*case NIVEL1:
-                    juego.setScreen(new Nivel1());
+                    juego.setScreen(new Nivel1(juego));
                     break;*/
             }
         }
@@ -134,11 +160,8 @@ public class PantallaCargando extends Pantalla{
         /////fondos
         manager.load("fondos/cabezaArena.png", Texture.class);
         manager.load("fondos/estatua.png", Texture.class);
-        manager.load("fondos/fond1.jpg", Texture.class);
-        manager.load("fondos/fondo.jpg", Texture.class);
-        manager.load("fondos/fondo2.jpg", Texture.class);
-        manager.load("fondos/fondo5.jpg", Texture.class);
-        manager.load("fondos/fondoNivel1.jpg", Texture.class);
+        manager.load("fondos/rocas.png", Texture.class);
+        manager.load("fondos/T/fondoT.png", Texture.class);
 
         //personaje, kira
         manager.load("sprites_personaje/caminaKiraDer.png", Texture.class);
@@ -158,6 +181,9 @@ public class PantallaCargando extends Pantalla{
         ///PALANCA
         manager.load("Nivel/palanca.png", Texture.class);
         manager.load("Nivel/heart_80x80.png", Texture.class);
+
+        manager.load("Audio/enemigoSonido1.mp3",Sound.class );
+        manager.load("Audio/enemigoSonido2.mp3",Sound.class );
 
     }
 
