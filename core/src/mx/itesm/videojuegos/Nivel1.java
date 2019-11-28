@@ -177,10 +177,11 @@ public class Nivel1  extends Nivel {
     private void generarEnemigos(int cantidad) {
         int spawn = 400;
 
+
         for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaBigPapaStuned,spawn + spawn*i, 20,
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
                     personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 1);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
@@ -209,7 +210,7 @@ public class Nivel1  extends Nivel {
             case 1:
                 System.out.println("NIVEL 1");
                 phIn1 = 4;
-                ph1 = 1;     ph2 = 1;     ph3 = 1;     ph4 = 1;
+                ph1 = 1;     ph2 = 2;     ph3 = 2;     ph4 = 2;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
@@ -217,11 +218,10 @@ public class Nivel1  extends Nivel {
             case 2:
                 System.out.println("NIVEL 2");
                 phIn1 = 5;
-                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                ph1 = 2;     ph2 = 4;     ph3 = 4;     ph4 = 5;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
-                //generarEnemigos(phIn1);
-                generarAlto();
+                generarEnemigos(phIn1);
                 break;
             case 3:
                 System.out.println("NIVEL 3");
@@ -284,7 +284,9 @@ public class Nivel1  extends Nivel {
                     generarEnemigos(ph2);
                     setphase(getPhase().PHASE3);
 
-                    if (idNivel == 1){
+                    if (idNivel == 2){
+
+
                         generarAlto();
                     }
 
