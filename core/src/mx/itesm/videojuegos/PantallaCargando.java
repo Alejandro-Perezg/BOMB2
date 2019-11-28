@@ -125,6 +125,7 @@ public class PantallaCargando extends Pantalla{
     private void cargarRecursosPantallaAcercaDe() {
     }
 
+
     private void cargarRecursosMenu() {
         manager.load("menus/menuPantalla/title.png",Texture.class);
         manager.load("menus/menuPantalla/btn_jugar.png",Texture.class);

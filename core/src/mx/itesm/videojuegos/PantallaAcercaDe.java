@@ -70,6 +70,7 @@ public class PantallaAcercaDe extends Pantalla {
     }
 
 
+
     private void cargarTexturas() {
         texturaFondo = new Texture( "fondos/estatua.png");
         manager.load("menus/Nivel/prev.png",Texture.class);

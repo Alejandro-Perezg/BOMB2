@@ -39,6 +39,7 @@ class PantallaInicio extends Pantalla {
 
     private void cargarFondo() {
 
+
     }
 
     private void cargarTitulo(AssetManager manager) {
