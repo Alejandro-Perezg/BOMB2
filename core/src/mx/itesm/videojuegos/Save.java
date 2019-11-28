@@ -23,4 +23,11 @@ public void saveSlotRaoh(String key,boolean unlock){
         prefraoh.flush();
 }
 
+    public boolean getPrefkira(String key) {
+        return prefkira.getBoolean(key);
+    }
+
+    public boolean getPrefraoh(String key){
+        return  prefraoh.getBoolean(key);
+    }
 }
