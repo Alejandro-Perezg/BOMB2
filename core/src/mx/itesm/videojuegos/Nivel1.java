@@ -284,6 +284,8 @@ public class Nivel1  extends Nivel {
                     setphase(getPhase().PHASE3);
 
                     if (idNivel == 2){
+
+
                         generarAlto();
                     }
 
