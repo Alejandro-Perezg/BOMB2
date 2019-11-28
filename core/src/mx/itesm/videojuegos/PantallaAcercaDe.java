@@ -92,14 +92,17 @@ public class PantallaAcercaDe extends Pantalla {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable trdDes = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/desarrollo.png")));
         TextureRegionDrawable trdAni = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/arte.png")));
+        TextureRegionDrawable trdMusica = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/musicacover.png")));
 
         ImageButton btnBack = new ImageButton(trdBack);
         Image desInfo = new Image(trdDes);
         Image desAni = new Image(trdAni);
+        Image desMus = new Image(trdMusica);
 
         btnBack.setPosition(0, ALTO - btnBack.getHeight());
         desInfo.setPosition(ANCHO/2 - 10 , ALTO - desInfo.getHeight() - 10);
-        desAni.setPosition(10,10);
+        desAni.setPosition(ANCHO-desAni.getWidth(),10);
+        desMus.setPosition(0,0);
 
         //Evento de boton.
         btnBack.addListener(new ClickListener(){
@@ -121,6 +124,7 @@ public class PantallaAcercaDe extends Pantalla {
         escenaHUD.addActor(btnBack);
         escenaHUD.addActor(desAni);
         escenaHUD.addActor(desInfo);
+        escenaHUD.addActor(desMus);
         Gdx.input.setInputProcessor(escenaHUD);
 
     }

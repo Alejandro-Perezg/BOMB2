@@ -106,7 +106,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
         //btnOpciones.setPosition(ANCHO/2 - (btnOpciones.getWidth()/2), ALTO/2-btnOpciones.getHeight()*2-50);
         btnOpciones.setPosition(btnJugar.getWidth() + btnAcerecaDe.getWidth() + 300,40);
-        salir.setPosition(5,ALTO - salir.getHeight()-10);
+        salir.setPosition(5,ALTO - salir.getHeight()*3);
 
         //Evento de boton.
         btnJugar.addListener(new ClickListener(){
