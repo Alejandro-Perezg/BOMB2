@@ -108,6 +108,9 @@ public class Nivel1  extends Nivel {
     private int ph4;
 
     private int phIn1;
+    private int enemigosMinimosFase1;    private int enemigosMinimosFase3;
+    private int enemigosMinimosFase2;    private int enemigosMinimosFase4;
+
 
 
     public enum phase{
@@ -178,18 +181,24 @@ public class Nivel1  extends Nivel {
                 System.out.println("NIVEL 1");
                 phIn1 = 4;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
+                enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
                 break;
             case 2:
                 System.out.println("NIVEL 2");
                 phIn1 = 6;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
+                enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
                 break;
             case 3:
                 System.out.println("NIVEL 3");
                 phIn1 = 8;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
+                enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
                 break;
             case 999:
@@ -211,7 +220,7 @@ public class Nivel1  extends Nivel {
     public void phaseManager(){
         switch (phaseJuego) {
             case PHASE1:
-                if(arrayEnemigos.size()<2) {
+                if(arrayEnemigos.size()<enemigosMinimosFase1) {
                     System.out.println("PHASE1");
                     generarEnemigos(ph1);
                     setphase(getPhase().PHASE2);
@@ -219,7 +228,7 @@ public class Nivel1  extends Nivel {
                 break;
 
             case PHASE2:
-                if(arrayEnemigos.size()<3) {
+                if(arrayEnemigos.size()<enemigosMinimosFase2) {
 
                     System.out.println("PHASE2");
                     generarEnemigos(ph2);
@@ -229,7 +238,7 @@ public class Nivel1  extends Nivel {
                 break;
 
             case PHASE3:
-                if(arrayEnemigos.size()<3) {
+                if(arrayEnemigos.size()<enemigosMinimosFase3) {
 
                     System.out.println("PHASE3");
                     generarEnemigos(ph3);
@@ -238,7 +247,7 @@ public class Nivel1  extends Nivel {
                 break;
 
             case PHASE4:
-                if(arrayEnemigos.size()<3) {
+                if(arrayEnemigos.size()<enemigosMinimosFase4) {
 
                     System.out.println("PHASE4");
                     generarEnemigos(ph4);
