@@ -769,7 +769,7 @@ public class Nivel1  extends Nivel {
             if (!cambioStageFinal) {
                 escenaGameOver = new GameOverStage(vista, batch, personajeS);
                 escenaHUD.dispose();
-                escenaGameOver.creargameOverStage(juego, musica);
+                escenaGameOver.creargameOverStage(juego, musica, idNivel);
             }
             cambioStageFinal = true;
 
