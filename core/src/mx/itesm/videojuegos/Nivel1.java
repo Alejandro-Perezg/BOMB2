@@ -38,6 +38,7 @@ import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.MUERTO;
 import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 
+
 public class Nivel1  extends Nivel {
     private Juego juego;
 
@@ -46,14 +47,12 @@ public class Nivel1  extends Nivel {
     //Variables de nivel
     private int idNivel = 1;
     private int score = 0;
-    public int coordenadasDano;
+    public boolean bloqueado;
     // PERSONAJE
     private Personaje personaje;
     private int fuerzaPersonaje;
     private String personajeS;
     //ENEMIGO
-
-
     private int fuerzaEnemigo;
     private int cantidadEnemigos;
     //TEXTURAS
@@ -81,7 +80,8 @@ public class Nivel1  extends Nivel {
     private Texture texturaPalanca;
     private Sprite spritePalanca;
     private float palancaY;
-
+    // save
+    private Save save;
 
     //MUSICA
     private Music musica;
@@ -173,7 +173,7 @@ public class Nivel1  extends Nivel {
             //ystem.out.println(i);
             Enemigo enemigo;
             enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
-                    personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2);
+                    personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 1);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
             } else{
@@ -185,10 +185,22 @@ public class Nivel1  extends Nivel {
 
         }
     }
+
+    private void generarMamalon(){
+        int spawn = 1300;
+        Enemigo enemigo;
+        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn, 20,
+                personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 0);
+        enemigo.generateBodyEnemigo(mundo, (int)500);
+
+        arrayEnemigos.add(enemigo);
+    }
     private void showEnemigos(){
         switch (idNivel){
             case 1:
                 System.out.println("NIVEL 1");
+                generarMamalon();
+
                 phIn1 = 4;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
@@ -399,8 +411,6 @@ public class Nivel1  extends Nivel {
 
     private void crearHUD() {
 
-
-
         escenaHUD = new Stage(vista);
         //BOTON pausa.
         TextureRegionDrawable trdPausa = new TextureRegionDrawable(new TextureRegion(new Texture("Nivel/btnpausa.png")));
@@ -565,31 +575,19 @@ public class Nivel1  extends Nivel {
     }
 
     private void cargarTexturas() {
-        //texturaFondo = new Texture("fondos/cabezaArena.png");
 
-        /*
-    if(personajeS == "kira") {
-        texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
-        TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
-        texturaPersonajeStuned = new Texture("sprites_personaje/kiraStuned.png");
-    }else{
-        texturaPersonaje = new Texture("sprites_personaje/caminaRaohDer.png");
-        TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeRaohDer.png");
-        texturaPersonajeStuned = new Texture("sprites_personaje/rahStuned.png");
-    }
+        if (idNivel ==1){
+            texturaFondo = manager.get("fondos/cabezaArena.png");
+        }
 
-         //ENEMIGOS
-*//*
-        texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
-        textureEnemigoAtacando = new Texture("sprites_enemigo1/enemigoGolpear.png");
-        texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
-        //PALANCA
-/*
-        texturaPalanca = new Texture("Nivel/palanca.png");
-        textureHearth = new Texture("Nivel/heart_80x80.png");
+        if (idNivel ==2){
+            texturaFondo = manager.get("fondos/rocas.png");
+        }
 
-*/
-        texturaFondo = manager.get("fondos/cabezaArena.png");
+        if (idNivel ==3){
+            texturaFondo = manager.get("fondos/estatua.png");
+        }
+
 
         if(personajeS == "kira") {
             texturaPersonaje = manager.get("sprites_personaje/caminaKiraDer.png");
@@ -613,6 +611,7 @@ public class Nivel1  extends Nivel {
 
     @Override
     public void render(float delta) {
+        System.out.println(estado);
         DecimalFormat df = new DecimalFormat("#.#############");
         personaje.actualizarPersonaje();
 
@@ -678,7 +677,6 @@ public class Nivel1  extends Nivel {
                 escenaHUD.draw();
                 batch.begin();
                 spritePalanca.draw(batch);
-
                 batch.end();
                 break;
 
@@ -697,28 +695,38 @@ public class Nivel1  extends Nivel {
     }
 
     private void revisarEstadoNivel() {
-        if (this.arrayEnemigos.size() == 0){
+        if (this.arrayEnemigos.size() == 0) {
             this.estado = EstadosNivel.GANA;
-            if (!cambioStageFinal) {
-                escenaVictoria = new VictoryStage(vista,batch, personajeS);
-                escenaHUD.dispose();
-                escenaVictoria.crearVictoryStage(juego, musica);
-            }
-            cambioStageFinal = true;
+            if (personajeS == "kira") {
+                save.saveSlotKira("unlock2",true);
 
+            }
+            if (personajeS == "raoh"){
+               save.saveSlotRaoh("unlock2",true);
+            }
         }
-        if(personaje.getEstadosPersonaje() == MUERTO) {
+        if (!cambioStageFinal) {
+            escenaVictoria = new VictoryStage(vista, batch, personajeS);
+            escenaHUD.dispose();
+            escenaVictoria.crearVictoryStage(juego, musica);
+        }
+        cambioStageFinal = true;
+
+
+        if (personaje.getEstadosPersonaje() == MUERTO) {
             this.estado = EstadosNivel.PIERDE;
             if (!cambioStageFinal) {
-                escenaGameOver = new GameOverStage(vista, batch,personajeS);
+                escenaGameOver = new GameOverStage(vista, batch, personajeS);
                 escenaHUD.dispose();
                 escenaGameOver.creargameOverStage(juego, musica);
             }
             cambioStageFinal = true;
 
-
         }
     }
+
+
+
 
 
     private void rendePersonaje(SpriteBatch batch) {
