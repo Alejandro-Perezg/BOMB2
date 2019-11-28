@@ -328,15 +328,19 @@ public class Enemigo {
     }
 
     private void tacleada(){
+        System.out.println(getEstadoEnemigo());
         if (getEstadoEnemigo() == EstadosEnemigo.MOV_IZQUIERDA){
             if (getSprite().getX() < 0){
                 setEstadosEnemigo(EstadosEnemigo.MOV_DERECHA);
             }
         }
         if (getEstadoEnemigo() == EstadosEnemigo.MOV_DERECHA){
-            if (getSprite().getX() > 1250){
+            if (getSprite().getX() > 1100){
                 setEstadosEnemigo(EstadosEnemigo.MOV_IZQUIERDA);
             }
+        }
+        if (getEstadoEnemigo() == EstadosEnemigo.NEUTRAL){
+            setEstadosEnemigo(EstadosEnemigo.MOV_DERECHA);
         }
     }
 

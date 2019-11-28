@@ -187,11 +187,11 @@ public class Nivel1  extends Nivel {
     }
 
     private void generarMamalon(){
-        int spawn = 1300;
+        int spawn = 1000;
         Enemigo enemigo;
         enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn, 20,
                 personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 0);
-        enemigo.generateBodyEnemigo(mundo, (int)500);
+        enemigo.generateBodyEnemigo(mundo, (int)spawn);
 
         arrayEnemigos.add(enemigo);
     }
@@ -199,8 +199,6 @@ public class Nivel1  extends Nivel {
         switch (idNivel){
             case 1:
                 System.out.println("NIVEL 1");
-                generarMamalon();
-
                 phIn1 = 4;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
@@ -251,6 +249,10 @@ public class Nivel1  extends Nivel {
 
             case PHASE2:
                 if(arrayEnemigos.size()<enemigosMinimosFase2) {
+
+                    if (idNivel == 2){
+                        generarMamalon();
+                    }
 
                     System.out.println("PHASE2");
                     generarEnemigos(ph2);
