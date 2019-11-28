@@ -72,8 +72,8 @@ public class PantallaAcercaDe extends Pantalla {
         Image desAni = new Image(trdAni);
 
         btnBack.setPosition(0, ALTO - btnBack.getHeight());
-        desInfo.setPosition(ANCHO/2-(desInfo.getWidth()/2-50) , ALTO - desInfo.getHeight());
-        desAni.setPosition(ANCHO/2-(desAni.getWidth()/2),0);
+        desInfo.setPosition(ANCHO/2 - 10 , ALTO - desInfo.getHeight() - 10);
+        desAni.setPosition(10,10);
 
         //Evento de boton.
         btnBack.addListener(new ClickListener(){
