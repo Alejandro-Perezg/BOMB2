@@ -141,7 +141,7 @@ public class Nivel1  extends Nivel {
 
 
 
-    public Nivel1(Juego juego, Music musica, String personajeSeleccionado) {
+    public Nivel1(Juego juego, Music musica, String personajeSeleccionado, int idNivel) {
         this.juego = juego;
         this.musica = musica;
         this.personajeS = personajeSeleccionado;
