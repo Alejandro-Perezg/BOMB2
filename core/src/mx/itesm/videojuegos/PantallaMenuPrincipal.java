@@ -165,7 +165,7 @@ class PantallaMenuPrincipal extends Pantalla{
              })));             }
                                  }
         );
-
+//ctdyfyghujk
 
         escenaHUD.addActor(titulo);
         escenaHUD.addActor(btnAcerecaDe);
