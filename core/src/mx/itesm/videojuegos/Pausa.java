@@ -33,7 +33,7 @@ public class Pausa extends Stage { ;
         texturaFondoPausa = new Texture("menus/fondoPausa.png");
 
         Pixmap sombra = new Pixmap((int)ANCHO, (int)ALTO, Pixmap.Format.RGBA8888);
-        //sombra.setColor(0, 0, 0,.3f);
+        sombra.setColor(0, 0, 0,.3f);
         sombra.fillRectangle(0,0,sombra.getWidth(), sombra.getHeight());
         Texture texturaSombra  =new Texture(sombra);
         Image imgRectSombra = new Image(texturaSombra);

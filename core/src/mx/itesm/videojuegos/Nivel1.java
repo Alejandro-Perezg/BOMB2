@@ -1,7 +1,6 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -85,6 +84,7 @@ public class Nivel1  extends Nivel {
     // Escena de menu (botones)
     private Stage escenaHUD;
     private Pausa escenaPausa;
+    private GameOverStage escenaGameOver ;
     //Estados
     EstadosNivel estado = EstadosNivel.NORMAL;
 
@@ -98,6 +98,7 @@ public class Nivel1  extends Nivel {
     private Texto salud;
     private Texto puntuacion;
     private Texto poderListo;
+    private boolean cambioStageAGameover = false;
 
 
     public enum phase{
@@ -126,7 +127,7 @@ public class Nivel1  extends Nivel {
 
 
 
-    Nivel1(Juego juego, Music musica) {
+    public Nivel1(Juego juego, Music musica) {
         this.juego = juego;
         this.musica = musica;
     }
@@ -290,7 +291,7 @@ public class Nivel1  extends Nivel {
     }
 
     private void reproducirMusica() {
-
+        if (!musica.isPlaying()) musica.play();
     }
 
 
@@ -312,8 +313,8 @@ public class Nivel1  extends Nivel {
         spritePalanca = new Sprite(texturaPalanca);
         spritePalanca.setPosition(260, 0);
 
+        //escenaGameOver = new GameOverStage(vista, batch);
       //  impactManager = new ImpactManager(personaje, arrayEnemigos);
-
 
     }
 
@@ -574,31 +575,39 @@ public class Nivel1  extends Nivel {
         renderItems();
         batch.end();
 
-
-        if (estado == EstadosNivel.PAUSA) {
-            for (int i = 0; i <arrayEnemigos.size(); i++) {
-
-                arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.PAUSADO);
-            }
-            escenaPausa.draw();
-
-            if (!escenaPausa.isActive()) {
-                estado = EstadosNivel.NORMAL;
-                escenaPausa.setActive(true);
-                crearHUD();
-                escenaPausa.dispose();
-                Gdx.input.setInputProcessor(escenaHUD);
+        switch (estado){
+            case PAUSA:
                 for (int i = 0; i <arrayEnemigos.size(); i++) {
 
-                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.NEUTRAL);
+                    arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.PAUSADO);
                 }
-            }
-        } else {
-            escenaHUD.draw();
-            batch.begin();
-            spritePalanca.draw(batch);
+                escenaPausa.draw();
 
-            batch.end();
+                if (!escenaPausa.isActive()) {
+                    estado = EstadosNivel.NORMAL;
+                    escenaPausa.setActive(true);
+                    crearHUD();
+                    escenaPausa.dispose();
+                    Gdx.input.setInputProcessor(escenaHUD);
+                    for (int i = 0; i <arrayEnemigos.size(); i++) {
+                        arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.NEUTRAL);
+                    }
+                }
+                break;
+
+            case NORMAL:
+                escenaHUD.draw();
+                batch.begin();
+                spritePalanca.draw(batch);
+
+                batch.end();
+                break;
+
+            case PIERDE:
+                escenaGameOver.draw();
+                break;
+
+
         }
 
 
@@ -612,7 +621,14 @@ public class Nivel1  extends Nivel {
         }
         if(personaje.getEstadosPersonaje() == MUERTO) {
             this.estado = EstadosNivel.PIERDE;
-            juego.setScreen(new PantallaT(juego));
+            if (!cambioStageAGameover) {
+                escenaGameOver = new GameOverStage(vista, batch);
+                escenaHUD.dispose();
+                escenaGameOver.creargameOverStage(juego, musica);
+            }
+            cambioStageAGameover = true;
+
+
         }
     }
 
