@@ -97,10 +97,10 @@ public class Enemigo {
         this.sonido2 = sonido2;
 
         if(idTipoEnemigo == 0){
-            this.salud = 100;
+            this.salud = 1;
         }
         if (idTipoEnemigo == 1){
-            this.salud = 30;
+            this.salud = 1;
         }
 
         //setMirandoA(mirandoA.DERECHA);

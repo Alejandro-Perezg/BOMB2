@@ -41,7 +41,6 @@ import static mx.itesm.videojuegos.Personaje.EstadosPersonaje.NEUTRAL;
 
 public class Nivel1  extends Nivel {
     private Juego juego;
-
     private AssetManager manager;
 
     //Variables de nivel
@@ -64,6 +63,8 @@ public class Nivel1  extends Nivel {
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
     private Texture texturaEnemigoStuned;
+    private Texture texturaBigPaapa;
+    private Texture texturaBigPapaStuned;
     private Sound sonidoEnemigo1;
     private Sound sonidoEnemigo2;
 
@@ -172,7 +173,7 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaBigPapaStuned,spawn + spawn*i, 20,
                     personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 1);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
@@ -189,7 +190,7 @@ public class Nivel1  extends Nivel {
     private void generarAlto(){
         int spawn = 1000;
         Enemigo enemigo;
-        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn, 20,
+        enemigo = new Enemigo(texturaBigPaapa, textureEnemigoAtacando, texturaBigPapaStuned,spawn, 20,
                 personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 0);
         enemigo.generateBodyEnemigo(mundo, (int)spawn);
 
@@ -201,7 +202,7 @@ public class Nivel1  extends Nivel {
             case 1:
                 System.out.println("NIVEL 1");
                 phIn1 = 4;
-                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                ph1 = 1;     ph2 = 1;     ph3 = 1;     ph4 = 1;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
@@ -213,6 +214,7 @@ public class Nivel1  extends Nivel {
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
                 generarEnemigos(phIn1);
+                generarMamalon();
                 break;
             case 3:
                 System.out.println("NIVEL 3");
@@ -370,6 +372,7 @@ public class Nivel1  extends Nivel {
 
     @Override
     public void show() {
+        manager = juego.getManager();
         cargarTexturas();
         crearMundo();
         crearObjetos();
@@ -565,36 +568,61 @@ public class Nivel1  extends Nivel {
     }
 
     private void cargarTexturas() {
+        this.manager.load("fondos/cabezaArena.png", Texture.class);
+        this.manager.load("sprites_personaje/caminaKiraDer.png", Texture.class);
+        this.manager.load("sprites_personaje/golpeKiraDer.png", Texture.class);
+        this.manager.load("sprites_personaje/kiraStuned.png", Texture.class);
+        this.manager.load("sprites_personaje/caminaRaohDer.png", Texture.class);
+        this.manager.load("sprites_personaje/golpeRaohDer.png", Texture.class);
+        this.manager.load("sprites_personaje/rahStuned.png", Texture.class);
+        this.manager.load("sprites_enemigo1/enemigo.png", Texture.class);
+        this.manager.load("sprites_enemigo1/enemigoGolpear.png", Texture.class);
+        this.manager.load("sprites_enemigo1/enemigoStoned.png", Texture.class);
+        this.manager.load("sprites_enemigo1/bigPapa.png", Texture.class);
+        this.manager.load("sprites_enemigo1/bigPapaStuned.png", Texture.class);
+        this.manager.load("Nivel/palanca.png", Texture.class);
+        this.manager.load("Nivel/heart_80x80.png", Texture.class);
+        this.manager.load("fondos/rocas.png",Texture.class);
+        this.manager.load("fondos/estatua.png",Texture.class);
+        //Sonidos
+        this.manager.load("Audio/enemigoDaño.mp3", Sound.class);
+        this.manager.load("Audio/enemigoSonido1.mp3", Sound.class);
+        this.manager.load("Audio/enemigoSonido2.mp3", Sound.class);
+        this.manager.finishLoading();
+
+
 
         if (idNivel ==1){
-            texturaFondo = manager.get("fondos/cabezaArena.png");
+            texturaFondo = this.manager.get("fondos/cabezaArena.png");
         }
 
         if (idNivel ==2){
-            texturaFondo = manager.get("fondos/rocas.png");
+            texturaFondo = this.manager.get("fondos/rocas.png");
         }
 
         if (idNivel ==3){
-            texturaFondo = manager.get("fondos/estatua.png");
+            texturaFondo = this.manager.get("fondos/estatua.png");
         }
 
 
         if(personajeS == "kira") {
-            texturaPersonaje = manager.get("sprites_personaje/caminaKiraDer.png");
-            TexturaPersonajeGolpe = manager.get("sprites_personaje/golpeKiraDer.png");
-            texturaPersonajeStuned = manager.get("sprites_personaje/kiraStuned.png");
+            texturaPersonaje = this.manager.get("sprites_personaje/caminaKiraDer.png");
+            TexturaPersonajeGolpe = this.manager.get("sprites_personaje/golpeKiraDer.png");
+            texturaPersonajeStuned = this.manager.get("sprites_personaje/kiraStuned.png");
         }else {
-            texturaPersonaje = manager.get("sprites_personaje/caminaRaohDer.png");
-            TexturaPersonajeGolpe = manager.get("sprites_personaje/golpeRaohDer.png");
-            texturaPersonajeStuned = manager.get("sprites_personaje/rahStuned.png");
+            texturaPersonaje = this.manager.get("sprites_personaje/caminaRaohDer.png");
+            TexturaPersonajeGolpe = this.manager.get("sprites_personaje/golpeRaohDer.png");
+            texturaPersonajeStuned = this.manager.get("sprites_personaje/rahStuned.png");
         }
 
-        texturaEnemigo = manager.get("sprites_enemigo1/enemigo.png");
-        textureEnemigoAtacando = manager.get("sprites_enemigo1/enemigoGolpear.png");
-        texturaEnemigoStuned = manager.get("sprites_enemigo1/enemigoStoned.png");
+        texturaEnemigo = this.manager.get("sprites_enemigo1/enemigo.png");
+        textureEnemigoAtacando = this.manager.get("sprites_enemigo1/enemigoGolpear.png");
+        texturaEnemigoStuned = this.manager.get("sprites_enemigo1/enemigoStoned.png");
+        texturaBigPaapa = this.manager.get("sprites_enemigo1/bigPapa.png");
+        texturaBigPapaStuned = this.manager.get("sprites_enemigo1/bigPapaStuned.png");
 
-        texturaPalanca = manager.get("Nivel/palanca.png");
-        textureHearth = manager.get("Nivel/heart_80x80.png");
+        texturaPalanca = this.manager.get("Nivel/palanca.png");
+        textureHearth = this.manager.get("Nivel/heart_80x80.png");
     }
 
 
@@ -632,6 +660,7 @@ public class Nivel1  extends Nivel {
         batch.setProjectionMatrix(camara.combined);
 
         batch.begin();
+
         batch.draw(texturaFondo, 0, 0);
         rendePersonaje(batch);
         renderSalud(batch);
@@ -687,11 +716,11 @@ public class Nivel1  extends Nivel {
     private void revisarEstadoNivel() {
         if (this.arrayEnemigos.size() == 0) {
             this.estado = EstadosNivel.GANA;
-            if (personajeS == "kira") {
+            if (personajeS.equals("kira")) {
                 save.saveSlotKira("unlock2",true);
 
             }
-            if (personajeS == "raoh"){
+            if (personajeS.equals("raoh")){
                save.saveSlotRaoh("unlock2",true);
             }
 

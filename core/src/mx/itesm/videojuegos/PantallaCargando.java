@@ -124,6 +124,8 @@ public class PantallaCargando extends Pantalla{
         manager.load("sprites_enemigo1/enemigo.png", Texture.class);
         manager.load("sprites_enemigo1/enemigoGolpear.png", Texture.class);
         manager.load("sprites_enemigo1/enemigoStoned.png", Texture.class);
+        manager.load("sprites_enemigo1/bigPapa.png", Texture.class);
+        manager.load("sprites_enemigo1/bigPapaStuned.png", Texture.class);
         manager.load("Nivel/palanca.png", Texture.class);
         manager.load("Nivel/heart_80x80.png", Texture.class);
         //Sonidos
@@ -221,6 +223,9 @@ public class PantallaCargando extends Pantalla{
         manager.load("sprites_enemigo1/enemigo.png", Texture.class);
         manager.load("sprites_enemigo1/enemigoGolpear.png", Texture.class);
         manager.load("sprites_enemigo1/enemigoStoned.png", Texture.class);
+        manager.load("sprites_enemigo1/bigPapa.png", Texture.class);
+        manager.load("sprites_enemigo1/bigPapaStuned.png", Texture.class);
+
 
         ///PALANCA
         manager.load("Nivel/palanca.png", Texture.class);
