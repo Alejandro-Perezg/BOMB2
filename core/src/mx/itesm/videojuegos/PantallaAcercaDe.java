@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import javax.xml.soap.SAAJMetaFactory;
 import javax.xml.soap.Text;
 
 public class PantallaAcercaDe extends Pantalla {
@@ -36,10 +37,11 @@ public class PantallaAcercaDe extends Pantalla {
     //AUDIO
     private Music musica;
     private Texture texturaMusica;
-
+    private Save save;
 
     public PantallaAcercaDe (Juego juego) {
         this.juego = juego;
+        this.save = new Save();
     }
 
     public PantallaAcercaDe (Juego juego, Music musica) {
@@ -63,9 +65,10 @@ public class PantallaAcercaDe extends Pantalla {
             musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
             musica.setLooping(true);
         }
-        if (juego.playMusic == true){
+        //
+        if (save.prefMusic.getBoolean("mute")){
             musica.play();
-        } if (juego.playMusic == false){
+        } else{
             musica.stop();
         }
     }

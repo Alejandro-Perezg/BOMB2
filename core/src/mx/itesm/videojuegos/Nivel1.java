@@ -1,6 +1,7 @@
 package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -391,7 +392,12 @@ public class Nivel1  extends Nivel {
     }
 
     private void reproducirMusica() {
-        if (!musica.isPlaying()) musica.play();
+        if (save.prefMusic.getBoolean("mute")){
+            musica.play();
+        } else{
+            musica.stop();
+        }
+        //re
     }
 
 
@@ -587,6 +593,8 @@ public class Nivel1  extends Nivel {
         escenaHUD.addActor(btnPausa);
         escenaHUD.addActor(barraPalanca);
         escenaHUD.addActor(btnAtacar);
+
+
 
         Gdx.input.setInputProcessor(escenaHUD);
 

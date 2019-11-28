@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 class PantallaMenuPrincipal extends Pantalla{
     private final Juego juego;
+    private Save save;
 
     //FONDO
     private Texture texturaFondo;
@@ -45,12 +46,15 @@ class PantallaMenuPrincipal extends Pantalla{
 
     public PantallaMenuPrincipal (Juego juego) {
         this.juego = juego;
+        this.save = new Save();
+
 
     }
 
     public PantallaMenuPrincipal(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
+        this.save = new Save();
     }
 
     @Override
@@ -69,9 +73,9 @@ class PantallaMenuPrincipal extends Pantalla{
             musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
             musica.setLooping(true);
         }
-        if (juego.playMusic == true){
+        if (save.prefMusic.getBoolean("mute")){
             musica.play();
-        } if (juego.playMusic ==false){
+        } else{
             musica.stop();
         }
     }
@@ -130,8 +134,6 @@ class PantallaMenuPrincipal extends Pantalla{
                                  public void clicked(InputEvent event, float x, float y) {
              super.clicked(event, x, y);
              //INSTRUCCIONe
-             musica.pause();
-
              escenaHUD.addAction(Actions.sequence(Actions.moveBy(texturaFondo.getWidth(),0,1),Actions.run(new Runnable() {
                  @Override
                  public void run() {

@@ -38,8 +38,10 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     //AUDIO
     public Music musica;
-    public Save save;
 
+    //preferencias
+    private Preferences pref;
+    private Save save;
 
 
     public PantallaSeleccionNivel(Juego juego, Music music){
@@ -68,9 +70,9 @@ public class PantallaSeleccionNivel extends Pantalla {
                 musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
                 musica.setLooping(true);
             }
-            if (juego.playMusic == true){
+            if (save.prefMusic.getBoolean("mute")){
                 musica.play();
-            } if (juego.playMusic ==false){
+            } else{
                 musica.stop();
             }
 
