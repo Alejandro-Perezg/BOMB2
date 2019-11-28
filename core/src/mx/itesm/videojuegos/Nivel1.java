@@ -177,6 +177,7 @@ public class Nivel1  extends Nivel {
     private void generarEnemigos(int cantidad) {
         int spawn = 400;
 
+
         for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
