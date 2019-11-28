@@ -25,7 +25,7 @@ public class GameOverStage extends Stage { ;
 
     private Music musica;
 
-    public GameOverStage(Viewport vista, SpriteBatch batch){
+    public GameOverStage(Viewport vista, SpriteBatch batch, String personajeS){
         super(vista, batch);
     }
 
@@ -49,7 +49,7 @@ public class GameOverStage extends Stage { ;
                                         super.clicked(event, x, y);
                                         //INSTRUCCIONE
                                         musica.stop();
-                                        juego.setScreen(new Nivel1(juego, musica));
+                                        juego.setScreen(new Nivel1(juego, musica, personajeS));
                                     }
                                 }
         );

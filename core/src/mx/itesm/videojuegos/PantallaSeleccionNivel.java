@@ -31,6 +31,7 @@ public class PantallaSeleccionNivel extends Pantalla {
 
 
     //PREVIO DE PERSONAJE
+    private String personajeSeleccionado;
     private PersonajeActual personajeActual;
     private TextureRegion[][] drawable;
     private TextureRegion texturaPersonajeSeleccionable;
@@ -41,6 +42,10 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     //preferencias
     public Progress progress;
+
+    //Texturas
+    private Texture texturaFlechaIzquierda;
+    private TextureRegion texturaFlechaDerecha;
 
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
@@ -88,11 +93,18 @@ public class PantallaSeleccionNivel extends Pantalla {
         TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
         TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
         TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/select.png")));
+        TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture ("menus/Nivel1/flechaDer.png")));
+        TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel1/flechaIz.png")));
+
+
 
         ImageButton btnBack = new ImageButton(Back,BackPr);
         ImageButton btnNiv1= new ImageButton(btnN1);
         ImageButton btnNiv2 = new ImageButton(btnN2);
         ImageButton label = new ImageButton(Label);
+        ImageButton btnFD = new ImageButton(btnFlechaDer);
+        ImageButton btnFI = new ImageButton(btnFlechaIz);
+
         Image charLabel = new Image(charlabel);
 
         label.setPosition(10,ALTO-label.getHeight()-120);
@@ -101,6 +113,8 @@ public class PantallaSeleccionNivel extends Pantalla {
         btnNiv2.setColor(0,0,0,0.3f);
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-80);
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
+        btnFD.setPosition(ANCHO - btnFD.getWidth(), 200);
+        btnFI.setPosition(ANCHO- btnFD.getWidth() - 100,200 );
 
 
 
@@ -108,9 +122,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                                   @Override
                                   public void clicked(InputEvent event, float x, float y) {
                                       super.clicked(event, x, y);
-
-                                      //INSTRUCCIONE
-                                      juego.setScreen(new Nivel1(juego,musica));
+                                      juego.setScreen(new Nivel1(juego,musica,personajeSeleccionado));
                                   }
                               });
         btnBack.addListener(new ClickListener(){
@@ -134,6 +146,8 @@ public class PantallaSeleccionNivel extends Pantalla {
         escenaMenuNivel.addActor(label);
         escenaMenuNivel.addActor(btnBack);
         escenaMenuNivel.addActor(btnNiv2);
+        escenaMenuNivel.addActor(btnFD);
+        escenaMenuNivel.addActor(btnFI);
         Gdx.input.setInputProcessor(escenaMenuNivel);
     }
 

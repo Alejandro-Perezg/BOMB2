@@ -46,6 +46,7 @@ public class Nivel1  extends Nivel {
     // PERSONAJE
     private Personaje personaje;
     private int fuerzaPersonaje;
+    private String personajeS;
     //ENEMIGO
 
 
@@ -127,9 +128,10 @@ public class Nivel1  extends Nivel {
 
 
 
-    public Nivel1(Juego juego, Music musica) {
+    public Nivel1(Juego juego, Music musica, String personajeSeleccionado) {
         this.juego = juego;
         this.musica = musica;
+        this.personajeS = personajeSeleccionado;
     }
 
 
@@ -515,18 +517,22 @@ public class Nivel1  extends Nivel {
 
     private void cargarTexturas() {
         texturaFondo = new Texture("fondos/cabezaArena.png");
-
+        //PERSONAJES
+    if(personajeS == "kira") {
         texturaPersonaje = new Texture("sprites_personaje/caminaKiraDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeKiraDer.png");
         texturaPersonajeStuned = new Texture("sprites_personaje/kiraStuned.png");
-
+    }else{
+        texturaPersonaje = new Texture("sprites_personaje/caminaRaohDer.png");
+        TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeRaohDer.png");
+        texturaPersonajeStuned = new Texture("sprites_personaje/kiraStuned.png");
+    }
+        //ENEMIGOS
         texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
-
         textureEnemigoAtacando = new Texture("sprites_enemigo1/enemigoGolpear.png");
         texturaEnemigoStuned = new Texture("sprites_enemigo1/enemigoStoned.png");
-
+        //PALANCA
         texturaPalanca = new Texture("Nivel/palanca.png");
-
         textureHearth = new Texture("Nivel/heart_80x80.png");
     }
 
@@ -622,7 +628,7 @@ public class Nivel1  extends Nivel {
         if(personaje.getEstadosPersonaje() == MUERTO) {
             this.estado = EstadosNivel.PIERDE;
             if (!cambioStageAGameover) {
-                escenaGameOver = new GameOverStage(vista, batch);
+                escenaGameOver = new GameOverStage(vista, batch,personajeS);
                 escenaHUD.dispose();
                 escenaGameOver.creargameOverStage(juego, musica);
             }
