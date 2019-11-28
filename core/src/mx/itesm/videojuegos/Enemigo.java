@@ -461,11 +461,11 @@ public class Enemigo {
 
         switch (getEstadoEnemigo()) {
             case MOV_DERECHA:
-                bodyPersonaje.setTransform(x + 2, y, 0);
+                bodyPersonaje.setTransform(x + 5, y, 0);
                 break;
 
             case MOV_IZQUIERDA:
-                bodyPersonaje.setTransform(x - 2, y, 0);
+                bodyPersonaje.setTransform(x - 5, y, 0);
                 break;
             case NEUTRAL:
                 break;
