@@ -47,7 +47,7 @@ public class PantallaSeleccionNivel extends Pantalla {
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
-        this.save = save;
+        this.save = new Save();
     }
 
     @Override
@@ -144,6 +144,9 @@ public class PantallaSeleccionNivel extends Pantalla {
 
             }
         });
+
+
+
         btnNiv1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -151,20 +154,22 @@ public class PantallaSeleccionNivel extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
             }
         });
+        if (save.getsavelevel("unlock")==2){
         btnNiv2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL2, musica, personajeSeleccionado, 2));
             }
-        });
+        });}
+        if (save.getsavelevel("unlock")==3){
         btnNiv3.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL3, musica, personajeSeleccionado, 3));
             }
-        });
+        });}
 
         btnBack.addListener(new ClickListener(){
             @Override

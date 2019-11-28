@@ -752,13 +752,8 @@ public class Nivel1  extends Nivel {
 
 
             this.estado = EstadosNivel.GANA;
-            if (personajeS.equals("kira")) {
-                save.saveSlotKira("unlock2",true);
+            save.saveLevel("unlock", this.idNivel+1);
 
-            }
-            if (personajeS.equals("raoh")){
-               save.saveSlotRaoh("unlock2",true);
-            }
 
             if (!cambioStageFinal) {
                 escenaVictoria = new VictoryStage(vista, batch, personajeS);
