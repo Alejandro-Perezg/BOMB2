@@ -57,8 +57,6 @@ public class PantallaSeleccionNivel extends Pantalla {
         ajustarMusica();
         cargarAudios(manager);
         crearHUDMenu();
-
-
     }
 
 
@@ -98,7 +96,6 @@ public class PantallaSeleccionNivel extends Pantalla {
 
         TextureRegionDrawable kira = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/kira.png")));
         TextureRegionDrawable raoh = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/raoh.png")));
-
 
 
         ImageButton btnBack = new ImageButton(Back,BackPr);

@@ -164,6 +164,6 @@ public class PantallaAcercaDe extends Pantalla {
 
     @Override
     public void dispose() {
-        texturaFondo.dispose(); //liberar
+
     }
 }

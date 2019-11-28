@@ -28,4 +28,11 @@ public void playMusic (boolean unlock){
         prefMusic.putBoolean("mute", unlock);
         prefMusic.flush();
     }
+    public boolean getPrefkira(String key) {
+        return prefkira.getBoolean(key);
+    }
+
+    public boolean getPrefraoh(String key){
+        return  prefraoh.getBoolean(key);
+    }
 }
