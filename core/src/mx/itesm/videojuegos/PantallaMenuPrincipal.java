@@ -128,7 +128,7 @@ class PantallaMenuPrincipal extends Pantalla{
              //INSTRUCCIONe
              musica.pause();
 
-             escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+             escenaHUD.addAction(Actions.sequence(Actions.moveBy(texturaFondo.getWidth(),0,1),Actions.run(new Runnable() {
                  @Override
                  public void run() {
                      ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaAcercaDe(juego,musica));

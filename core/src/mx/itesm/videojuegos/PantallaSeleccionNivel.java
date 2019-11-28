@@ -2,6 +2,7 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -41,7 +42,7 @@ public class PantallaSeleccionNivel extends Pantalla {
     public Music musica;
 
     //preferencias
-    public Progress progress;
+    private Preferences pref;
 
     //Texturas
     private Texture texturaFlechaIzquierda;
@@ -61,6 +62,11 @@ public class PantallaSeleccionNivel extends Pantalla {
         cargarAudios(manager);
         crearHUDMenu();
 
+
+    }
+
+    public void guardarProgreso(){
+        pref = Gdx.app.getPreferences("stage-desbloqueado");
 
     }
 
@@ -85,7 +91,7 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     private void crearHUDMenu( ) {
         escenaMenuNivel = new Stage(vista);
-        //TextureRegion[][] texturaPersonaje =
+
         escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
@@ -215,10 +221,6 @@ public class PantallaSeleccionNivel extends Pantalla {
     @Override
     public void dispose() {
 
-    }
-    enum Progress {
-        BLOCKEADO,
-        DESBLOQUEADO
     }
     enum PersonajeActual{
         KIRA,

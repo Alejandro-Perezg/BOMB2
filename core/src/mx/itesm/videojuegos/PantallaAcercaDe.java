@@ -3,21 +3,16 @@ package mx.itesm.videojuegos;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaAcercaDe extends Pantalla {
 
@@ -25,7 +20,7 @@ public class PantallaAcercaDe extends Pantalla {
 
     //fondosss
     private Texture texturaFondo;
-    private Texture informacion;
+
 
 
     //escena de menu (botones)
@@ -42,7 +37,6 @@ public class PantallaAcercaDe extends Pantalla {
     public PantallaAcercaDe (Juego juego, Music musica) {
         this.juego = juego;
         this.musica = musica;
-        //this.musicPosition = musicPosition;
     }
 
     @Override
@@ -61,18 +55,25 @@ public class PantallaAcercaDe extends Pantalla {
 
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "menus/menus.jpg");
-        informacion = new Texture("menus/acercaDe/nombres.png");
+        texturaFondo = new Texture( "fondos/estatua.png");
+
     }
 
     private void crearHUD() {
         escenaHUD = new Stage(vista);
+        escenaHUD.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable trdBackPressed = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
+        TextureRegionDrawable trdDes = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/desarrollo.png")));
+        TextureRegionDrawable trdAni = new TextureRegionDrawable(new TextureRegion(new Texture("menus/acercaDe/arte.png")));
 
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPressed);
+        Image desInfo = new Image(trdDes);
+        Image desAni = new Image(trdAni);
 
-        final ImageButton btnBack = new ImageButton(trdBack,trdBackPressed);
         btnBack.setPosition(0, ALTO - btnBack.getHeight());
+        desInfo.setPosition(ANCHO/2-(desInfo.getWidth()/2-50) , ALTO - desInfo.getHeight());
+        desAni.setPosition(ANCHO/2-(desAni.getWidth()/2),0);
 
         //Evento de boton.
         btnBack.addListener(new ClickListener(){
@@ -80,7 +81,7 @@ public class PantallaAcercaDe extends Pantalla {
                                 public void clicked(InputEvent event, float x, float y) {
                                     super.clicked(event, x, y);
                                     //INSTRUCCIONE
-                                    escenaHUD.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
+                                    escenaHUD.addAction(Actions.sequence(Actions.moveBy(-texturaFondo.getWidth(),0,1 ),Actions.run(new Runnable() {
                                         @Override
                                         public void run() {
                                             ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaMenuPrincipal(juego,musica));
@@ -92,6 +93,8 @@ public class PantallaAcercaDe extends Pantalla {
         );
 
         escenaHUD.addActor(btnBack);
+        escenaHUD.addActor(desAni);
+        escenaHUD.addActor(desInfo);
         Gdx.input.setInputProcessor(escenaHUD);
 
     }
@@ -103,8 +106,8 @@ public class PantallaAcercaDe extends Pantalla {
 
         batch.begin();
         batch.draw(texturaFondo, 0, 0);
-        batch.draw(informacion, ANCHO/2-(informacion.getWidth()/2) , 2*ALTO/3 - 300);
         batch.end();
+
         escenaHUD.act(Gdx.graphics.getDeltaTime());
         escenaHUD.draw();
     }
