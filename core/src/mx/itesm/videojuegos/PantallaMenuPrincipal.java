@@ -93,10 +93,10 @@ class PantallaMenuPrincipal extends Pantalla{
 
         titulo.setPosition(ANCHO/2-(titulo.getWidth()/2), ALTO - 20 - titulo.getHeight());
         //btnJugar.setPosition(ANCHO/2 - (btnJugar.getWidth()/2), ALTO/2);
-        btnJugar.setPosition( 100 , 40);
+        btnAcerecaDe.setPosition( 100 , 40);
 
         //btnAcerecaDe.setPosition(ANCHO/2 - (btnAcerecaDe.getWidth()/2), ALTO/2-btnAcerecaDe.getHeight()-25);
-        btnAcerecaDe.setPosition((btnJugar.getWidth()) +200,  40);
+        btnJugar.setPosition((btnJugar.getWidth()) +200,  40);
 
         //btnOpciones.setPosition(ANCHO/2 - (btnOpciones.getWidth()/2), ALTO/2-btnOpciones.getHeight()*2-50);
         btnOpciones.setPosition(btnJugar.getWidth() + btnAcerecaDe.getWidth() + 300,40);
