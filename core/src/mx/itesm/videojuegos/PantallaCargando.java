@@ -1,5 +1,6 @@
 package mx.itesm.videojuegos;
 
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 import com.badlogic.gdx.assets.AssetManager;
-6
+
 public class PantallaCargando extends Pantalla{
 
     private final float TIEMPO_ENTRE_FRAME = 0.05f; 
