@@ -749,6 +749,8 @@ public class Nivel1  extends Nivel {
 
     private void revisarEstadoNivel() {
         if (this.arrayEnemigos.size() == 0) {
+
+
             this.estado = EstadosNivel.GANA;
             if (personajeS.equals("kira")) {
                 save.saveSlotKira("unlock2",true);
@@ -771,12 +773,11 @@ public class Nivel1  extends Nivel {
 
         if (personaje.getEstadosPersonaje() == MUERTO) {
             this.estado = EstadosNivel.PIERDE;
-            if (personajeS == "kira") save.saveSlotKira("unlock2",true);
-            if (personajeS=="raoh")save.saveSlotRaoh("unlock2",true);
+
             if (!cambioStageFinal) {
                 escenaGameOver = new GameOverStage(vista, batch, personajeS);
                 escenaHUD.dispose();
-                escenaGameOver.creargameOverStage(juego, musica);
+                escenaGameOver.creargameOverStage(juego, musica, idNivel);
             }
             cambioStageFinal = true;
 

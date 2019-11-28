@@ -32,7 +32,7 @@ public class GameOverStage extends Stage { ;
     }
 
 
-    public void creargameOverStage(final Juego juego, final Music musica){
+    public void creargameOverStage(final Juego juego, final Music musica, final int Nivel){
         crearFondo();
 
         TextureRegionDrawable trdgiveupBtn = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/gameover/giveupbtn.png")));
@@ -51,7 +51,7 @@ public class GameOverStage extends Stage { ;
                                         super.clicked(event, x, y);
                                         //INSTRUCCIONE
                                         musica.stop();
-                                        juego.setScreen(new Nivel1(juego, musica, personajeSeleccionado,1));
+                                        juego.setScreen(new Nivel1(juego, musica, personajeSeleccionado,Nivel));
                                     }
                                 }
         );

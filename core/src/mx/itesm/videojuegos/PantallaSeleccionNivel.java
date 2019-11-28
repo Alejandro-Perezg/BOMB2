@@ -33,11 +33,6 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     //PREVIO DE PERSONAJE
     private String personajeSeleccionado = "kira";
-    private PersonajeActual personajeActual;
-    private TextureRegion[][] drawable;
-    private TextureRegion texturaPersonajeSeleccionable;
-    private Float transpKira = 1f;
-    private  Float getTranspRaoh = 0f;
     private Image imageKira;
     private Image imageRaoh;
 
@@ -48,14 +43,11 @@ public class PantallaSeleccionNivel extends Pantalla {
     private Preferences pref;
     private Save save;
 
-    //Texturas
-    private Texture texturaFlechaIzquierda;
-    private TextureRegion texturaFlechaDerecha;
 
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
-        this.save = new Save();
+        this.save = save;
     }
 
     @Override
@@ -69,10 +61,7 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     }
 
-    public void guardarProgreso(){
-        pref = Gdx.app.getPreferences("stage-desbloqueado");
 
-    }
 
 
 
@@ -127,10 +116,10 @@ public class PantallaSeleccionNivel extends Pantalla {
         label.setPosition(10,ALTO-label.getHeight()-120);
         charLabel.setPosition(ANCHO-charLabel.getWidth()-10,ALTO-label.getHeight()-100);
         btnNiv1.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2);
-        btnNiv2.setColor(0,0,0,0.3f);
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-40);
-       btnNiv3.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight() - btnN2.getBottomHeight() - 180);
-       btnNiv3.setColor(0,0,0,0.3f);
+        btnNiv3.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight() - btnN2.getBottomHeight() - 180);
+        btnNiv3.setColor(0,0,0,0.3f);
+        btnNiv2.setColor(0,0,0,0.3f);
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
         btnFD.setPosition(ANCHO - btnFD.getWidth() - 100, 60);
         btnFI.setPosition(ANCHO- btnFD.getWidth() - 400,60 );
@@ -158,7 +147,13 @@ public class PantallaSeleccionNivel extends Pantalla {
 
             }
         });
-
+        btnNiv1.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
+            }
+        });
         btnNiv2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -173,13 +168,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL3, musica, personajeSeleccionado, 3));
             }
         });
-        btnNiv1.addListener(new ClickListener(){
-                                  @Override
-                                  public void clicked(InputEvent event, float x, float y) {
-                                      super.clicked(event, x, y);
-                                      juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
-                                  }
-                              });
+
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -229,7 +218,6 @@ public class PantallaSeleccionNivel extends Pantalla {
     @Override
     public void render(float delta) {
         borrarPantalla();
-        //batch escalaTodo de acuerdo a la visat y la camara
         batch.setProjectionMatrix(camara.combined);
 
 
