@@ -581,7 +581,7 @@ public class Nivel1  extends Nivel {
     }else{
         texturaPersonaje = new Texture("sprites_personaje/caminaRaohDer.png");
         TexturaPersonajeGolpe = new Texture("sprites_personaje/golpeRaohDer.png");
-        texturaPersonajeStuned = new Texture("sprites_personaje/kiraStuned.png");
+        texturaPersonajeStuned = new Texture("sprites_personaje/rahStuned.png");
     }
         //ENEMIGOS
         texturaEnemigo = new Texture("sprites_enemigo1/enemigo.png");
