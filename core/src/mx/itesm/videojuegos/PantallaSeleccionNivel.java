@@ -46,6 +46,7 @@ public class PantallaSeleccionNivel extends Pantalla {
 
     //preferencias
     private Preferences pref;
+    private Save save;
 
     //Texturas
     private Texture texturaFlechaIzquierda;
@@ -54,7 +55,7 @@ public class PantallaSeleccionNivel extends Pantalla {
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
-
+        this.save = new Save();
     }
 
     @Override
@@ -82,9 +83,9 @@ public class PantallaSeleccionNivel extends Pantalla {
                 musica = manager.get("menus/music/09 Come and Find Me - B mix.mp3");
                 musica.setLooping(true);
             }
-            if (juego.playMusic == true){
+            if (save.prefMusic.getBoolean("mute")){
                 musica.play();
-            } if (juego.playMusic ==false){
+            } else{
                 musica.stop();
             }
 

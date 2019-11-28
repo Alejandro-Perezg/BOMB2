@@ -23,10 +23,12 @@ public class Pausa extends Stage { ;
     private PantallaMenuPrincipal menu;
     private Texture texturaFondoPausa;
     private boolean sonidoOn, musicaOn;
+    private Save save;
 
 
     public Pausa(Viewport vista, SpriteBatch batch){
         super(vista, batch);
+        this.save = new Save();
     }
 
     private void crearPlantillaPausa(){
@@ -65,10 +67,6 @@ public class Pausa extends Stage { ;
              }
          }
         );
-        //botones solido
-        if(juego.playMusic){
-            musicaOn = true;
-        }else{musicaOn = false;}
 
         TextureRegionDrawable trdMusic = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/soundOn.png")));
         final ImageButton btnMute;
@@ -81,8 +79,8 @@ public class Pausa extends Stage { ;
 
                 super.clicked(event, x, y);
                 //INSTRUCCIONES
+                save.playMusic(false);
                 musica.stop();
-                musicaOn = false;
             }
         }
         );
@@ -97,7 +95,7 @@ public class Pausa extends Stage { ;
                     super.clicked(event, x, y);
                     //INSTRUCCIONE
                    //menu.ManejarMusica(true);
-                    juego.playMusic = true;
+                    save.playMusic(true);
                     musica.play();
 
                 }

@@ -25,10 +25,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 import com.badlogic.gdx.assets.AssetManager;
-6
+
 public class PantallaCargando extends Pantalla{
 
-    private final float TIEMPO_ENTRE_FRAME = 0.05f; 
+    private final float TIEMPO_ENTRE_FRAME = 0.05f;
     private Sprite spriteCargando; 
     private float timerAnimacion = TIEMPO_ENTRE_FRAME;
     private Juego juego; 
