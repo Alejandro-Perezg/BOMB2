@@ -186,7 +186,7 @@ public class Nivel1  extends Nivel {
         }
     }
 
-    private void generarMamalon(){
+    private void generarAlto(){
         int spawn = 1000;
         Enemigo enemigo;
         enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn, 20,
@@ -252,7 +252,7 @@ public class Nivel1  extends Nivel {
                 if(arrayEnemigos.size()<enemigosMinimosFase2) {
 
                     if (idNivel == 2){
-                        generarMamalon();
+                        generarAlto();
                     }
 
                     System.out.println("PHASE2");
