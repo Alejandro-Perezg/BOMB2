@@ -47,7 +47,7 @@ public class PantallaSeleccionNivel extends Pantalla {
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
-        this.save = save;
+        this.save = new Save();
     }
 
     @Override

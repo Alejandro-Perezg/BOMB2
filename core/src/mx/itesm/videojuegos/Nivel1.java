@@ -180,7 +180,7 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaBigPapaStuned,spawn + spawn*i, 20,
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
                     personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 1);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
