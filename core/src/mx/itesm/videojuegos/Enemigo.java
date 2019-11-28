@@ -1,5 +1,6 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-
+import java.util.Random;
 ///BODY
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -56,6 +57,8 @@ public class Enemigo {
 
     private Personaje personaje;
 
+    private Random rnd;
+
 
     //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
@@ -70,15 +73,24 @@ public class Enemigo {
     private float x;
     private float y;
 
+    private Sound sonido1;
+    private Sound sonido2;
+
+
     public boolean frameDeAtaque = false;
 
 
-    public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje, Sound sonidoDefault, Sound sonidoDano) {
+    public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje,
+                   Sound sonidoDefault, Sound sonidoDano, Sound sonido1, Sound sonido2) {
+
         this.personaje = personaje;
         cargarTexturas(textura,textureAtacando,texturaEnemigoStuned, x);
         cargarFisica();
         this.sonidoDefault = sonidoDefault;
         this.sonidoDano = sonidoDano;
+
+        this.sonido1 = sonido1;
+        this.sonido2 = sonido2;
 
         //setMirandoA(mirandoA.DERECHA);
         setMirandoA(mirandoA.DERECHA);
@@ -142,6 +154,8 @@ public class Enemigo {
 
         switch (estadosEnemigo) {
             case MOV_DERECHA:
+                sonido1.play(0.5f);
+
                 this.mirandoA = this.mirandoA.DERECHA;
                 timerAnimacion += Gdx.graphics.getDeltaTime();
                 TextureRegion region = animacionMoverse.getKeyFrame(timerAnimacion);
@@ -159,6 +173,7 @@ public class Enemigo {
                 break;
 
             case MOV_IZQUIERDA:
+                sonido2.play(0.5f);
 
                 //System.out.println("Dibujando, moviendo" );
 

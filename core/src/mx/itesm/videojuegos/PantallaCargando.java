@@ -134,11 +134,8 @@ public class PantallaCargando extends Pantalla{
         /////fondos
         manager.load("fondos/cabezaArena.png", Texture.class);
         manager.load("fondos/estatua.png", Texture.class);
-        manager.load("fondos/fond1.jpg", Texture.class);
-        manager.load("fondos/fondo.jpg", Texture.class);
-        manager.load("fondos/fondo2.jpg", Texture.class);
-        manager.load("fondos/fondo5.jpg", Texture.class);
-        manager.load("fondos/fondoNivel1.jpg", Texture.class);
+        manager.load("fondos/rocas.png", Texture.class);
+        manager.load("fondos/T/fondoT.png", Texture.class);
 
         //personaje, kira
         manager.load("sprites_personaje/caminaKiraDer.png", Texture.class);
@@ -158,6 +155,9 @@ public class PantallaCargando extends Pantalla{
         ///PALANCA
         manager.load("Nivel/palanca.png", Texture.class);
         manager.load("Nivel/heart_80x80.png", Texture.class);
+
+        manager.load("Audio/enemigoSonido1.mp3",Sound.class );
+        manager.load("Audio/enemigoSonido2.mp3",Sound.class );
 
     }
 

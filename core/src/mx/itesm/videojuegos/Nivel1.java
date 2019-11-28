@@ -65,6 +65,8 @@ public class Nivel1  extends Nivel {
     private Texture texturaEnemigo;
     private Texture textureEnemigoAtacando;
     private Texture texturaEnemigoStuned;
+    private Sound sonidoEnemigo1;
+    private Sound sonidoEnemigo2;
 
     private Texture barraSaludArriba;
     private Texture barraSaludAbajo;
@@ -170,7 +172,8 @@ public class Nivel1  extends Nivel {
         for (int i = 0; i < cantidad; i++) {
             //ystem.out.println(i);
             Enemigo enemigo;
-            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20, personaje, sonidoEnemigoDefault, sonidoEnemigoDano);
+            enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
+                    personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
             } else{
@@ -389,6 +392,9 @@ public class Nivel1  extends Nivel {
         manager.finishLoading();
         sonidoEnemigoDano = manager.get("Audio/enemigoDaño.mp3");
         sonidoEnemigoDefault = manager.get("Audio/enemigoSonido1.mp3");
+        sonidoEnemigo1 = manager.get("Audio/enemigoSonido1.mp3");
+        sonidoEnemigo2 = manager.get("Audio/enemigoSonido2.mp3");
+
     }
 
     private void crearHUD() {
@@ -481,25 +487,6 @@ public class Nivel1  extends Nivel {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 personaje.setEstadosPersonaje(ATACANDO);
                 ////////////////////////////////////////////////////////////////
-
-                for (int i = 0; i <arrayEnemigos.size(); i++){
-                    //System.out.println(i);
-                    //System.out.println(arrayEnemigos.get(i));
-                    //System.out.println(arrayEnemigos.get(i).getEstadoEnemigo());
-
-                    ////////
-
-                    //AQUI SE CALCULAN LAS COLISIONES
-                    //System.out.println(i);
-                    //arrayEnemigos.get(i).setEstadosEnemigo(Enemigo.EstadosEnemigo.MUERTO);
-
-
-                    ////////
-
-                }
-
-                score = 10;
-                personaje.cargarPoder(20);
 
                 /////////////////////////////////////////////////////////////////
                 return true;
