@@ -1,6 +1,0 @@
-
-
-https://github.com/rmroman/DemoVideojuegos/tree/master/core/src/mx/itesm/demovideojuegos
-
-
-https://github.com/rmroman/Demo2017_11/tree/master/core/src/mx/rmr/demo201711

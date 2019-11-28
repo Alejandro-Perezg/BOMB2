@@ -30,9 +30,17 @@ public class PantallaSeleccionNivel extends Pantalla {
     private Stage escenaMenuNivel;
 
 
+    //PREVIO DE PERSONAJE
+    private PersonajeActual personajeActual;
+    private TextureRegion[][] drawable;
+    private TextureRegion texturaPersonajeSeleccionable;
+
 
     //AUDIO
     public Music musica;
+
+    //preferencias
+    public Progress progress;
 
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
@@ -46,10 +54,14 @@ public class PantallaSeleccionNivel extends Pantalla {
         cargarTexturas();
         ajustarMusica();
         cargarAudios(manager);
-        crearHUD();
+        crearHUDMenu();
+
+
     }
 
-        private void cargarAudios(AssetManager manager) {
+
+
+    private void cargarAudios(AssetManager manager) {
             if (musica == null) {
                 manager.load("menus/music/09 Come and Find Me - B mix.mp3", Music.class);
                 manager.finishLoading();
@@ -66,24 +78,31 @@ public class PantallaSeleccionNivel extends Pantalla {
 
 
 
-    private void crearHUD() {
+    private void crearHUDMenu( ) {
         escenaMenuNivel = new Stage(vista);
+        //TextureRegion[][] texturaPersonaje =
         escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
         TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
         TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
         TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
         TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
         TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
+        TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/select.png")));
 
         ImageButton btnBack = new ImageButton(Back,BackPr);
         ImageButton btnNiv1= new ImageButton(btnN1);
         ImageButton btnNiv2 = new ImageButton(btnN2);
         ImageButton label = new ImageButton(Label);
+        Image charLabel = new Image(charlabel);
 
         label.setPosition(10,ALTO-label.getHeight()-120);
+        charLabel.setPosition(ANCHO-charLabel.getWidth()-10,ALTO-label.getHeight()-100);
         btnNiv1.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2);
+        btnNiv2.setColor(0,0,0,0.3f);
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-80);
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
+
+
 
         btnNiv1.addListener(new ClickListener(){
                                   @Override
@@ -107,10 +126,10 @@ public class PantallaSeleccionNivel extends Pantalla {
                 })));
 
 
-               // juego.setScreen(new PantallaMenuPrincipal(juego,musica));
+
             }
         });
-
+        escenaMenuNivel.addActor(charLabel);
         escenaMenuNivel.addActor(btnNiv1);
         escenaMenuNivel.addActor(label);
         escenaMenuNivel.addActor(btnBack);
@@ -178,4 +197,15 @@ public class PantallaSeleccionNivel extends Pantalla {
     public void dispose() {
 
     }
+    enum Progress {
+        BLOCKEADO,
+        DESBLOQUEADO
+    }
+    enum PersonajeActual{
+        KIRA,
+        RAOH
+    }
+
+
+
 }
