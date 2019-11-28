@@ -189,7 +189,7 @@ public class PantallaCargando extends Pantalla{
                     juego.setScreen(new PantallaInicio(juego));
                     break;
                 case MENU:
-                    juego.setScreen(new PantallaMenuPrincipal(juego));
+                    juego.setScreen(new PantallaMenuPrincipal(juego,music));
                     break;
                 case  PANTALLAACERCADE:
                     juego.setScreen(new PantallaAcercaDe(juego));
@@ -197,9 +197,9 @@ public class PantallaCargando extends Pantalla{
                 case NIVEL1:
                     juego.setScreen(new Nivel1(juego , music,seleccionPersonaje,IDnivel ));
                     break;
-                case NIVEL2:
-                    juego.setScreen(new Nivel1(juego, music, seleccionPersonaje, IDnivel));
-                    break;
+                /*case NIVEL1:
+                    juego.setScreen(new Nivel1(juego));
+                    break;*/
             }
         }
     }

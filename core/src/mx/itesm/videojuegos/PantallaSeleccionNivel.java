@@ -158,8 +158,6 @@ public class PantallaSeleccionNivel extends Pantalla {
             }
         });
 
-
-
         btnNiv2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -189,11 +187,13 @@ public class PantallaSeleccionNivel extends Pantalla {
                 escenaMenuNivel.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaMenuPrincipal(juego,musica));
+                        ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaCargando(juego, TipoPantalla.MENU, musica));
                     }
-                })));
+                })
+                ));
             }
         });
+
         escenaMenuNivel.addActor(charLabel);
         escenaMenuNivel.addActor(btnNiv1);
         escenaMenuNivel.addActor(label);
