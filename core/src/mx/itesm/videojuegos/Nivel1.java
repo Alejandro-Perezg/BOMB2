@@ -398,10 +398,6 @@ public class Nivel1  extends Nivel {
     }
 
     private void cargarSFX() {
-        manager.load("Audio/enemigoDaño.mp3", Sound.class);
-        manager.load("Audio/enemigoSonido1.mp3", Sound.class);
-        manager.load("Audio/enemigoSonido2.mp3", Sound.class);
-        manager.finishLoading();
         sonidoEnemigoDano = manager.get("Audio/enemigoDaño.mp3");
         sonidoEnemigoDefault = manager.get("Audio/enemigoSonido1.mp3");
         sonidoEnemigo1 = manager.get("Audio/enemigoSonido1.mp3");
