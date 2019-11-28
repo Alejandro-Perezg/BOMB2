@@ -145,17 +145,20 @@ public class PantallaSeleccionNivel extends Pantalla {
 
             }
         });
-        if (personajeSeleccionado.equals("kira")){
         btnNiv1.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
+            }
+        });
+        btnNiv2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL2, musica, personajeSeleccionado, 2));
             }
-        });}else {
-            btnNiv3.setColor(0,0,0,0.3f);
-            btnNiv2.setColor(0,0,0,0.3f);
-        }
+        });
         btnNiv3.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -163,6 +166,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL3, musica, personajeSeleccionado, 3));
             }
         });
+
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
