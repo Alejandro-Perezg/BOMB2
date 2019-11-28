@@ -31,11 +31,14 @@ public class PantallaSeleccionNivel extends Pantalla {
 
 
     //PREVIO DE PERSONAJE
-    private String personajeSeleccionado;
+    private String personajeSeleccionado = "kira";
     private PersonajeActual personajeActual;
     private TextureRegion[][] drawable;
     private TextureRegion texturaPersonajeSeleccionable;
-
+    private Float transpKira = 1f;
+    private  Float getTranspRaoh = 0f;
+    private Image imageKira;
+    private Image imageRaoh;
 
     //AUDIO
     public Music musica;
@@ -97,6 +100,9 @@ public class PantallaSeleccionNivel extends Pantalla {
         TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaDer.png")));
         TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaIz.png")));
 
+        TextureRegionDrawable kira = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/kira.png")));
+        TextureRegionDrawable raoh = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/raoh.png")));
+
 
 
         ImageButton btnBack = new ImageButton(Back,BackPr);
@@ -108,6 +114,8 @@ public class PantallaSeleccionNivel extends Pantalla {
         ImageButton btnFI = new ImageButton(btnFlechaIz);
 
         Image charLabel = new Image(charlabel);
+        imageKira = new Image(kira);
+        imageRaoh = new Image(raoh);
 
         label.setPosition(10,ALTO-label.getHeight()-120);
         charLabel.setPosition(ANCHO-charLabel.getWidth()-10,ALTO-label.getHeight()-100);
@@ -119,9 +127,47 @@ public class PantallaSeleccionNivel extends Pantalla {
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
         btnFD.setPosition(ANCHO - btnFD.getWidth() - 100, 60);
         btnFI.setPosition(ANCHO- btnFD.getWidth() - 400,60 );
+        imageKira.setPosition(ANCHO - btnFD.getWidth()  - 300, 200);
+        imageRaoh.setPosition(ANCHO - btnFD.getWidth()  - 300, 200);
+        imageRaoh.setColor(1,1,1,0f);
+        imageKira.setColor(1,1,1,1);
+
+        btnFD.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                personajeSeleccionado = "raoh";
+                imageRaoh.setColor(1,1,1,1f);
+                imageKira.setColor(0,0,0,0f);
+            }
+        });
+        btnFI.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                personajeSeleccionado = "kira";
+                imageKira.setColor(1,1,1,1f);
+                imageRaoh.setColor(0,0,0,0f);
+
+            }
+        });
 
 
 
+        btnNiv2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //juego.setScreen(new Nivel2(juego,musica,personajeSeleccionado));
+            }
+        });
+        btnNiv3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //juego.setScreen(new Nivel3(juego,musica,personajeSeleccionado));
+            }
+        });
         btnNiv1.addListener(new ClickListener(){
                                   @Override
                                   public void clicked(InputEvent event, float x, float y) {
@@ -140,9 +186,6 @@ public class PantallaSeleccionNivel extends Pantalla {
                         ((Game)Gdx.app.getApplicationListener()).setScreen(new PantallaMenuPrincipal(juego,musica));
                     }
                 })));
-
-
-
             }
         });
         escenaMenuNivel.addActor(charLabel);
@@ -153,6 +196,8 @@ public class PantallaSeleccionNivel extends Pantalla {
       //  escenaMenuNivel.addActor(btnNiv3);
         escenaMenuNivel.addActor(btnFD);
         escenaMenuNivel.addActor(btnFI);
+        escenaMenuNivel.addActor(imageKira);
+        escenaMenuNivel.addActor(imageRaoh);
         Gdx.input.setInputProcessor(escenaMenuNivel);
     }
 
