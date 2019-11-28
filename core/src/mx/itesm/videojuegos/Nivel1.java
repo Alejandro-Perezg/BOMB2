@@ -86,6 +86,7 @@ public class Nivel1  extends Nivel {
     private Stage escenaHUD;
     private Pausa escenaPausa;
     private GameOverStage escenaGameOver ;
+    private VictoryStage escenaVictoria;
     //Estados
     EstadosNivel estado = EstadosNivel.NORMAL;
 
@@ -99,7 +100,7 @@ public class Nivel1  extends Nivel {
     private Texto salud;
     private Texto puntuacion;
     private Texto poderListo;
-    private boolean cambioStageAGameover = false;
+    private boolean cambioStageFinal = false;
 
     private int counter = 0;
     private int ph1;
@@ -140,7 +141,7 @@ public class Nivel1  extends Nivel {
 
 
 
-    public Nivel1(Juego juego, Music musica, String personajeSeleccionado, int idNivel) {
+    public Nivel1(Juego juego, Music musica, String personajeSeleccionado) {
         this.juego = juego;
         this.musica = musica;
         this.personajeS = personajeSeleccionado;
@@ -668,6 +669,9 @@ public class Nivel1  extends Nivel {
                 escenaGameOver.draw();
                 break;
 
+            case GANA:
+                escenaVictoria.draw();
+                break;
 
         }
 
@@ -677,17 +681,23 @@ public class Nivel1  extends Nivel {
 
     private void revisarEstadoNivel() {
         if (this.arrayEnemigos.size() == 0){
-        this.estado = EstadosNivel.GANA;
-        juego.setScreen(new PantallaT(juego));
+            this.estado = EstadosNivel.GANA;
+            if (!cambioStageFinal) {
+                escenaVictoria = new VictoryStage(vista,batch, personajeS);
+                escenaHUD.dispose();
+                escenaVictoria.crearVictoryStage(juego, musica);
+            }
+            cambioStageFinal = true;
+
         }
         if(personaje.getEstadosPersonaje() == MUERTO) {
             this.estado = EstadosNivel.PIERDE;
-            if (!cambioStageAGameover) {
+            if (!cambioStageFinal) {
                 escenaGameOver = new GameOverStage(vista, batch,personajeS);
                 escenaHUD.dispose();
                 escenaGameOver.creargameOverStage(juego, musica);
             }
-            cambioStageAGameover = true;
+            cambioStageFinal = true;
 
 
         }

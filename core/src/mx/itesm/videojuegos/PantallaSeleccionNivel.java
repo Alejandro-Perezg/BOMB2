@@ -92,7 +92,7 @@ public class PantallaSeleccionNivel extends Pantalla {
         TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
         TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
         TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
-        TextureRegionDrawable btnN3 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N3.png")));
+//        TextureRegionDrawable btnN3 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N3.png")));
         TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/select.png")));
         TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaDer.png")));
         TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaIz.png")));
@@ -102,7 +102,7 @@ public class PantallaSeleccionNivel extends Pantalla {
         ImageButton btnBack = new ImageButton(Back,BackPr);
         ImageButton btnNiv1= new ImageButton(btnN1);
         ImageButton btnNiv2 = new ImageButton(btnN2);
-        ImageButton btnNiv3 = new ImageButton(btnN3);
+       // ImageButton btnNiv3 = new ImageButton(btnN3);
         ImageButton label = new ImageButton(Label);
         ImageButton btnFD = new ImageButton(btnFlechaDer);
         ImageButton btnFI = new ImageButton(btnFlechaIz);
@@ -114,8 +114,8 @@ public class PantallaSeleccionNivel extends Pantalla {
         btnNiv1.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2);
         btnNiv2.setColor(0,0,0,0.3f);
         btnNiv2.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight()-40);
-        btnNiv3.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight() - btnN2.getBottomHeight() - 180);
-        btnNiv3.setColor(0,0,0,0.3f);
+       // btnNiv3.setPosition(ANCHO/3-btnNiv1.getWidth(),ALTO/2-btnNiv2.getHeight() - btnN2.getBottomHeight() - 180);
+        //btnNiv3.setColor(0,0,0,0.3f);
         btnBack.setPosition(0,ALTO-btnBack.getHeight()-5);
         btnFD.setPosition(ANCHO - btnFD.getWidth() - 100, 60);
         btnFI.setPosition(ANCHO- btnFD.getWidth() - 400,60 );
@@ -150,7 +150,7 @@ public class PantallaSeleccionNivel extends Pantalla {
         escenaMenuNivel.addActor(label);
         escenaMenuNivel.addActor(btnBack);
         escenaMenuNivel.addActor(btnNiv2);
-        escenaMenuNivel.addActor(btnNiv3);
+      //  escenaMenuNivel.addActor(btnNiv3);
         escenaMenuNivel.addActor(btnFD);
         escenaMenuNivel.addActor(btnFI);
         Gdx.input.setInputProcessor(escenaMenuNivel);
