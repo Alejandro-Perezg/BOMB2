@@ -72,13 +72,7 @@ public class PantallaAcercaDe extends Pantalla {
 
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "fondos/estatua.png");
-        manager.load("menus/Nivel/prev.png",Texture.class);
-        manager.load("menus/acercaDe/desarrollo.png",Texture.class);
-        manager.load("menus/acercaDe/arte.png",Texture.class);
-
-        manager.finishLoading();
-
+        texturaFondo =manager.get("fondos/estatua.png");
         texturaBack = manager.get("menus/Nivel/prev.png");
         texturaAnimacion  = manager.get("menus/acercaDe/arte.png");
         texturaDesarrollo = manager.get("menus/acercaDe/desarrollo.png");

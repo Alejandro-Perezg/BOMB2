@@ -349,15 +349,6 @@ public class Nivel1  extends Nivel {
 
     private void renderEnemigo(SpriteBatch batch) {
 
-     /*
-        for (int i = enemyBodies.size() - 1; i > 0; i--) {
-            arrayEnemigos.get(i).render(batch);
-
-            System.out.println(enemyBodies.get(i).toString());
-            System.out.println(arrayEnemigos.get(i).toString());
-            System.out.println(i);
-        }
-*/
         for (int i = 0; i <arrayEnemigos.size(); i++){
             //System.out.println(arrayEnemigos.get(i-1));
             arrayEnemigos.get(i).render(batch);
@@ -696,14 +687,21 @@ public class Nivel1  extends Nivel {
     private void revisarEstadoNivel() {
         if (this.arrayEnemigos.size() == 0) {
             this.estado = EstadosNivel.GANA;
+            if (personajeS == "kira") {
+                save.saveSlotKira("unlock2",true);
 
+            }
+            if (personajeS == "raoh"){
+               save.saveSlotRaoh("unlock2",true);
+            }
 
+            if (!cambioStageFinal) {
+                escenaVictoria = new VictoryStage(vista, batch, personajeS);
+                escenaHUD.dispose();
+                escenaVictoria.crearVictoryStage(juego, musica);
+            }
         }
-        if (!cambioStageFinal) {
-            escenaVictoria = new VictoryStage(vista, batch, personajeS);
-            escenaHUD.dispose();
-            escenaVictoria.crearVictoryStage(juego, musica);
-        }
+
         cambioStageFinal = true;
 
 

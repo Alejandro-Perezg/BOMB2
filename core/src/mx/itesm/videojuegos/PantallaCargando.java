@@ -74,8 +74,8 @@ public class PantallaCargando extends Pantalla{
         spriteCargando.setPosition(ANCHO/2-spriteCargando.getWidth(), ALTO/2 - spriteCargando.getHeight());
         
         cargarRecursosPantalla(); //cargar imagener, mp3, ...
-        
-        cargarTexturas();
+
+        actializarCargaRecursos();
     }
 
     private void cargarRecursosPantalla() {
@@ -89,39 +89,28 @@ public class PantallaCargando extends Pantalla{
             case PANTALLAACERCADE:
                 cargarRecursosPantallaAcercaDe();
                 break;
-            case PANTALLAPAUSA:
-                cargarPantallaPausa();
-                break;
             case PANTALLASELECCIONNIVEL:
                 cargaRecursosPantallaSeleccionNivel();
 
             case NIVEL1:
                 cargarTexturasNivel1();
                 break;
-            case NIVEL2:
-                cargarTexturasNivel2();
-                break;
-            case NIVEL3:
-                cargarTexturasNivel3();
-                break;
                   
         }
     }
 
     private void cargarRecursosPantallaAcercaDe() {
+        manager.load("menus/Nivel/prev.png",Texture.class);
+        manager.load("menus/acercaDe/desarrollo.png",Texture.class);
+        manager.load("menus/acercaDe/arte.png",Texture.class);
+        manager.load("fondos/estatua.png", Texture.class);
+        manager.finishLoading();
     }
 
     private void cargaRecursosPantallaSeleccionNivel() {
+        
     }
 
-    private void cargarTexturasNivel3() {
-    }
-
-    private void cargarTexturasNivel2() {
-    }
-
-    private void cargarPantallaPausa() {
-    }
 
     private void cargarTexturasNivel1() {
         //Texturas
