@@ -153,7 +153,7 @@ public class Nivel1  extends Nivel {
         this.personajeS = personajeSeleccionado;
         this.idNivel = idNivel;
         manager = juego.getManager();
-
+        this.save = new Save();
     }
 
 
@@ -700,9 +700,10 @@ public class Nivel1  extends Nivel {
                 escenaHUD.dispose();
                 escenaVictoria.crearVictoryStage(juego, musica);
             }
+            cambioStageFinal = true;
+
         }
 
-        cambioStageFinal = true;
 
 
         if (personaje.getEstadosPersonaje() == MUERTO) {
