@@ -177,9 +177,9 @@ public class PantallaCargando extends Pantalla{
                 case NIVEL1:
                     juego.setScreen(new Nivel1(juego , music,seleccionPersonaje,IDnivel ));
                     break;
-                /*case NIVEL1:
-                    juego.setScreen(new Nivel1(juego));
-                    break;*/
+                case NIVEL2:
+                    juego.setScreen(new Nivel1(juego, music, seleccionPersonaje, IDnivel));
+                    break;
             }
         }
     }

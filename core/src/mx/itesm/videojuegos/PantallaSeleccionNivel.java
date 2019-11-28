@@ -171,21 +171,21 @@ public class PantallaSeleccionNivel extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //juego.setScreen(new Nivel2(juego,musica,personajeSeleccionado));
+                juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL2, musica, personajeSeleccionado, 2));
             }
         });
         btnNiv3.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                //juego.setScreen(new Nivel3(juego,musica,personajeSeleccionado));
+                juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL3, musica, personajeSeleccionado, 3));
             }
         });
         btnNiv1.addListener(new ClickListener(){
                                   @Override
                                   public void clicked(InputEvent event, float x, float y) {
                                       super.clicked(event, x, y);
-                                      juego.setScreen(new Nivel1(juego,musica,personajeSeleccionado, 1));
+                                      juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
                                   }
                               });
         btnBack.addListener(new ClickListener(){
