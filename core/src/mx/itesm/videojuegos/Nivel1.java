@@ -173,7 +173,7 @@ public class Nivel1  extends Nivel {
             //ystem.out.println(i);
             Enemigo enemigo;
             enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn + spawn*i, 20,
-                    personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2);
+                    personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 1);
             if (i % 2 == 0) {
                 enemigo.generateBodyEnemigo(mundo, (int) (Pantalla.ANCHO + 200 * i));
             } else{
@@ -185,10 +185,22 @@ public class Nivel1  extends Nivel {
 
         }
     }
+
+    private void generarMamalon(){
+        int spawn = 1300;
+        Enemigo enemigo;
+        enemigo = new Enemigo(texturaEnemigo, textureEnemigoAtacando, texturaEnemigoStuned,spawn, 20,
+                personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 0);
+        enemigo.generateBodyEnemigo(mundo, (int)500);
+
+        arrayEnemigos.add(enemigo);
+    }
     private void showEnemigos(){
         switch (idNivel){
             case 1:
                 System.out.println("NIVEL 1");
+                generarMamalon();
+
                 phIn1 = 4;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
@@ -564,7 +576,18 @@ public class Nivel1  extends Nivel {
 
     private void cargarTexturas() {
 
-        texturaFondo = manager.get("fondos/cabezaArena.png");
+        if (idNivel ==1){
+            texturaFondo = manager.get("fondos/cabezaArena.png");
+        }
+
+        if (idNivel ==2){
+            texturaFondo = manager.get("fondos/rocas.png");
+        }
+
+        if (idNivel ==3){
+            texturaFondo = manager.get("fondos/estatua.png");
+        }
+
 
         if(personajeS == "kira") {
             texturaPersonaje = manager.get("sprites_personaje/caminaKiraDer.png");

@@ -45,6 +45,8 @@ public class Enemigo {
     private float timerAnimacion = 0;
     private Animation animacionDerecha;
 
+    private int idTipoEnemigo;
+
     //SONIDOS
     private Sound sonidoDano;
     private Sound sonidoDefault;
@@ -59,6 +61,8 @@ public class Enemigo {
 
     private Random rnd;
 
+
+    private boolean taclaeadaBool = true;
 
     //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
@@ -81,8 +85,8 @@ public class Enemigo {
 
 
     public Enemigo(Texture textura, Texture textureAtacando, Texture texturaEnemigoStuned, float x, int fuerzaPersonaje, Personaje personaje,
-                   Sound sonidoDefault, Sound sonidoDano, Sound sonido1, Sound sonido2) {
-
+                   Sound sonidoDefault, Sound sonidoDano, Sound sonido1, Sound sonido2, int idTipoEnemigo) {
+        this.idTipoEnemigo = idTipoEnemigo;
         this.personaje = personaje;
         cargarTexturas(textura,textureAtacando,texturaEnemigoStuned, x);
         cargarFisica();
@@ -91,6 +95,7 @@ public class Enemigo {
 
         this.sonido1 = sonido1;
         this.sonido2 = sonido2;
+
 
         //setMirandoA(mirandoA.DERECHA);
         setMirandoA(mirandoA.DERECHA);
@@ -116,15 +121,15 @@ public class Enemigo {
 
     }
 
-    private void cargarTexturas(Texture textura, Texture texturaAtacando, Texture texturaEnemigoStuned, float x) {
+    void cargarTexturas(Texture textura, Texture texturaAtacando, Texture texturaEnemigoStuned, float x) {
         texturaCompleta = new TextureRegion(textura);
         texturaCompletaGOLPE = new TextureRegion(texturaAtacando);
         texturaStuned = new TextureRegion(texturaEnemigoStuned);
-        TextureRegion[][] texturaEnemigo = texturaCompleta.split(207,355);  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
+        TextureRegion[][] texturaEnemigo = texturaCompleta.split(texturaCompleta.getRegionWidth()/4,texturaCompleta.getRegionHeight());  // ejemplo para la vivi del futuro = texturaCompleta.split(32,64);
 
-        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(205, 355);
+        TextureRegion[][] texturasGOLPES = texturaCompletaGOLPE.split(texturaCompletaGOLPE.getRegionWidth()/4, texturaCompletaGOLPE.getRegionHeight());
 
-        TextureRegion[][] texturaSTUNED = texturaStuned.split(210,423);
+        TextureRegion[][] texturaSTUNED = texturaStuned.split(texturaStuned.getRegionWidth()/4,texturaStuned.getRegionHeight());
 
         animacionMoverse = new Animation<>(0.4f, texturaEnemigo[0][0], texturaEnemigo[0][1], texturaEnemigo[0][1], texturaEnemigo[0][2], texturaEnemigo[0][3]);
 
@@ -145,6 +150,7 @@ public class Enemigo {
         this.estadosEnemigo = EstadosEnemigo.NEUTRAL;
 
     }
+
 
     public void render(SpriteBatch batch) {
         //Dibujar eal enemigo
@@ -223,8 +229,8 @@ public class Enemigo {
         }
     }
 
-    public void comportamiento(String random) {
-       /* Orden Prioridades:
+    private void comportamientoMinionS(String random){
+ /* Orden Prioridades:
           PAUSADO
           MUERTO
           STUNNED
@@ -275,6 +281,71 @@ public class Enemigo {
                 framesAtacando = 60;
             }
         }
+    }
+
+    private void comportamientoDelMamalon(String random){
+    /*
+    este vato se mueve de derecha  izquierda, i
+    zquierda a derecha
+    stuneado
+     */
+    /* Orden Prioridades:
+          PAUSADO
+          MUERTO
+          STUNNED
+          retrasado
+          ATACANDO
+          MOVIENDO
+        */
+        char rngChar = (random.toCharArray())[7];
+        int rng = Integer.parseInt(String.valueOf(rngChar));
+        if (estadosEnemigo == EstadosEnemigo.PAUSADO) {
+            estadosEnemigo = EstadosEnemigo.PAUSADO;
+        } else if (salud <= 0) {
+            estadosEnemigo = EstadosEnemigo.MUERTO;
+        } else if (estadosEnemigo == EstadosEnemigo.STUNNED) {
+            if (framesStunned <= -1) {
+                sonidoDano.play(0.5f);
+                puedoRecibirDano = false;
+                framesStunned = 60;
+                retrasado = false;
+                framesAturdidos = -1;
+                framesAtacando = 0;
+            } else if (framesStunned == 0) {
+                estadosEnemigo = EstadosEnemigo.NEUTRAL;
+                puedoRecibirDano = true;
+            }
+
+            framesStunned -= 1;
+        } else if (retrasado) {
+            retrasar(rng);
+        }
+
+
+        tacleada();
+
+
+    }
+
+    private void tacleada(){
+        if (getEstadoEnemigo() == EstadosEnemigo.MOV_IZQUIERDA){
+            if (getSprite().getX() < 0){
+                setEstadosEnemigo(EstadosEnemigo.MOV_DERECHA);
+            }
+        }
+        if (getEstadoEnemigo() == EstadosEnemigo.MOV_DERECHA){
+            if (getSprite().getX() > 1250){
+                setEstadosEnemigo(EstadosEnemigo.MOV_IZQUIERDA);
+            }
+        }
+    }
+
+
+    public void comportamiento(String random) {
+      if (idTipoEnemigo == 1){
+          comportamientoMinionS(random);
+      }else
+          comportamientoDelMamalon(random);
     }
 
     private void retrasar(int rng) {
