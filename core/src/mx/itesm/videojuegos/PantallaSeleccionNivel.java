@@ -122,7 +122,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                                   @Override
                                   public void clicked(InputEvent event, float x, float y) {
                                       super.clicked(event, x, y);
-                                      juego.setScreen(new Nivel1(juego,musica,personajeSeleccionado));
+                                      juego.setScreen(new Nivel1(juego,musica,personajeSeleccionado, 1));
                                   }
                               });
         btnBack.addListener(new ClickListener(){

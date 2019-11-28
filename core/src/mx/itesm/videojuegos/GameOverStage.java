@@ -51,7 +51,7 @@ public class GameOverStage extends Stage { ;
                                         super.clicked(event, x, y);
                                         //INSTRUCCIONE
                                         musica.stop();
-                                        juego.setScreen(new Nivel1(juego, musica, personajeSeleccionado));
+                                        juego.setScreen(new Nivel1(juego, musica, personajeSeleccionado,1));
                                     }
                                 }
         );

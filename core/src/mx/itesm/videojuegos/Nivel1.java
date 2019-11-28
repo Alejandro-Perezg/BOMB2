@@ -101,13 +101,22 @@ public class Nivel1  extends Nivel {
     private Texto poderListo;
     private boolean cambioStageAGameover = false;
 
+    private int counter = 0;
+    private int ph1;
+    private int ph2;
+    private int ph3;
+    private int ph4;
+
+    private int phIn1;
+
 
     public enum phase{
         PHASE1,
         PHASE2,
         PHASE3,
         PHASE4,
-        fin
+        fin,
+        infinito
     }
 
     phase phaseJuego = phase.PHASE1;
@@ -128,10 +137,11 @@ public class Nivel1  extends Nivel {
 
 
 
-    public Nivel1(Juego juego, Music musica, String personajeSeleccionado) {
+    public Nivel1(Juego juego, Music musica, String personajeSeleccionado, int idNivel) {
         this.juego = juego;
         this.musica = musica;
         this.personajeS = personajeSeleccionado;
+        this.idNivel = idNivel;
     }
 
 
@@ -162,6 +172,33 @@ public class Nivel1  extends Nivel {
 
         }
     }
+    private void showEnemigos(){
+        switch (idNivel){
+            case 1:
+                System.out.println("NIVEL 1");
+                phIn1 = 4;
+                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                generarEnemigos(phIn1);
+                break;
+            case 2:
+                System.out.println("NIVEL 2");
+                phIn1 = 6;
+                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                generarEnemigos(phIn1);
+                break;
+            case 3:
+                System.out.println("NIVEL 3");
+                phIn1 = 8;
+                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                generarEnemigos(phIn1);
+                break;
+            case 999:
+                generarEnemigos(3);
+                phIn1 = 10;
+                System.out.println("NIVEL INFINITO");
+                break;
+        }
+    }
 
     private phase getPhase(){
         return phaseJuego;
@@ -174,9 +211,9 @@ public class Nivel1  extends Nivel {
     public void phaseManager(){
         switch (phaseJuego) {
             case PHASE1:
-                if(arrayEnemigos.size()<0) {
+                if(arrayEnemigos.size()<2) {
                     System.out.println("PHASE1");
-                    generarEnemigos(1);
+                    generarEnemigos(ph1);
                     setphase(getPhase().PHASE2);
                 }
                 break;
@@ -185,7 +222,7 @@ public class Nivel1  extends Nivel {
                 if(arrayEnemigos.size()<3) {
 
                     System.out.println("PHASE2");
-                    generarEnemigos(3);
+                    generarEnemigos(ph2);
                     setphase(getPhase().PHASE3);
 
                 }
@@ -195,7 +232,7 @@ public class Nivel1  extends Nivel {
                 if(arrayEnemigos.size()<3) {
 
                     System.out.println("PHASE3");
-                    generarEnemigos(3);
+                    generarEnemigos(ph3);
                     setphase(getPhase().PHASE4);
                 }
                 break;
@@ -204,9 +241,18 @@ public class Nivel1  extends Nivel {
                 if(arrayEnemigos.size()<3) {
 
                     System.out.println("PHASE4");
-                    generarEnemigos(3);
+                    generarEnemigos(ph4);
                     setphase(getPhase().fin);
                 }
+                break;
+            case infinito:
+
+                if(arrayEnemigos.size()<2){
+                    counter = counter+1;
+                    System.out.println("INFINITO");
+                    generarEnemigos(counter);
+                }
+
                 break;
 
         }
@@ -305,7 +351,7 @@ public class Nivel1  extends Nivel {
         reproducirMusica();
         cargarSFX();
         generarPersonaje();
-        generarEnemigos(4);
+        showEnemigos();
         impactManager = new ImpactManager(personaje, arrayEnemigos);
         showSalud();
         showScore();
