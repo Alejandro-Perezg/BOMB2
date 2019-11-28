@@ -68,6 +68,11 @@ public class Nivel1  extends Nivel {
     private Sound sonidoEnemigo1;
     private Sound sonidoEnemigo2;
 
+    private Texture texturaNemesis;
+    private Texture texturaNemesisGolpe;
+    private Texture texturaNemesisStuned;
+
+
     private Texture barraSaludArriba;
     private Texture barraSaludAbajo;
 
@@ -136,6 +141,9 @@ public class Nivel1  extends Nivel {
         this.phaseJuego = phase;
     }
 
+    private String getPersonajeS(){
+        return personajeS;
+    }
 
     /////////ARRAY DE ENEMIGOS
     private ArrayList<Enemigo> arrayEnemigos = new ArrayList<>();
@@ -209,7 +217,7 @@ public class Nivel1  extends Nivel {
                 break;
             case 2:
                 System.out.println("NIVEL 2");
-                phIn1 = 6;
+                phIn1 = 5;
                 ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
@@ -218,11 +226,30 @@ public class Nivel1  extends Nivel {
                 break;
             case 3:
                 System.out.println("NIVEL 3");
-                phIn1 = 8;
-                ph1 = 2;     ph2 = 4;     ph3 = 8;     ph4 = 8;
+                phIn1 = 0;
+                ph1 = 0;     ph2 = 0;     ph3 = 0;     ph4 = 0;
                 enemigosMinimosFase1 = 2;   enemigosMinimosFase2 = 3;
                 enemigosMinimosFase3 = 4;   enemigosMinimosFase4 = 5;
+
+                if (getPersonajeS().equals("kira")){
+                    texturaNemesis = this.manager.get("sprites_personaje/caminaRaohDer.png");
+                    texturaNemesisGolpe = this.manager.get("sprites_personaje/golpeRaohDer.png");
+                    texturaNemesisStuned = this.manager.get("sprites_personaje/rahStuned.png");
+
+                }else {
+                    texturaNemesis = this.manager.get("sprites_personaje/caminaKiraDer.png");
+                    texturaNemesisGolpe = this.manager.get("sprites_personaje/golpeKiraDer.png");
+                    texturaNemesisStuned = this.manager.get("sprites_personaje/kiraStuned.png");
+
+                }
+                Enemigo enemigo;
+                enemigo = new Enemigo(texturaNemesis,texturaNemesisGolpe,texturaNemesisStuned,1000, 20,
+                        personaje, sonidoEnemigoDefault, sonidoEnemigoDano, sonidoEnemigo1, sonidoEnemigo2, 2);
+                enemigo.generateBodyEnemigo(mundo, 1000);
+
+                arrayEnemigos.add(enemigo);
                 generarEnemigos(phIn1);
+
                 break;
             case 999:
                 generarEnemigos(3);
@@ -789,7 +816,7 @@ public class Nivel1  extends Nivel {
             if (arrayEnemigos.get(i).estadosEnemigo == Enemigo.EstadosEnemigo.MUERTO){
                 arrayItems.add(new itemDropeado(100, textureHearth, mundo, (int)arrayEnemigos.get(i).getX(), 100));
                 //System.out.println("aaaaaa");
-                score = score + 10;
+                score = score + arrayEnemigos.get(i).getPuntos();
                 arrayEnemigos.remove(i);
 
             }

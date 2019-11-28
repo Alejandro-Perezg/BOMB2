@@ -1,6 +1,5 @@
 package mx.itesm.videojuegos;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -59,10 +58,19 @@ public class Enemigo {
 
     private Personaje personaje;
 
-    private Random rnd;
+
+    public int getPuntos(){
+        if (idTipoEnemigo == 1){
+            return 10;
+        }
+        if (idTipoEnemigo == 0){
+            return 50;
+        }
+        return 400;
+    }
 
 
-    private boolean taclaeadaBool = true;
+
 
     //Estados
     EstadosEnemigo estadosEnemigo = EstadosEnemigo.NEUTRAL;
@@ -96,11 +104,14 @@ public class Enemigo {
         this.sonido1 = sonido1;
         this.sonido2 = sonido2;
 
-        if(idTipoEnemigo == 0){
-            this.salud = 1;
+        if(idTipoEnemigo == 1){
+            this.salud = 30;
         }
-        if (idTipoEnemigo == 1){
-            this.salud = 1;
+        if (idTipoEnemigo == 0){
+            this.salud = 60;
+        }
+        if (idTipoEnemigo == 2){
+            this.salud = 100;
         }
 
         //setMirandoA(mirandoA.DERECHA);
@@ -289,7 +300,7 @@ public class Enemigo {
         }
     }
 
-    private void comportamientoDelMamalon(String random){
+    private void comportamientoDelAlto(String random){
     /*
     este vato se mueve de derecha  izquierda, i
     zquierda a derecha
@@ -352,10 +363,10 @@ public class Enemigo {
 
 
     public void comportamiento(String random) {
-      if (idTipoEnemigo == 1){
+      if (idTipoEnemigo == 1 || idTipoEnemigo == 2){
           comportamientoMinionS(random);
       }else
-          comportamientoDelMamalon(random);
+          comportamientoDelAlto(random);
     }
 
     private void retrasar(int rng) {
