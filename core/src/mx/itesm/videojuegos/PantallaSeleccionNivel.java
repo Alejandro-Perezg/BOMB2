@@ -30,6 +30,9 @@ public class PantallaSeleccionNivel extends Pantalla {
     //STAGES
     private Stage escenaMenuNivel;
 
+    //MANAGER
+    private AssetManager manager;
+
 
     //PREVIO DE PERSONAJE
     private String personajeSeleccionado = "kira";
@@ -42,17 +45,29 @@ public class PantallaSeleccionNivel extends Pantalla {
     //preferencias
     private Preferences pref;
     private Save save;
+    private Texture texturaPrev;
+    private Texture texturaPrevPr;
+    private Texture texturaSelectT;
+    private Texture texturaN1;
+    private Texture texturaN2;
+    private Texture texturaN3;
+    private Texture texturaSelect;
+    private Texture texturaflechaDer;
+    private Texture texturaflechaIz;
+    private Texture texturaKira;
+    private Texture texturaraoh;
 
 
     public PantallaSeleccionNivel(Juego juego, Music music){
         this.juego = juego;
         this.musica = music;
         this.save = new Save();
+        manager = juego.getManager();
     }
 
     @Override
     public void show() {
-        AssetManager manager = new AssetManager();
+        System.out.println(save.getsavelevel());
         cargarTexturas();
         ajustarMusica();
         cargarAudios(manager);
@@ -84,19 +99,18 @@ public class PantallaSeleccionNivel extends Pantalla {
         escenaMenuNivel = new Stage(vista);
 
         escenaMenuNivel.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.5f)));
-        TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev.png")));
-        TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/prev_pr.png")));
-        TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/Select_title.png")));
-        TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N1.png")));
-        TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N2.png")));
-        TextureRegionDrawable btnN3 = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/N3.png")));
-        TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/select.png")));
-        TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaDer.png")));
-        TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/flechaIz.png")));
+        TextureRegionDrawable Back = new TextureRegionDrawable(new TextureRegion(texturaPrev));
+        TextureRegionDrawable BackPr = new TextureRegionDrawable(new TextureRegion(texturaPrevPr));
+        TextureRegionDrawable Label = new TextureRegionDrawable(new TextureRegion(texturaSelectT));
+        TextureRegionDrawable btnN1 = new TextureRegionDrawable(new TextureRegion(texturaN1));
+        TextureRegionDrawable btnN2 = new TextureRegionDrawable(new TextureRegion(texturaN2));
+        TextureRegionDrawable btnN3 = new TextureRegionDrawable(new TextureRegion(texturaN3));
+        TextureRegionDrawable charlabel = new TextureRegionDrawable(new TextureRegion(texturaSelect));
+        TextureRegionDrawable btnFlechaDer = new TextureRegionDrawable(new TextureRegion(texturaflechaDer));
+        TextureRegionDrawable btnFlechaIz = new TextureRegionDrawable(new TextureRegion(texturaflechaIz));
 
-        TextureRegionDrawable kira = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/kira.png")));
-        TextureRegionDrawable raoh = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Nivel/raoh.png")));
-
+        TextureRegionDrawable kira = new TextureRegionDrawable(new TextureRegion(texturaKira));
+        TextureRegionDrawable raoh = new TextureRegionDrawable(new TextureRegion(texturaraoh));
 
         ImageButton btnBack = new ImageButton(Back,BackPr);
         ImageButton btnNiv1= new ImageButton(btnN1);
@@ -154,7 +168,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL1, musica, personajeSeleccionado, 1));
             }
         });
-        if (save.getsavelevel("unlock")==2){
+        if (save.getsavelevel() >= 2){
         btnNiv2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -162,7 +176,7 @@ public class PantallaSeleccionNivel extends Pantalla {
                 juego.setScreen(new PantallaCargando(juego, TipoPantalla.NIVEL2, musica, personajeSeleccionado, 2));
             }
         });}
-        if (save.getsavelevel("unlock")==3){
+        if (save.getsavelevel() >= 3){
         btnNiv3.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -203,15 +217,26 @@ public class PantallaSeleccionNivel extends Pantalla {
 
 
     private void ajustarMusica() {
-        System.out.println(this.juego.playMusic);
-        if (juego.playMusic == true) {
+        System.out.println(Juego.playMusic);
+        if (Juego.playMusic == true) {
 
             musica.play();
         }
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "menus/fondoMenu.png");
+        texturaFondo = manager.get("menus/fondoMenu.png");
+        texturaPrev = manager.get("menus/Nivel/prev.png");
+        texturaPrevPr = manager.get("menus/Nivel/prev_pr.png");
+        texturaSelectT = manager.get("menus/Nivel/Select_title.png");
+        texturaN1 = manager.get("menus/Nivel/N1.png");
+        texturaN2 = manager.get("menus/Nivel/N2.png");
+        texturaN3 = manager.get("menus/Nivel/N3.png");
+        texturaSelect = manager.get("menus/Nivel/select.png");
+        texturaflechaDer = manager.get("menus/Nivel/flechaDer.png");
+        texturaflechaIz = manager.get("menus/Nivel/flechaIz.png");
+        texturaKira = manager.get("menus/Nivel/kira.png");
+        texturaraoh = manager.get("menus/Nivel/raoh.png");
 
     }
 

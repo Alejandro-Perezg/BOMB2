@@ -665,7 +665,6 @@ public class Nivel1  extends Nivel {
 
     @Override
     public void render(float delta) {
-        System.out.println(estado);
         DecimalFormat df = new DecimalFormat("#.#############");
         personaje.actualizarPersonaje();
 
@@ -754,7 +753,7 @@ public class Nivel1  extends Nivel {
 
 
             this.estado = EstadosNivel.GANA;
-            save.saveLevel("unlock", this.idNivel+1);
+            save.saveLevel(this.idNivel+1);
 
 
             if (!cambioStageFinal) {

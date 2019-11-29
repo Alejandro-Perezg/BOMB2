@@ -59,13 +59,13 @@ public class Pausa extends Stage { ;
         btnExit.setPosition(480, 190);
 
         btnExit.addListener(new ClickListener(){
-                                     @Override
-                                     public void clicked(InputEvent event, float x, float y) {
-             super.clicked(event, x, y);
-             //INSTRUCCIONE
-             active = false;
-             }
-         }
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
+                                    super.clicked(event, x, y);
+                                    //INSTRUCCIONE
+                                    active = false;
+                                }
+                            }
         );
 
         TextureRegionDrawable trdMusic = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/soundOn.png")));
@@ -74,15 +74,15 @@ public class Pausa extends Stage { ;
         btnMute.setPosition(450, 315);
 
         btnMute.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+                                @Override
+                                public void clicked(InputEvent event, float x, float y) {
 
-                super.clicked(event, x, y);
-                //INSTRUCCIONES
-                save.playMusic(false);
-                musica.stop();
-            }
-        }
+                                    super.clicked(event, x, y);
+                                    //INSTRUCCIONES
+                                    save.playMusic(false);
+                                    musica.stop();
+                                }
+                            }
         );
 
         TextureRegionDrawable trdMusicOn = new TextureRegionDrawable(new TextureRegion(new Texture("menus/Opciones/musicOn.png")));
@@ -90,16 +90,16 @@ public class Pausa extends Stage { ;
         btnSonido.setPosition(670, 315);
 
         btnSonido.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    //INSTRUCCIONE
-                   //menu.ManejarMusica(true);
-                    save.playMusic(true);
-                    musica.play();
+                                  @Override
+                                  public void clicked(InputEvent event, float x, float y) {
+                                      super.clicked(event, x, y);
+                                      //INSTRUCCIONE
+                                      //menu.ManejarMusica(true);
+                                      save.playMusic(true);
+                                      musica.play();
 
-                }
-            }
+                                  }
+                              }
         );
 
         this.addActor(btnExit);
@@ -137,13 +137,13 @@ public class Pausa extends Stage { ;
         btnContinue.setPosition(480, 330);
 
         btnContinue.addListener(new ClickListener(){
-                                @Override
-                                public void clicked(InputEvent event, float x, float y) {
-                                    super.clicked(event, x, y);
-                                    //INSTRUCCIONE
-                                    active = false;
+                                    @Override
+                                    public void clicked(InputEvent event, float x, float y) {
+                                        super.clicked(event, x, y);
+                                        //INSTRUCCIONE
+                                        active = false;
+                                    }
                                 }
-                            }
         );
 
         this.addActor(btnContinue);

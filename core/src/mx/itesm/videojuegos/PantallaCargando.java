@@ -70,6 +70,7 @@ public class PantallaCargando extends Pantalla{
     
     @Override
     public void show() {
+        System.out.println("CARGANDO....");
         texturaCargando = new Texture("loading.png");
         spriteCargando = new Sprite(texturaCargando); 
         spriteCargando.setPosition(ANCHO/2-spriteCargando.getWidth(), ALTO/2 - spriteCargando.getHeight());
@@ -92,7 +93,6 @@ public class PantallaCargando extends Pantalla{
                 break;
             case PANTALLASELECCIONNIVEL:
                 cargaRecursosPantallaSeleccionNivel();
-
             case NIVEL1:
                 cargarTexturasNivel1();
                 break;
@@ -110,6 +110,19 @@ public class PantallaCargando extends Pantalla{
     }
 
     private void cargaRecursosPantallaSeleccionNivel() {
+        manager.load("menus/Nivel/prev.png", Texture.class);
+        manager.load("menus/Nivel/prev_pr.png", Texture.class);
+        manager.load("menus/Nivel/Select_title.png", Texture.class);
+        manager.load("menus/Nivel/N1.png", Texture.class);
+        manager.load("menus/Nivel/N2.png", Texture.class);
+        manager.load("menus/Nivel/N3.png", Texture.class);
+        manager.load("menus/Nivel/select.png", Texture.class);
+        manager.load("menus/Nivel/flechaDer.png", Texture.class);
+        manager.load("menus/Nivel/flechaIz.png", Texture.class);
+        manager.load("menus/Nivel/kira.png", Texture.class);
+        manager.load("menus/Nivel/raoh.png", Texture.class);
+        manager.load("menus/fondoMenu.png", Texture.class);
+        manager.finishLoading();
         
     }
 
@@ -152,6 +165,7 @@ public class PantallaCargando extends Pantalla{
 
     private void cargarRecursosPantallaInicio() {
         manager.load("Splash/splashtitle.png", Texture.class);
+        manager.finishLoading();
     }
 
     @Override

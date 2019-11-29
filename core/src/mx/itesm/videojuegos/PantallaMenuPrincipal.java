@@ -182,7 +182,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
 
     private void cargarTexturas() {
-        texturaFondo = new Texture( "fondos/estatua.png");
+        manager.load("fondos/estatua.png", Texture.class);
 
         manager.load("menus/menuPantalla/title.png",Texture.class);
         manager.load("menus/menuPantalla/btn_jugar.png",Texture.class);
@@ -195,7 +195,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
 
         manager.finishLoading();
-
+        texturaFondo = manager.get("fondos/estatua.png");
         texturaJugar = manager.get("menus/menuPantalla/btn_jugar.png");
         texturaJugarPr = manager.get("menus/menuPantalla/btn_jugar_pr.png");
         texturaAcercaDe = manager.get("menus/menuPantalla/btn_acerca_de.png");
@@ -254,7 +254,7 @@ class PantallaMenuPrincipal extends Pantalla{
 
     @Override
     public void dispose() {
-        texturaFondo.dispose(); //liberar
+     //   texturaFondo.dispose(); //liberar
     }
 
 }
